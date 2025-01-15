@@ -1,0 +1,54 @@
+// src/components/header.module.scss
+@import '@/styles/variables.scss';
+
+// Header Styles
+.header {
+  background-color: $primary-color;
+  padding: 1rem; // Adjust spacing
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Navigation
+.nav {
+  max-width: 1200px;
+  width: 100%;
+}
+
+// Navigation List
+.navList {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+// Navigation Items
+.navItem {
+  color: $text-color;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: $hover-color;
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .navList {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .navItem {
+    font-size: 1.2rem;
+  }
+}

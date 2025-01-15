@@ -1,0 +1,63 @@
+/* src/components/Footer.module.scss */
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  
+  .footerContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 30px;
+  }
+  
+  .box {
+    flex: 1 1 250px;
+    margin: 10px;
+    padding: 20px;
+  }
+  
+  .box h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .box ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .box ul li {
+    margin: 5px 0;
+  }
+  
+  .socialIcons {
+    font-size: 1.5rem;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .icon {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .icon i {
+    margin-right: 10px;
+  }
+  
+  .legal {
+    font-size: 0.8rem;
+    border-top: 1px solid #444;
+    padding-top: 20px;
+  }
+  
+  .legal span {
+    font-weight: bold;
+  }
+  
