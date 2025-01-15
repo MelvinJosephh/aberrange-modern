@@ -1,14 +1,20 @@
-@import './variables.scss';
+@use './variables.scss';
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary-color: #FC5546; /* Example primary color */
+  --button-text-color: #ffffff; /* Example text color for buttons */
+  --link-color: #627792; /* Example color for links */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --primary-color: #FC5546; /* Adjust for dark theme if needed */
+    --button-text-color: #ffffff; /* Adjust for dark theme if needed */
+    --link-color: #627792; /* Adjust for dark theme if needed */
   }
 }
 
@@ -16,4 +22,31 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Global Button Styles */
+button {
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--primary-color);
+  }
+}
+
+/* Global Link Styles */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--primary-color);
+    font-weight: bold;
+  }
 }

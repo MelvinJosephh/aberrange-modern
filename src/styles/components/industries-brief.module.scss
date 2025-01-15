@@ -1,0 +1,39 @@
+
+.industriesBrief {
+    padding: 4rem 2rem;
+    background: #fff;
+    text-align: center;
+  
+    h2 {
+      font-size: 2.5rem;
+      color: #222;
+      margin-bottom: 2rem;
+    }
+  
+    .cards {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+  
+      .card {
+        background: #f0f0f0;
+        padding: 2rem;
+        border-radius: 8px;
+        max-width: 300px;
+        text-align: left;
+  
+        h3 {
+          font-size: 1.5rem;
+          color: #444;
+          margin-bottom: 0.5rem;
+        }
+  
+        p {
+          font-size: 1rem;
+          color: #666;
+        }
+      }
+    }
+  }
+  
