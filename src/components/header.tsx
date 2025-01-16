@@ -26,6 +26,46 @@ const Header = () => {
     </button>
   );
 
+  const renderCompaniesContent = (items: any) => renderContent(items, "companies");
+  const renderTalentContent = (items: any) => renderContent(items, "talent");
+
+  const renderIndustriesContent = (items) => (
+    <div className={styles.column}>
+      {items.actions.map((action) => (
+        <p key={action.name}>
+          <Link href={action.link}>{action.name}</Link>
+        </p>
+      ))}
+      {unifiedButton(items.button.label, items.button.link)}
+    </div>
+  );
+
+  const renderServicesContent = (items) => (
+    <div className={styles.column}>
+      {items.engagementModels.map((service) => (
+        <p key={service.title}>
+          <Link href={`/services/${service.title.toLowerCase().replace(/ /g, "-")}`}>
+            {service.title}
+          </Link>
+        </p>
+      ))}
+      {unifiedButton("View All Services", "/services")}
+    </div>
+  );
+
+  const renderContent = (items, type) => (
+    <div className={styles.column}>
+      {items.map((item) => (
+        <p key={item.name || item.title}>
+          <Link href={item.link || `/services/${item.title.toLowerCase().replace(/ /g, "-")}`}>
+            {item.name || item.title}
+          </Link>
+        </p>
+      ))}
+      {type === "industries" && unifiedButton("View All Services", "/services")}
+    </div>
+  );
+
   const renderHireContent = () => (
     <div className={styles.column}>
       {!showDevAndButton ? (
@@ -93,19 +133,19 @@ const Header = () => {
         <div className={sidebar ? `${styles.navLinksSidebar} ${styles.active}` : styles.navLinksSidebar}>
           <ul>
             <li>
-              <Dropdown title="For Companies" items={companiesData} />
+              <Dropdown title="For Companies" items={companiesData} renderContent={renderCompaniesContent} />
             </li>
             <li>
-              <Dropdown title="For Talent" items={talentData} />
+              <Dropdown title="For Talent" items={talentData} renderContent={renderTalentContent} />
             </li>
             <li>
               <Link href="/about">What we do</Link>
             </li>
             <li>
-              <Dropdown title="Industries" items={industriesData} />
+              <Dropdown title="Industries" items={industriesData} renderContent={renderIndustriesContent} />
             </li>
             <li>
-              <Dropdown title="Services" items={servicesData} />
+              <Dropdown title="Services" items={servicesData} renderContent={renderServicesContent} />
             </li>
             <li>
               <Dropdown title="Hire Talent" items={data} renderContent={renderHireContent} />
