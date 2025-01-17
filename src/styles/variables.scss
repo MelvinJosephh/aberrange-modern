@@ -1,119 +1,14 @@
-:root {
-    /* Primary Colors */
-    --primary-color: #957E6E; /* Warm Beige - most prominent */
-    --secondary-color: #B1B0AE; /* Light Grayish Taupe */
-    --accent-color: #F4A261; /* Pale Gray */
-  
-    /* Background & Text Colors */
-    --background-color: #f3ece6; /* Light warm beige background */
-    --text-color: #222; /* Darker gray text for better contrast */
-    --light-text-color: #fff; /* Slightly darker soft gray */
-    --dark-text-color: #333; /* Black text for stronger emphasis */
-  
-    /* Header & UI Elements */
-    --header-bg-color: #B0AFAE; /* Grayish Taupe - subtle header background */
-    --box-shadow-color: rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
-    --overlay-color: rgba(0, 0, 0, 0.1); /* Light overlay color */
-  
-    /* Hover & Links */
-    --hover-text-color: #7f6c59; /* Darker beige for hover */
-    --link-hover-color: #7f6c59; /* More contrasting link hover color */
-  
-    /* Additional Colors */
-    --card-background-color: #f0f0f0; /* Light gray for card backgrounds */
-    --border-color: #d1d1d1; /* Subtle gray for borders */
-    --text-muted-color: #a0a0a0; /* Muted text color for less emphasis */
-  
-    /* Responsive Breakpoints */
-    --breakpoint-mobile-s: 480px;  /* Mobile Small */
-    --breakpoint-mobile-m: 375px;  /* Mobile Medium */
-    --breakpoint-mobile-l: 425px;  /* Mobile Large */
-    --breakpoint-tablet: 768px;    /* Tablet */
-    --breakpoint-laptop: 1024px;   /* Laptop */
-    --breakpoint-laptop-l: 1440px; /* Laptop Large */
-    --breakpoint-4k: 2560px;       /* 4K Screens */
-  
-    /* Spacing */
-    --spacing-medium: 16px;
-  }
-  
-  /* Global Styling */
-  body {
-    font-family: "Inter", Helvetica, Arial, sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-  }
-  
-  h1, h2, h3, p, li, a, button, label {
-    font-family: inherit;
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: var(--breakpoint-mobile-s)) {
-    body {
-      font-size: 12px; /* Smallest screens */
-    }
-  
-    h1, h2, h3 {
-      font-size: 1em; /* Adjust heading size */
-    }
-  
-    p, li, a, label {
-      font-size: 0.8em;
-    }
-  }
-  
-  @media (max-width: var(--breakpoint-mobile-m)) {
-    body {
-      font-size: 13px;
-    }
-  
-    h1, h2, h3 {
-      font-size: 1.1em;
-    }
-  }
-  
-  @media (max-width: var(--breakpoint-mobile-l)) {
-    body {
-      font-size: 14px;
-    }
-  
-    h1, h2, h3 {
-      font-size: 1.2em;
-    }
-  }
-  
-  @media (max-width: var(--breakpoint-tablet)) {
-    body {
-      font-size: 15px; /* Standard size for tablets */
-    }
-  
-    h1 {
-      font-size: 1.5em; /* Emphasize primary headings */
-    }
-  }
-  
-  @media (max-width: var(--breakpoint-laptop)) {
-    body {
-      font-size: 16px; /* Standard size for laptops */
-    }
-  }
-  
-  @media (max-width: var(--breakpoint-laptop-l)) {
-    body {
-      font-size: 18px; /* Larger laptops */
-    }
-  }
-  
-  @media (max-width: var(--breakpoint-4k)) {
-    body {
-      font-size: 20px; /* Adjust for 4K monitors */
-    }
-  }
-  
-  @media (min-width: var(--breakpoint-4k)) {
-    body {
-      font-size: 22px; /* Large font for ultra-wide monitors */
-    }
-  }
-  
+// variables.scss
+$primary-color: #fc5546;
+$secondary-color: #627792;
+$text-color-light: #fff;
+$text-color-dark: #000;
+$gradient-background: linear-gradient(to bottom right, #fc5546, #21325d);
+$font-size-base: 1rem;
+$font-size-xl: 3rem;
+$font-weight-bold: bold;
+$spacing-small: 0.5rem;
+$spacing-medium: 1rem;
+$spacing-large: 2rem;
+$border-radius-small: 5px;
+$transition: all 0.3s ease-in-out;

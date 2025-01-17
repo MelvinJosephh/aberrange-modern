@@ -1,66 +1,51 @@
-// branding.module.scss
-
-$primary-color: #fc5546; // Primary Red
-$secondary-color: #21325d; // Dark Blue
-$neutral-bg: #f1f5f9; // Light Background
+@use '../variables.scss' as vars; // Importing variables
 
 .branding {
-  background: $primary-color;
-  color: #fff;
-  padding: 3rem 0;
+  background: vars.$gradient-background; // Utilize global gradient background
+  padding: vars.$spacing-large 0;
+  color: vars.$text-color-light;
 
   .brandingContainer {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: vars.$spacing-medium;
+    padding: 0 vars.$spacing-large;
 
-    @media (min-width: 600px) {
-      grid-template-columns: 1fr 1fr;
-      padding: 0 3rem;
-    }
+    .box {
+      background-color: rgba(255, 255, 255, 0.1); // Light background for each box
+      padding: vars.$spacing-medium;
+      border-radius: vars.$border-radius-small;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease-in-out;
 
-    @media (min-width: 1024px) {
-      grid-template-columns: 1fr 1fr 1fr;
-      padding: 0 4rem;
-    }
-  }
-
-  .box {
-    background-color: #fff;
-    color: #333;
-    border-radius: 8px;
-    padding: 1.5rem;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-    &:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-    }
-
-    .text {
-      h1 {
-        font-size: 1.8rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-      }
-    }
-
-    .para {
-      h2 {
-        font-size: 1.4rem;
-        color: $secondary-color;
-        margin-bottom: 1rem;
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       }
 
-      p {
-        font-size: 1rem;
-        color: #666;
-        line-height: 1.5;
+      .text {
+        text-align: center;
+        h1 {
+          font-size: vars.$font-size-xl;
+          font-weight: vars.$font-weight-bold;
+          color: vars.$primary-color;
+        }
+      }
+
+      .para {
+        text-align: center;
+        h2 {
+          font-size: vars.$font-size-base;
+          font-weight: vars.$font-weight-bold;
+          color: vars.$secondary-color;
+          margin-bottom: vars.$spacing-small;
+        }
+
+        p {
+          font-size: vars.$font-size-base;
+          line-height: 1.6;
+          color: vars.$text-color-light;
+        }
       }
     }
   }

@@ -1,52 +1,69 @@
-@use './variables.scss';
+// globals.scss
+@use './variables' as vars;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary-color: #FC5546; /* Example primary color */
-  --button-text-color: #ffffff; /* Example text color for buttons */
-  --link-color: #627792; /* Example color for links */
+// Reset Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --primary-color: #FC5546; /* Adjust for dark theme if needed */
-    --button-text-color: #ffffff; /* Adjust for dark theme if needed */
-    --link-color: #627792; /* Adjust for dark theme if needed */
-  }
+html, body {
+  font-family: 'Arial', sans-serif;
+  background: vars.$gradient-background;
+  color: vars.$text-color-light;
+  min-height: 100vh;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Global Button Styles */
-button {
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: var(--button-text-color);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: var(--primary-color);
-  }
-}
-
-/* Global Link Styles */
+// Example: Referencing a variable
 a {
-  color: var(--link-color);
   text-decoration: none;
-  transition: color 0.3s ease;
+  color: inherit;
+}
 
-  &:hover {
-    color: var(--primary-color);
-    font-weight: bold;
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: vars.$transition;
+}
+
+// Utility Classes
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+// Global Button Styles
+.button {
+  display: inline-block;
+  padding: vars.$spacing-medium vars.$spacing-large;
+  border-radius: vars.$border-radius-small;
+  font-size: vars.$font-size-base;
+  text-align: center;
+  transition: vars.$transition;
+
+  &.primary {
+    background-color: vars.$primary-color;
+    color: vars.$text-color-light;
+
+    &:hover {
+      background-color: darken(vars.$primary-color, 10%);
+    }
+  }
+
+  &.secondary {
+    background-color: vars.$secondary-color;
+    color: vars.$text-color-light;
+
+    &:hover {
+      background-color: darken(vars.$secondary-color, 10%);
+    }
   }
 }
