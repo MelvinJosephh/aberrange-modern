@@ -3,18 +3,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 64vh;
   background: linear-gradient(to bottom right, #fc5546, #21325d);
   color: #fff;
   padding: 2rem;
 }
 
 // Container with a max-width for centering content and adding spacing
-.container {
-  max-width: 1200px;
-  width: 100%;
-  text-align: center;
-}
+// .container {
+//   max-width: 1200px;
+//   width: 100%;
+//   text-align: center;
+// }
 
 // Each box styled similarly to the given home content box
 .box {
@@ -23,8 +23,8 @@
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 350px;
-  text-align: left;
+  max-width: 1200px;
+  text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   
   // Styling h3, h2, and p within the box

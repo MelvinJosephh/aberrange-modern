@@ -1,63 +1,114 @@
-/* src/components/Footer.module.scss */
+// footer.module.scss
+
+@use "../variables" as vars;
+@use 'sass:color'; // Import the color module
 
 .footer {
-    background-color: #333;
-    color: #fff;
-    font-size: 0.9rem;
-    padding: 40px 20px;
-    text-align: center;
-  }
-  
+  background-color: vars.$secondary-color;
+  color: vars.$text-color-light;
+  padding: vars.$spacing-large 0;
+  font-family: 'Arial', sans-serif;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: vars.$spacing-large;
+
   .footerContainer {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    margin-bottom: 30px;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 100%;
+    gap: vars.$spacing-medium;
+    padding: 0 vars.$spacing-medium;
   }
-  
+
   .box {
-    flex: 1 1 250px;
-    margin: 10px;
-    padding: 20px;
+    flex: 1;
+    min-width: 250px;
+    margin: vars.$spacing-small 0;
+    padding: vars.$spacing-small;
+    
+    h2 {
+      font-size: vars.$font-size-xl;
+      font-weight: vars.$font-weight-bold;
+      margin-bottom: vars.$spacing-small;
+    }
+
+    p {
+      font-size: vars.$font-size-base;
+      margin-bottom: vars.$spacing-small;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      
+      li {
+        font-size: vars.$font-size-base;
+        margin-bottom: vars.$spacing-small;
+        cursor: pointer;
+        transition: color 0.3s;
+
+        &:hover {
+          color: vars.$primary-color;
+        }
+      }
+    }
+
+    .socialIcons {
+      display: flex;
+      gap: vars.$spacing-small;
+    
+      i {
+        font-size: 2rem;  // Increase icon size
+        color: vars.$text-color-dark;  // Change icon color for visibility
+        cursor: pointer;
+        transition: color 0.3s;
+    
+        &:hover {
+          color: vars.$primary-color;
+        }
+      }
+    }
+    
+
+    .icon {
+      display: flex;
+      align-items: center;
+      margin-bottom: vars.$spacing-small;
+
+      i {
+        font-size: 1.2rem;
+        margin-right: vars.$spacing-small;
+      }
+
+      label {
+        font-size: vars.$font-size-base;
+        color: vars.$text-color-light;
+      }
+    }
   }
-  
-  .box h2 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-  
-  .box ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .box ul li {
-    margin: 5px 0;
-  }
-  
-  .socialIcons {
-    font-size: 1.5rem;
-    display: flex;
-    gap: 10px;
-  }
-  
-  .icon {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .icon i {
-    margin-right: 10px;
-  }
-  
+
   .legal {
-    font-size: 0.8rem;
-    border-top: 1px solid #444;
-    padding-top: 20px;
+    background-color: vars.$secondary-color;
+    padding: vars.$spacing-small 0;
+    text-align: center;
+    font-size: vars.$font-size-base;
+    width: 100%;
+    color: vars.$text-color-light;
+
+    label {
+      font-size: 0.9rem;
+      color: vars.$text-color-light;
+      margin-top: vars.$spacing-small;
+
+      span {
+        font-weight: vars.$font-weight-bold;
+        color: vars.$primary-color;
+      }
+    }
   }
-  
-  .legal span {
-    font-weight: bold;
-  }
-  
+}

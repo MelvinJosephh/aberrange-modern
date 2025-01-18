@@ -1,16 +1,21 @@
 'use client';
 
 import React, { useState } from "react";
-import styles from "@/styles/pages/solutions.module.scss"; // Using CSS module
+import "@/styles/pages/our-solutions.module.scss";
 import { servicesData } from "@/lib/models/services-model";
-import ItemDetail from "./item-details"; // Import the new component
-import Link from "next/link"; // Use Next.js's Link component
-import { useRouter } from 'next/router'; // Use Next.js's useRouter hook for navigation
+import ItemDetail from "../modal-pages/item-details"; // Import the new component
+import { useRouter } from 'next/router'; // Replacing react-router with Next.js routing
+import Image from 'next/image'; // Import Next.js Image component
 
-type Item = {
+interface Item {
   name: string;
   description: string;
-};
+}
+
+// interface Subcategory {
+//   title: string;
+//   items: Item[];
+// }
 
 const OurSolutions: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
@@ -27,7 +32,7 @@ const OurSolutions: React.FC = () => {
 
   const handleActionClick = () => {
     closeItemDetail();
-    router.push('/hire-talent/step2'); // Navigate using Next.js's router
+    router.push('/hire-talent/step2'); // Using Next.js router to navigate
   };
 
   const closeItemDetail = () => {
@@ -35,50 +40,56 @@ const OurSolutions: React.FC = () => {
   };
 
   return (
-    <section className={styles.ourSolutions}>
-      <div className={styles.container}>
-        <h1 className={styles.sectionTitle}>Our Solutions</h1>
-        <p className={styles.sectionIntro}>
+    <section className="our-solutions">
+      <div className="container">
+        <h1 className="section-title">Our Solutions</h1>
+        <p className="section-intro">
           Discover the wide range of solutions we offer to empower your business.
         </p>
 
         {/* Engagement Models */}
-        <div className={styles.engagementModels}>
+        <div className="engagement-models">
           <h2>Engagement Models</h2>
-          <div className={styles.cards}>
+          <div className="cards">
             {servicesData.engagementModels.map((model, index) => (
-              <div className={styles.card} key={index}>
-                <img src={model.icon} alt={model.title} className={styles.cardIcon} />
-                <h3 className={styles.cardTitle}>{model.title}</h3>
-                <p className={styles.cardDescription}>{model.description}</p>
+              <div className="card" key={index}>
+                <Image
+                  src={model.icon}
+                  alt={model.title}
+                  className="card-icon"
+                  width={100} // Set width and height for optimization
+                  height={100}
+                />
+                <h3 className="card-title">{model.title}</h3>
+                <p className="card-description">{model.description}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Categories */}
-        <div className={styles.categories}>
+        <div className="categories">
           {servicesData.categories.map((category, index) => (
             <div
-              className={`${styles.categoryCard} ${activeCategory === index ? styles.active : ""}`}
+              className={`category-card ${activeCategory === index ? "active" : ""}`}
               key={index}
             >
-              <div className={styles.categoryHeader} onClick={() => toggleCategory(index)}>
-                <h2 className={styles.categoryTitle}>{category.title}</h2>
-                <span className={styles.toggleIcon}>
+              <div className="category-header" onClick={() => toggleCategory(index)}>
+                <h2 className="category-title">{category.title}</h2>
+                <span className="toggle-icon">
                   {activeCategory === index ? "-" : "+"}
                 </span>
               </div>
               {activeCategory === index && (
-                <div className={styles.subcategoryList}>
+                <div className="subcategory-list">
                   {category.subcategories.map((subcategory, subIndex) => (
-                    <div className={styles.subcategory} key={subIndex}>
-                      <h3 className={styles.subcategoryTitle}>{subcategory.title}</h3>
-                      <ul className={styles.subcategoryItems}>
+                    <div className="subcategory" key={subIndex}>
+                      <h3 className="subcategory-title">{subcategory.title}</h3>
+                      <ul className="subcategory-items">
                         {subcategory.items.map((item, itemIndex) => (
                           <li
                             key={itemIndex}
-                            className={styles.subcategoryItem}
+                            className="subcategory-item"
                             onClick={() => handleItemClick(item)}
                           >
                             {item.name}
@@ -95,23 +106,21 @@ const OurSolutions: React.FC = () => {
 
         {/* Show Item Detail if activeItem is not null */}
         {activeItem && (
-          <div className={styles.itemDetailModal}>
+          <div className="item-detail-modal">
             <ItemDetail
               title={activeItem.name}
               description={activeItem.description}
               actionLabel="Hire Talent"
-              onActionClick={handleActionClick} 
+              onActionClick={handleActionClick}
             />
           </div>
         )}
 
         {/* Footer CTA */}
-        <div className={styles.cta}>
+        <div className="cta">
           <h2>{servicesData.footer.title}</h2>
           <p>{servicesData.footer.description}</p>
-          <Link href="/contact">
-            <a className={styles.primaryBtn}>{servicesData.footer.buttonLabel}</a>
-          </Link>
+          <a className="primary-btn" href="/contact">{servicesData.footer.buttonLabel}</a>
         </div>
       </div>
     </section>

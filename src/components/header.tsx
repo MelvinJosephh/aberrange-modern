@@ -125,7 +125,7 @@ const Header = () => {
               src="/assets/logo/aberrange-logo-themed.png"
               alt="Aberrange Logo"
               width={150}
-              height={50}
+              height={40}
               priority
             />
           </Link>

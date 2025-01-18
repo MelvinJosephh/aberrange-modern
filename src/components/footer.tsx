@@ -20,7 +20,7 @@ export default function Footer() {
 
         {/* Quick Links Section */}
         <div className={styles.box}>
-          <h2>Quick Links</h2>
+          <h3>Quick Links</h3>
           <ul>
             <li>Home</li>
             <li>About</li>
@@ -33,7 +33,7 @@ export default function Footer() {
 
         {/* Recent Posts Section */}
         <div className={styles.box}>
-          <h2>Recent Posts</h2>
+          <h3>Recent Posts</h3>
           <div>
             <p>Why Bill Gates Visits Kenya</p>
             <span>28 Feb 2022</span>
@@ -50,7 +50,7 @@ export default function Footer() {
 
         {/* Get in Touch Section */}
         <div className={styles.box}>
-          <h2>Get in Touch</h2>
+          <h3>Get in Touch</h3>
           <div className={styles.icon}>
             <i className="fa fa-map-marker" aria-hidden="true"></i>
             <label>Location: 87 Division, Kikuyu Sub, Kiambu County, Nairobi, Kenya</label>

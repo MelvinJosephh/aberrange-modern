@@ -1,34 +1,47 @@
-.wrapperOne {
-    padding: 4rem 2rem;
-    background: #f9f9f9;
+// wrapper-one.module.scss
+@use "../variables" as vars;
+@use 'sass:color'; // Import the color module
+
+.WrapperOne {
+  background: vars.$gradient-background;
+  padding: vars.$spacing-large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
+
+  .container {
+    display: flex;
+    justify-content: center;
+    gap: vars.$spacing-medium;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .box {
+    background-color: vars.$secondary-color;
+    border-radius: vars.$border-radius-small;
+    padding: vars.$spacing-medium;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(24% - vars.$spacing-medium);
     text-align: center;
-  
-    .content {
-      max-width: 800px;
-      margin: 0 auto;
-  
-      h2 {
-        font-size: 2.2rem;
-        color: #333;
-        margin-bottom: 1rem;
-      }
-  
-      p {
-        font-size: 1.1rem;
-        color: #555;
-        margin-bottom: 1.5rem;
-      }
-  
-      ul {
-        list-style-type: none;
-        padding: 0;
-  
-        li {
-          font-size: 1rem;
-          color: #666;
-          margin-bottom: 0.5rem;
-        }
-      }
+    color: vars.$text-color-light;
+    transition: vars.$transition;
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      font-size: vars.$font-size-xl;
+      font-weight: vars.$font-weight-bold;
+      margin-bottom: vars.$spacing-small;
+    }
+
+    p {
+      font-size: vars.$font-size-base;
     }
   }
-  
+}

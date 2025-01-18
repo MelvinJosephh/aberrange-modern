@@ -1,5 +1,5 @@
-// globals.scss
 @use './variables' as vars;
+@use 'sass:color'; // Import the color module
 
 // Reset Styles
 * {
@@ -13,20 +13,7 @@ html, body {
   background: vars.$gradient-background;
   color: vars.$text-color-light;
   min-height: 100vh;
-}
-
-// Example: Referencing a variable
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-button {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-family: inherit;
-  transition: vars.$transition;
+  font-size: 14px; // Reduced base font size
 }
 
 // Utility Classes
@@ -45,7 +32,7 @@ button {
   display: inline-block;
   padding: vars.$spacing-medium vars.$spacing-large;
   border-radius: vars.$border-radius-small;
-  font-size: vars.$font-size-base;
+  font-size: vars.$font-size-base; // Use base font size
   text-align: center;
   transition: vars.$transition;
 
@@ -54,7 +41,7 @@ button {
     color: vars.$text-color-light;
 
     &:hover {
-      background-color: darken(vars.$primary-color, 10%);
+      background-color: color.adjust(vars.$primary-color, $lightness: -10%);
     }
   }
 
@@ -63,7 +50,97 @@ button {
     color: vars.$text-color-light;
 
     &:hover {
-      background-color: darken(vars.$secondary-color, 10%);
+      background-color: color.adjust(vars.$secondary-color, $lightness: -10%);
     }
+  }
+}
+
+// Global Typography Refactor
+
+// Base font size
+html {
+  font-size: 14px; // 1rem = 14px, more modest base size
+}
+
+// Heading styles for a clear visual hierarchy
+h1 {
+  font-size: 2rem; // Smaller heading for main sections
+  font-weight: vars.$font-weight-bold;
+  color: vars.$text-color-light;
+}
+
+h2 {
+  font-size: 1.75rem; // Slightly smaller but still prominent
+  font-weight: vars.$font-weight-bold;
+  color: vars.$text-color-light;
+}
+
+h3 {
+  font-size: 1.5rem; // For subheadings
+  font-weight: vars.$font-weight-bold;
+  color: vars.$text-color-light;
+}
+
+h4 {
+  font-size: 1.25rem; // Smaller subheading
+  font-weight: vars.$font-weight-bold;
+  color: vars.$text-color-light;
+}
+
+h5 {
+  font-size: 1.125rem; // Used for smaller section headings
+  font-weight: vars.$font-weight-bold;
+  color: vars.$text-color-light;
+}
+
+h6 {
+  font-size: 1rem; // Smallest heading size
+  font-weight: vars.$font-weight-bold;
+  color: vars.$text-color-light;
+}
+
+// Body text for readability
+p {
+  font-size: 0.95rem; // Modest standard paragraph text
+  line-height: 1.6; // Improved readability
+}
+
+ul, ol {
+  font-size: 0.95rem; // Same as paragraph text for consistency
+  line-height: 1.6;
+}
+
+// Links and text elements
+a {
+  text-decoration: none;
+  color: vars.$primary-color;
+  font-weight: vars.$font-weight-bold;
+  transition: vars.$transition;
+
+  &:hover {
+    color: color.adjust(vars.$primary-color, $lightness: -10%);
+  }
+}
+
+// Media Queries for responsive typography
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem; // Slightly smaller heading for smaller screens
+  }
+
+  h2 {
+    font-size: 1.6rem; // Adjust for readability
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+  }
+
+  p, ul, ol {
+    font-size: 0.85rem; // Make text a bit smaller on mobile
   }
 }

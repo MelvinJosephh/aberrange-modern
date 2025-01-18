@@ -2,7 +2,7 @@
 
 import React from 'react';
 import brandingData from '@/lib/data/BrandingData';
-import styles from '@/styles/components/branding.module.scss'; // Importing module SCSS
+import styles from '@/styles/components/branding.module.scss'; 
 
 const Branding: React.FC = () => {
   return (
