@@ -1,0 +1,206 @@
+/* solutions.module.scss */
+@use "../variables" as vars;
+@use 'sass:color';
+
+.ourSolutions {
+  background: vars.$gradient-background;
+  color: vars.$text-color-light;
+  padding: vars.$spacing-large 0;
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 vars.$spacing-large;
+  }
+
+  .sectionTitle {
+    font-size: vars.$font-size-xl;
+    font-weight: vars.$font-weight-bold;
+    text-align: center;
+    margin-bottom: vars.$spacing-medium;
+  }
+
+  .sectionIntro {
+    font-size: vars.$font-size-base;
+    text-align: center;
+    margin-bottom: vars.$spacing-large;
+  }
+
+  .engagementModels {
+    margin-bottom: vars.$spacing-large;
+    
+    h2 {
+      font-size: vars.$font-size-xl;
+      margin-bottom: vars.$spacing-medium;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: vars.$spacing-medium;
+      justify-content: space-between;
+
+      .card {
+        background-color: vars.$secondary-color;
+        color: vars.$text-color-light;
+        border-radius: vars.$border-radius-small;
+        padding: vars.$spacing-small;
+        width: calc(33.333% - vars.$spacing-medium);
+        text-align: center;
+        box-sizing: border-box;
+        transition: vars.$transition;
+
+        &:hover {
+          background-color: color.adjust(vars.$primary-color, $lightness: -10%);
+        }
+
+        .cardIcon {
+          width: 50px;
+          height: 50px;
+          margin-bottom: vars.$spacing-small;
+        }
+
+        .cardTitle {
+          font-size: 1.25rem;
+          font-weight: vars.$font-weight-bold;
+        }
+
+        .cardDescription {
+          font-size: vars.$font-size-base;
+        }
+      }
+    }
+  }
+
+  .categories {
+    margin-bottom: vars.$spacing-large;
+
+    .categoryCard {
+      background-color: vars.$secondary-color;
+      border-radius: vars.$border-radius-small;
+      margin-bottom: vars.$spacing-medium;
+      padding: vars.$spacing-medium;
+      box-sizing: border-box;
+      transition: vars.$transition;
+      
+      &.active {
+        background-color: vars.$primary-color;
+      }
+
+      .categoryHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+
+        .categoryTitle {
+          font-size: 1.5rem;
+          font-weight: vars.$font-weight-bold;
+        }
+
+        .toggleIcon {
+          font-size: 1.5rem;
+        }
+      }
+
+      .subcategoryList {
+        margin-top: vars.$spacing-medium;
+
+        .subcategory {
+          margin-bottom: vars.$spacing-medium;
+
+          .subcategoryTitle {
+            font-size: 1.25rem;
+            font-weight: vars.$font-weight-bold;
+            margin-bottom: vars.$spacing-small;
+          }
+
+          .subcategoryItems {
+            list-style-type: none;
+            padding: 0;
+
+            .subcategoryItem {
+              font-size: vars.$font-size-base;
+              cursor: pointer;
+              transition: vars.$transition;
+
+              &:hover {
+                color: vars.$primary-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .itemDetailModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: vars.$spacing-large;
+  }
+
+  .cta {
+    text-align: center;
+    padding: vars.$spacing-large 0;
+    background-color: vars.$secondary-color;
+    color: vars.$text-color-light;
+    
+    h2 {
+      font-size: vars.$font-size-xl;
+      font-weight: vars.$font-weight-bold;
+      margin-bottom: vars.$spacing-small;
+    }
+
+    p {
+      font-size: vars.$font-size-base;
+      margin-bottom: vars.$spacing-medium;
+    }
+
+    .primaryBtn {
+      display: inline-block;
+      background-color: vars.$primary-color;
+      color: vars.$text-color-light;
+      padding: vars.$spacing-small vars.$spacing-medium;
+      border-radius: vars.$border-radius-small;
+      text-decoration: none;
+      transition: vars.$transition;
+
+      &:hover {
+        background-color: color.adjust(vars.$primary-color, $lightness: -15%);
+      }
+    }
+  }
+
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .cards {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card {
+      width: 100%;
+    }
+
+    .categoryCard {
+      padding: vars.$spacing-small;
+    }
+
+    .categoryHeader {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .subcategoryItems {
+      padding-left: 1.5rem;
+    }
+  }
+}

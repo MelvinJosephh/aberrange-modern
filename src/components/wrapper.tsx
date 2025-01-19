@@ -12,7 +12,7 @@ const Wrapper: React.FC = () => {
             <h3>{val.title}</h3>
             <h2>{val.heading}</h2>
             <p>{val.desc}</p>
-            <Link href="/contact" className={styles.primaryBtn}>
+            <Link href="/contact-us" className={styles.primaryBtn}>
               Contact Us
             </Link>
           </div>

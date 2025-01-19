@@ -2,42 +2,42 @@ const companiesData = [
     {
       id: 1,
       name: "Hire Developers",
-      link: "/hire-developers",
+      link: "/hire/hire-developers",
     },
     {
       id: 2,
       name: "Hire Designers",
-      link: "/hire-designers",
+      link: "/hire/hire-designers",
     },
     {
       id: 3,
       name: "Hire Project Managers",
-      link: "/hire-project-managers",
+      link: "/hire/hire-project-managers",
     },
     {
       id: 4,
       name: "Hire Product Managers",
-      link: "/hire-product-managers",
+      link: "/hire/hire-product-managers",
     },
     {
       id: 5,
       name: "Hire Assistants",
-      link: "/hire-assistants",
+      link: "/hire/hire-assistants",
     },
     {
       id: 6,
       name: "How Aberrange Works",
-      link: "/how-it-works",
+      link: "/hire/how-it-works",
     },
     {
       id: 7,
       name: "Hire Research Writer",
-      link: "/hire-writers",
+      link: "/hire/hire-writers",
     },
     {
       id: 8,
       name: "Pricing",
-      link: "/pricing",
+      link: "/hire/pricing",
     },
   ];
   

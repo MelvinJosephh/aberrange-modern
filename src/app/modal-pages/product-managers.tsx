@@ -1,8 +1,10 @@
+'use client';
+
 import React, { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from '@/styles/modal-pages/product-managers.module.scss'; // Using CSS modules
 import categories from '@/lib/data/skills/productManagersData';
-import { useRouter } from 'next/router';  // Import useRouter for routing
+import { useRouter } from 'next/navigation';  
 
 interface Category {
   title: string;

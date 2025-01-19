@@ -5,7 +5,7 @@ import styles from "@/styles/pages/solutions.module.scss"; // Using CSS module
 import { servicesData } from "@/lib/models/services-model";
 import ItemDetail from "./item-details"; // Import the new component
 import Link from "next/link"; // Use Next.js's Link component
-import { useRouter } from 'next/router'; // Use Next.js's useRouter hook for navigation
+import { useRouter } from 'next/navigation';  
 
 type Item = {
   name: string;

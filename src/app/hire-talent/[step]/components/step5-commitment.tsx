@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../hire-talent/shared/step-template";
+import StepTemplate from "../../shared/step-template";
 
 interface Step5CommitmentProps {
   onNext: () => void;

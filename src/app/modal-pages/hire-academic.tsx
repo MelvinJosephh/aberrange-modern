@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import academicCategories from '@/lib/data/skills/academicCategories'; 
 import '../../styles/modal-pages/hire-academic.module.scss';
 import CloseIcon from '@mui/icons-material/Close';
-import { useRouter } from 'next/router';  // Import useRouter hook for routing
+import { useRouter } from 'next/navigation';  
 
 const HireAcademic: React.FC = () => {
   const [showPage, setShowPage] = useState(true);

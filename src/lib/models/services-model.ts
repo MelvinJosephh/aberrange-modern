@@ -202,3 +202,8 @@ export const servicesData = {
     }
   };
   
+  export interface Item {
+    name: string;
+    description: string;
+  }
+  

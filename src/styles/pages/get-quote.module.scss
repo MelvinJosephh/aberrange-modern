@@ -1,0 +1,70 @@
+@use '../variables.scss' as vars;
+@use 'sass:color';
+
+.get-quote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: vars.$spacing-large;
+  background-color: vars.$gradient-background;
+  border-radius: vars.$border-radius-small;
+  color: vars.$text-color-light;
+  font-family: 'Arial', sans-serif;
+
+  h2 {
+    font-size: vars.$font-size-xl;
+    font-weight: vars.$font-weight-bold;
+    margin-bottom: vars.$spacing-medium;
+  }
+
+  .contact-info, .company-info {
+    width: 100%;
+    margin-bottom: vars.$spacing-medium;
+
+    .MuiTextField-root {
+      margin-bottom: vars.$spacing-small;
+    }
+  }
+
+  .company-info {
+    margin-top: vars.$spacing-medium;
+  }
+
+  .budget-field {
+    margin-top: vars.$spacing-medium;
+  }
+
+  .error {
+    color: color.adjust(vars.$primary-color, $lightness: -20%);
+    font-size: 0.875rem;
+    margin-top: vars.$spacing-small;
+    margin-bottom: vars.$spacing-medium;
+  }
+
+  button {
+    background-color: vars.$primary-color;
+    color: vars.$text-color-light;
+    width: 100%;
+    padding: vars.$spacing-small;
+    border-radius: vars.$border-radius-small;
+    transition: vars.$transition;
+
+    &:hover {
+      background-color: color.adjust(vars.$primary-color, $lightness: -15%);
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: vars.$spacing-medium;
+
+    .MuiFormControl-root {
+      margin-bottom: vars.$spacing-small;
+    }
+
+    .MuiInputBase-root {
+      font-size: vars.$font-size-base;
+    }
+  }
+}

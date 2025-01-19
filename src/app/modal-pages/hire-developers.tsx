@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import '@/styles/modal-pages/hire-developers.module.scss';
 import categories from '@/lib/data/skills/developersData';
-import { useRouter } from 'next/router';  // Import useRouter hook for routing
+import { useRouter } from 'next/navigation';  
 
 const HireDevelopers: React.FC = () => {
   const [showPage, setShowPage] = useState(true);
@@ -30,7 +30,7 @@ const HireDevelopers: React.FC = () => {
 
   const handleActionClick = () => {
     closeItemDetail();  // Close the item detail modal
-    router.push('/hire-talent/step2');  // Navigate to the hire developer process
+    router.push('/hire-talent/step2-company-size');  // Navigate to the hire developer process
   };
 
   if (!showPage) return null;

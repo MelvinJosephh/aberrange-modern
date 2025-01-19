@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import '@/styles/modal-pages/hire-assistants.module.scss';
 import categories from '@/lib/data/skills/assistantsData';
-import { useRouter } from 'next/router';  // Import useRouter for navigation
+import { useRouter } from 'next/navigation';  
 
 const HireAssistants: React.FC = () => {
   const [showPage, setShowPage] = useState(true);

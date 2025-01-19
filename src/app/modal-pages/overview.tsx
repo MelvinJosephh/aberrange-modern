@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styles from '@/styles/modal-pages/overview.module.scss'; // Using CSS module
-import { useRouter } from 'next/router'; // Use Next.js's useRouter hook for navigation
+import { useRouter } from 'next/navigation';  
 
 const Overview: React.FC = () => {
   const router = useRouter();

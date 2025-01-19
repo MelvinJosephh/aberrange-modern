@@ -2,9 +2,9 @@
 
 import React, { useState, ChangeEvent } from "react";
 import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../hire-talent/shared/step-template";
-import { StyledTextField } from "../../shared/styled-component";
-import "../../../Styles/HireTalent/Step8Success.scss";
+import StepTemplate from "../../shared/step-template";
+import { StyledTextField } from "../../../shared/styled-component";
+import "@/styles/hire-talent/step-eight.module.scss";
 import axios from "axios";
 
 interface Step8SuccessProps {

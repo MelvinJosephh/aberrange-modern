@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react";
-import "../../../Styles/HireTalent/ProgressIndicator.scss";
+import "@/styles/hire-talent/progress.module.scss";
 
 interface ProgressIndicatorProps {
   currentStep: number;

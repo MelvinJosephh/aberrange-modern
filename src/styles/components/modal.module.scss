@@ -1,109 +1,128 @@
 @use "../variables" as vars;
-@use 'sass:color'; // Import the color module
+@use 'sass:color';
 
 .skill {
-  padding: vars.$spacing-large 0;
   background: vars.$gradient-background;
-  color: vars.$text-color-light;
+  padding: vars.$spacing-large;
+  border-radius: vars.$border-radius-small;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 vars.$spacing-medium;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: vars.$spacing-medium;
+
+  h1 {
+    font-size: vars.$font-size-xl;
+    color: vars.$text-color-light;
+    font-weight: vars.$font-weight-bold;
   }
 
-  .heading {
-    text-align: center;
-    margin-bottom: vars.$spacing-large;
+  h3 {
+    font-size: vars.$font-size-base;
+    color: vars.$text-color-light;
+    margin-top: vars.$spacing-small;
+  }
+}
 
-    h3 {
-      font-size: vars.$font-size-base;
-      font-weight: vars.$font-weight-bold;
-      text-transform: uppercase;
-      color: vars.$secondary-color;
-    }
+.content {
+  display: flex;
+  justify-content: space-between;
+  margin-top: vars.$spacing-large;
 
-    h1 {
-      font-size: vars.$font-size-xl;
+  .left {
+    width: 65%;
+    h2 {
+      font-size: 1.5rem;
       font-weight: vars.$font-weight-bold;
-      margin-top: vars.$spacing-small;
+      color: vars.$text-color-light;
+      margin-bottom: vars.$spacing-medium;
     }
   }
 
-  .content {
+  .right {
+    width: 30%;
     display: flex;
-    flex-wrap: wrap;
-    gap: vars.$spacing-large;
+    flex-direction: column;
     align-items: flex-start;
 
-    .left {
-      flex: 1;
-      min-width: 300px;
+    .additional-info {
+      background: color.adjust(vars.$secondary-color, $lightness: -10%);
+      padding: vars.$spacing-medium;
+      border-radius: vars.$border-radius-small;
+      color: vars.$text-color-light;
+      text-align: center;
 
-      .progress {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: vars.$border-radius-small;
-        overflow: hidden;
+      h1 {
+        font-size: 2rem;
+        margin-bottom: vars.$spacing-small;
+      }
+
+      p {
+        font-size: vars.$font-size-base;
         margin-bottom: vars.$spacing-medium;
-        position: relative;
-
-        .progress-done {
-          background: vars.$primary-color;
-          height: 50px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 0 vars.$spacing-medium;
-          border-radius: vars.$border-radius-small;
-          transition: vars.$transition;
-
-          h4 {
-            font-size: vars.$font-size-base;
-            font-weight: vars.$font-weight-bold;
-            color: vars.$text-color-light;
-          }
-        }
       }
     }
+  }
+}
 
-    .right {
-      flex: 1;
-      min-width: 300px;
+.skill-category {
+  margin-top: vars.$spacing-medium;
+  
+  h2 {
+    font-size: 1.25rem;
+    font-weight: vars.$font-weight-bold;
+    color: vars.$text-color-dark;
+    margin-bottom: vars.$spacing-small;
+  }
+}
 
-      div {
-        margin-bottom: vars.$spacing-large;
+.skill-card {
+  background: vars.$text-color-light;
+  border-radius: vars.$border-radius-small;
+  padding: vars.$spacing-medium;
+  margin-bottom: vars.$spacing-small;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: vars.$transition;
+  
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+  }
 
-        h1 {
-          font-size: vars.$font-size-base;
-          font-weight: vars.$font-weight-bold;
-          color: vars.$text-color-light;
-        }
+  h3 {
+    font-size: 1.25rem;
+    color: vars.$text-color-dark;
+    margin-bottom: vars.$spacing-small;
+  }
 
-        p {
-          font-size: vars.$font-size-base;
-          color: vars.$text-color-light;
-          line-height: 1.6;
-          margin: vars.$spacing-small 0;
-        }
+  p {
+    font-size: vars.$font-size-base;
+    color: vars.$text-color-dark;
+    margin-bottom: vars.$spacing-small;
+  }
+}
 
-        .primary-btn {
-          display: inline-block;
-          background: vars.$secondary-color;
-          color: vars.$text-color-light;
-          padding: vars.$spacing-small vars.$spacing-large;
-          border-radius: vars.$border-radius-small;
-          font-size: vars.$font-size-base;
-          text-transform: uppercase;
-          text-align: center;
-          margin-top: vars.$spacing-medium;
-          transition: vars.$transition;
+.primary-btn {
+  display: inline-block;
+  background-color: vars.$primary-color;
+  color: vars.$text-color-light;
+  padding: vars.$spacing-small vars.$spacing-medium;
+  text-align: center;
+  text-decoration: none;
+  font-weight: vars.$font-weight-bold;
+  border-radius: vars.$border-radius-small;
+  transition: vars.$transition;
 
-          &:hover {
-            background: color.adjust(vars.$secondary-color, $lightness: -10%);
-            text-decoration: none;
-          }
-        }
-      }
-    }
+  &:hover {
+    background-color: color.adjust(vars.$primary-color, $lightness: -10%);
+    transform: scale(1.05);
   }
 }

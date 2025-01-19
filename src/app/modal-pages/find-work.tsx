@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';  
 import '@/styles/modal-pages/findwork.module.scss';
 import categories from '@/lib/data/skills/developersData';
 
