@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import '@/styles/steps-template.module.scss';
+import '@/styles/hire-talent/steps-template.module.scss';
 
 interface StepTemplateProps {
   title: string;
