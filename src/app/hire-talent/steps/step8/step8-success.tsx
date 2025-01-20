@@ -2,7 +2,7 @@
 
 import React, { useState, ChangeEvent } from "react";
 import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../shared/step-template";
+import StepTemplate from "../../components/step-template";
 import { StyledTextField } from "../../../shared/styled-component";
 import "@/styles/hire-talent/step-eight.module.scss";
 import axios from "axios";
@@ -74,7 +74,7 @@ const Step8Success: React.FC<Step8SuccessProps> = ({ onBack }) => {
       title="Success! Let's connect you with talent."
       options={[]}
       selectedOption={""} // Provide an empty string or default value for selectedOption
-      setSelectedOption={() => {}} // Provide a no-op function for setSelectedOption
+      onSelect={() => {}} // Provide a no-op function for setSelectedOption
       onBack={onBack}
       onNext={handleSubmit} // Link handleSubmit here
       isFinalStep={true}

@@ -1,6 +1,6 @@
 import React from "react";
 import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../shared/step-template";
+import StepTemplate from "../../components/step-template";
 
 interface Step4ProjectLengthProps {
   onNext: () => void;
@@ -31,7 +31,7 @@ const Step4ProjectLength: React.FC<Step4ProjectLengthProps> = ({ onNext, onBack 
       title="How long do you need assistance with this service?"
       options={options}
       selectedOption={selectedOption}
-      setSelectedOption={(value: string) => updateStepData("projectLength", value)}
+      onSelect={(value: string) => updateStepData("projectLength", value)}
       onNext={handleNext}
       onBack={onBack}
     />

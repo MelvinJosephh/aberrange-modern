@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../shared/step-template";
+import StepTemplate from "../../components/step-template";
 
 interface Step5CommitmentProps {
   onNext: () => void;
@@ -33,7 +33,7 @@ const Step5Commitment: React.FC<Step5CommitmentProps> = ({ onNext, onBack }) => 
       title="What level of commitment will you require from the developer?"
       options={options}
       selectedOption={selectedOption}
-      setSelectedOption={(value: string) => updateStepData("commitment", value)}
+      onSelect={(value: string) => updateStepData("commitment", value)}
       onNext={handleNext}
       onBack={onBack}
     />

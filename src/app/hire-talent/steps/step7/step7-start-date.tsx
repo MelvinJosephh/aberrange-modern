@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../shared/step-template";
+import StepTemplate from "../../components/step-template";
 
 interface Step7StartDateProps {
   onNext: () => void;
@@ -33,7 +33,7 @@ const Step7StartDate: React.FC<Step7StartDateProps> = ({ onNext, onBack }) => {
       title="When do you need the developer?"
       options={options}
       selectedOption={selectedOption || ""}
-      setSelectedOption={(value: string) => updateStepData("startDate", value)}
+      onSelect={(value: string) => updateStepData("startDate", value)}
       onNext={handleNext}
       onBack={onBack}
     />

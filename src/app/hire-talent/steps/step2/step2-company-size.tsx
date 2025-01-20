@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../shared/step-template";
+import StepTemplate from "../../components/step-template";
 
 interface Step2CompanySizeProps {
   onNext: () => void;
@@ -34,7 +34,7 @@ const Step2CompanySize: React.FC<Step2CompanySizeProps> = ({ onNext, onBack }) =
       title="How many people are employed at your company?"
       options={options}
       selectedOption={selectedOption}
-      setSelectedOption={(value: string) => updateStepData("companySize", value)}
+      onSelect={(value: string) => updateStepData("companySize", value)}
       onNext={handleNext}
       onBack={onBack}
     />

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../shared/step-template";
+import StepTemplate from "../../components/step-template";
 
 interface Step1WhoToHireProps {
   onNext: () => void;
@@ -26,7 +26,7 @@ const Step1WhoToHire: React.FC<Step1WhoToHireProps> = ({ onNext }) => {
         "Graphic Designer",
       ]}
       selectedOption={formData.hire}
-      setSelectedOption={(value) => updateStepData("hire", value)}
+      onSelect={(value) => updateStepData("hire", value)}
       onNext={onNext}
     />
   );

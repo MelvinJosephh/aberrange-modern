@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../shared/step-template";
+import StepTemplate from "../../components/step-template";
 
 interface Step6SkillsProps {
   onNext: () => void;
@@ -45,7 +45,7 @@ const Step6Skills: React.FC<Step6SkillsProps> = ({ onNext, onBack }) => {
       title="What skills would you like to see in your new hire?"
       options={skills}
       selectedOption={selectedSkills}
-      setSelectedOption={(value: string) => handleSkillToggle(value)}
+      onSelect={(value: string) => handleSkillToggle(value)}
       isMultiSelect={true}
       onNext={handleNext}
       onBack={onBack}
