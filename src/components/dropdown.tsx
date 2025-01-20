@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef, useEffect, useState, ReactNode } from 'react';
-import Link from 'next/link';
-import styles from '@/styles/components/dropdown.module.scss'; // Assuming the CSS Module is used
+import React, { useRef, useEffect, useState } from "react";
+import Link from "next/link";
+import styles from "@/styles/components/dropdown.module.scss";
 
 // Define types for the props
 interface DropdownItem {
@@ -18,13 +18,18 @@ interface DropdownSection {
 interface DropdownProps {
   title: string;
   items?: DropdownSection[];
-  renderContent?: (items: DropdownSection[]) => ReactNode;
+  renderContent?: (items: DropdownSection[]) => React.ReactNode;
   onClose?: () => void;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ title, items = [], renderContent, onClose }) => {
+const Dropdown: React.FC<DropdownProps> = ({
+  title,
+  items = [],
+  renderContent,
+  onClose,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLLIElement | null>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   // Close dropdown if clicked outside
   useEffect(() => {
@@ -35,45 +40,40 @@ const Dropdown: React.FC<DropdownProps> = ({ title, items = [], renderContent, o
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [onClose]);
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
-  const handleLinkClick = () => {
-    setIsOpen(false); // Close the dropdown when a link is clicked
-    onClose?.();
-  };
-
   return (
-    <li className={styles['dropdown-wrapper']} ref={dropdownRef}>
-      <a href="#" onClick={(e) => { e.preventDefault(); toggleDropdown(); }}>
+    <div ref={dropdownRef} className={styles.dropdownWrapper}>
+      <button onClick={(e) => { e.preventDefault(); toggleDropdown(); }} className={styles.dropdownToggle}>
         {title}
-      </a>
-      {isOpen && (
-        <div className={`${styles['dropdown-content']} ${isOpen ? styles.open : ''}`}>
-          {renderContent ? renderContent(items) : (
-            <div className={styles['dropdown-sections']}>
-              {items.map(({ title, items }, idx) => (
-                <div key={idx} className={styles['dropdown-section']}>
-                  {title && <div className={styles['section-title']}>{title}</div>}
-                  <ul className={items.length ? styles['simple-list'] : styles['subcategory-list']}>
-                    {items.map(({ label, link }, itemIdx) => (
-                      <li key={itemIdx} className={styles['subcategory-item']}>
-                        <Link href={link}>
-                          <a onClick={handleLinkClick}>{label}</a>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-    </li>
+      </button>
+      <div className={`${styles.dropdownContent} ${isOpen ? styles.active : ''}`}>
+        {renderContent ? (
+          renderContent(items)
+        ) : (
+          <div className={styles.dropdownSections}>
+            {items.map(({ title, items }, idx) => (
+              <div key={idx} className={styles.dropdownSection}>
+                {title && <div className={styles.sectionTitle}>{title}</div>}
+                <ul>
+                  {items.map(({ label, link }, itemIdx) => (
+                    <li key={itemIdx} className={styles.dropdownItem}>
+                      <Link href={link}>
+                        <a onClick={onClose}>{label}</a>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

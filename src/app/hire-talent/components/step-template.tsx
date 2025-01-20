@@ -15,7 +15,6 @@ interface StepTemplateProps {
   isMultiSelect?: boolean; 
   showSkipButton?: boolean;
   children?: React.ReactNode;
-  
 }
 
 const StepTemplate: React.FC<StepTemplateProps> = ({

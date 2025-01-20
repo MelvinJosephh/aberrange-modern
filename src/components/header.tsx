@@ -3,9 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import CloseIcon from "@mui/icons-material/Close";
-import MenuIcon from "@mui/icons-material/Menu";
-import { useSidebar } from "@/components/use-sidebar";
 import Dropdown from "@/components/dropdown";
 import styles from "@/styles/components/header.module.scss";
 import { data, descriptions } from "@/lib/models/hire-talent-model";
@@ -15,7 +12,6 @@ import companiesData from "@/lib/data/companiesData";
 import talentData from "@/lib/data/talentData";
 
 const Header = () => {
-  const { sidebar, toggleSidebar } = useSidebar();
   const [selectedDeveloper, setSelectedDeveloper] = useState<string | null>(null);
   const [selectedArea, setSelectedArea] = useState<string>("Frontend");
   const [showDevAndButton, setShowDevAndButton] = useState(false);
@@ -130,7 +126,7 @@ const Header = () => {
             />
           </Link>
         </div>
-        <div className={sidebar ? `${styles.navLinksSidebar} ${styles.active}` : styles.navLinksSidebar}>
+        <nav className={styles.navLinks}>
           <ul>
             <li>
               <Dropdown title="For Companies" items={companiesData} renderContent={renderCompaniesContent} />
@@ -151,10 +147,7 @@ const Header = () => {
               <Dropdown title="Hire Talent" items={data} renderContent={renderHireContent} />
             </li>
           </ul>
-        </div>
-        <button className={styles.navbarItemsIcon} onClick={() => toggleSidebar(!sidebar)}>
-          {sidebar ? <CloseIcon /> : <MenuIcon />}
-        </button>
+        </nav>
       </div>
     </header>
   );

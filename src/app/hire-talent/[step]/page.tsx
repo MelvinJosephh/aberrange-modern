@@ -5,9 +5,18 @@ import { steps } from '../utils/step-config'; // Path to your steps config
 import { useHireTalent } from '../context/hire-talent-context';
 import dynamic from 'next/dynamic'; // Import dynamic from Next.js
 import StepTemplate from '../components/step-template'; // Ensure correct import of StepTemplate
+import { useEffect, useState } from 'react';
 
 // Function to dynamically import each step's component based on the step id
 const DynamicStepComponent = ({ componentName }: { componentName: string }) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true); // Set state after the component is mounted (client-side)
+  }, []);
+
+  if (!isMounted) return null; // Only render after the component is mounted
+
   try {
     // Dynamically import the component from the correct path
     const StepComponent = dynamic(() => import(`../components/${componentName}`), { ssr: false });
@@ -18,12 +27,18 @@ const DynamicStepComponent = ({ componentName }: { componentName: string }) => {
   }
 };
 
-const DynamicStepPage = async ({ params }: { params: { step: string } }) => {
-  const router = useRouter();
+const DynamicStepPage = ({ params }: { params: { step: string } }) => {
+  const [stepId, setStepId] = useState<string | null>(null);
   const { formData, updateFormData } = useHireTalent();
+  const router = useRouter();
 
-  // Await params.step to ensure it’s fully resolved
-  const stepId = params.step;
+  useEffect(() => {
+    // Ensuring that the params are available
+    if (params.step) {
+      setStepId(params.step); // Update the stepId state once params.step is available
+    }
+  }, [params.step]);
+
   if (!stepId) {
     return <p>Loading...</p>; // Handle case where params are not resolved yet
   }
