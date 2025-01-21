@@ -27,7 +27,7 @@ const companiesData = [
     {
       id: 6,
       name: "How Aberrange Works",
-      link: "/hire/how-it-works",
+      link: "/hire/how-aberrange-works",
     },
     {
       id: 7,

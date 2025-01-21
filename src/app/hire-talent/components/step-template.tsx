@@ -1,19 +1,17 @@
 'use client';
 
 import React from 'react';
-import '@/styles/hire-talent/steps-template.module.scss';
+import styles from '@/styles/hire-talent/steps-template.module.scss';
 
 interface StepTemplateProps {
   title: string;
   options: string[];
-  selectedOption: string | string[];
-  onSelect: (option: string) => void;
+  selectedOption: string | string[];  // Allow both single and multiple selections
+  onSelect: (option: string | string[]) => void;  // Update to handle multiple selection
   onNext: () => void;
   onBack?: () => void;
   isFirst?: boolean;
   isFinalStep?: boolean;
-  isMultiSelect?: boolean; 
-  showSkipButton?: boolean;
   children?: React.ReactNode;
 }
 
@@ -26,46 +24,58 @@ const StepTemplate: React.FC<StepTemplateProps> = ({
   onBack,
   isFirst = false,
   isFinalStep = false,
-  isMultiSelect = false, 
-  showSkipButton = false,
+  children,
 }) => {
-
   const handleOptionClick = (option: string) => {
-    if (isMultiSelect) {
-      // If multi-select is enabled, toggle the option in selectedOption array
-      if (Array.isArray(selectedOption)) {
-        if (selectedOption.includes(option)) {
-          onSelect(option); // Deselect
-        } else {
-          onSelect(option); // Select
-        }
+    // For multiple selections, toggle the option
+    if (Array.isArray(selectedOption)) {
+      if (selectedOption.includes(option)) {
+        onSelect(selectedOption.filter(item => item !== option));
+      } else {
+        onSelect([...selectedOption, option]);
       }
     } else {
-      // For single select, just select the option
       onSelect(option);
     }
   };
 
   return (
-    <div className="step-template">
-      <h2>{title}</h2>
-      <div className="options-grid">
-        {options.map((option) => (
-          <div
-            key={option}
-            className={`option ${isMultiSelect ? 
-              (Array.isArray(selectedOption) && selectedOption.includes(option) ? 'selected' : '') :
-              (selectedOption === option ? 'selected' : '')}`}
-            onClick={() => handleOptionClick(option)}
-          >
-            {option}
-          </div>
-        ))}
-      </div>
-      <div className="actions">
-        {!isFirst && onBack && <button onClick={onBack}>Back</button>}
-        {showSkipButton && <button onClick={onNext}>Skip</button>}
-        <button onClick={onNext}>{isFinalStep ? 'Finish' : 'Next'}</button>
+    <div className={styles['step-template']}>
+      <h2 className={styles.title}>{title}</h2>
+      
+      {options.length > 0 && (
+        <div className={styles['options-grid']}>
+          {options.map((option) => (
+            <div
+              key={option}
+              className={`${styles.option} ${
+                Array.isArray(selectedOption)
+                  ? selectedOption.includes(option)
+                    ? styles.selected
+                    : ''
+                  : selectedOption === option
+                  ? styles.selected
+                  : ''
+              }`}
+              onClick={() => handleOptionClick(option)}
+            >
+              {option}
+            </div>
+          ))}
+        </div>
+      )}
+      
+      <div className={styles['step-content']}>{children}</div>
+      
+      <div className={styles.actions}>
+        {!isFirst && onBack && (
+          <button className={styles.button} onClick={onBack}>
+            Back
+          </button>
+        )}
+        <button className={styles.button} onClick={onNext}>
+          {isFinalStep ? 'Finish' : 'Next'}
+        </button>
       </div>
     </div>
   );

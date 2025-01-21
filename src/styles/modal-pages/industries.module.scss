@@ -1,0 +1,78 @@
+@use "../variables" as vars;
+
+.industries {
+  text-align: center;
+  padding: vars.$spacing-large;
+  background-color: #f9f9f9;
+
+  h2 {
+    font-size: vars.$font-size-xl;
+    margin-bottom: vars.$spacing-large;
+    color: vars.$primary-color;
+  }
+
+  .industriesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: vars.$spacing-medium;
+    margin-bottom: vars.$spacing-large;
+  }
+
+  .industryCard {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: vars.$border-radius-small;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: vars.$transition;
+
+    &:hover {
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      transform: translateY(-5px);
+    }
+
+    .icon {
+      padding: vars.$spacing-medium;
+      background-color: vars.$secondary-color;
+
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    .content {
+      padding: vars.$spacing-medium;
+
+      h3 {
+        font-size: vars.$font-size-base;
+        color: vars.$secondary-color;
+        margin-bottom: vars.$spacing-small;
+      }
+
+      p {
+        font-size: vars.$font-size-base;
+        color: vars.$text-color-dark;
+      }
+    }
+  }
+
+  .getQuote {
+    margin-top: vars.$spacing-large;
+
+    .quoteButton {
+      background-color: vars.$primary-color;
+      color: vars.$text-color-light;
+      padding: vars.$spacing-small vars.$spacing-medium;
+      border: none;
+      border-radius: vars.$border-radius-small;
+      cursor: pointer;
+      font-size: vars.$font-size-base;
+      transition: vars.$transition;
+
+      &:hover {
+        background-color: vars.$gradient-background;
+      }
+    }
+  }
+}

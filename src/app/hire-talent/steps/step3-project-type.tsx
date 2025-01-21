@@ -1,44 +1,28 @@
 'use client';
 
 import React from "react";
-import { useHireTalent } from "../context/hire-talent-context"; // Use the updated context
-import StepTemplate from "../components/step-template";
+import { useHireTalent } from "../context/hire-talent-context"; // Updated context for hire talent
+import StepTemplate from "../components/step-template"; // Updated path for StepTemplate
 
-interface Step2CompanySizeProps {
-  onNext: () => void;
-  onBack: () => void;
-}
-
-const Step2CompanySize: React.FC<Step2CompanySizeProps> = ({ onNext, onBack }) => {
-  const { formData, updateFormData } = useHireTalent(); // Use the hiretalent context
+const Step3ProjectType: React.FC = () => {
+  const { formData, updateFormData } = useHireTalent(); // Updated to use the updated context
 
   const options = [
-    "1-10 Employees",
-    "11-50 Employees",
-    "51-200 Employees",
-    "201+ Employees",
-    "Solo Project",
+    "New idea or project",
+    "Existing project that needs more resources",
+    "Academic Help",
+    "None of the above, I'm just looking to learn more about Aberrange",
   ];
 
-  const selectedOption = formData.companySize;
-
-  const handleNext = () => {
-    if (selectedOption) {
-      updateFormData("companySize", selectedOption); // Update the companySize field in formData
-      onNext();
-    }
-  };
+  const selectedOption = formData.projectType;
 
   return (
     <StepTemplate
-      title="How many people are employed at your company?"
       options={options}
-      selectedOption={selectedOption} // Get the companySize value from formData
-      onSelect={(value: string) => updateFormData("companySize", value)} // Update the companySize field in formData
-      onNext={handleNext}
-      onBack={onBack}
+      selectedOption={selectedOption} // Get the projectType value from formData
+      onSelect={(value: string) => updateFormData("projectType", value)} // Update the projectType field in formData
     />
   );
 };
 
-export default Step2CompanySize;
+export default Step3ProjectType;

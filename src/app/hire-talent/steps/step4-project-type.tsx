@@ -1,14 +1,11 @@
+'use client';
+
 import React from "react";
-import { useHireTalent } from "../context/hire-talent-context"; // Use the updated context
-import StepTemplate from "../components/step-template";
+import { useHireTalent } from "../context/hire-talent-context"; // Updated context for hire talent
+import StepTemplate from "../components/step-template"; // Updated path for StepTemplate
 
-interface Step4ProjectLengthProps {
-  onNext: () => void;
-  onBack: () => void;
-}
-
-const Step4ProjectLength: React.FC<Step4ProjectLengthProps> = ({ onNext, onBack }) => {
-  const { formData, updateFormData } = useHireTalent(); // Use the hiretalent context
+const Step4ProjectLength: React.FC = () => {
+  const { formData, updateFormData } = useHireTalent(); // Updated to use the updated context
 
   const options = [
     "Less than 1 month",
@@ -19,21 +16,11 @@ const Step4ProjectLength: React.FC<Step4ProjectLengthProps> = ({ onNext, onBack 
 
   const selectedOption = formData.projectLength;
 
-  const handleNext = () => {
-    if (selectedOption) {
-      updateFormData("projectLength", selectedOption); // Update the projectLength field in formData
-      onNext();
-    }
-  };
-
   return (
     <StepTemplate
-      title="How long do you need assistance with this service?"
       options={options}
       selectedOption={selectedOption} // Get the projectLength value from formData
       onSelect={(value: string) => updateFormData("projectLength", value)} // Update the projectLength field in formData
-      onNext={handleNext}
-      onBack={onBack}
     />
   );
 };

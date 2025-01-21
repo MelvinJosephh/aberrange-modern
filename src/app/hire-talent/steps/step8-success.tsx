@@ -71,13 +71,12 @@ const Step8Success: React.FC<Step8SuccessProps> = ({ onBack }) => {
 
   return (
     <StepTemplate
-      title="Success! Let's connect you with talent."
-      options={[]}
-      selectedOption={""} // Provide an empty string or default value for selectedOption
-      onSelect={() => {}} // Provide a no-op function for setSelectedOption
-      onBack={onBack}
-      onNext={handleSubmit} // Link handleSubmit here
-      isFinalStep={true}
+      options={[]} // Empty options as no selection is needed for this step
+      selectedOption={""} // Empty as no selected option needed
+      onSelect={() => {}} // No-op for the select handler
+      onBack={onBack} // onBack logic stays
+      onNext={handleSubmit} // Link the handleSubmit to onNext here
+      isFinalStep={true} // Mark this as the final step
     >
       <div className="form-container">
         <p className="form-description">

@@ -9,6 +9,7 @@ import ProductManagers from "@/app/modal-pages/product-managers";
 import ProjectManagers from "@/app/modal-pages/project-managers";
 import FindWork from "@/app/modal-pages/find-work";
 import Overview from "@/app/modal-pages/overview";
+import HowAberrangeWorks from "@/app/modal-pages/how-aberrange-works";
 
 const HirePage = (props: { params: Promise<{ hire: string }> }) => {
   const params = use(props.params);
@@ -34,6 +35,8 @@ const HirePage = (props: { params: Promise<{ hire: string }> }) => {
         return <ProductManagers />;
       case "project-managers":
         return <ProjectManagers />;
+        case "how-aberrange-works":
+        return <HowAberrangeWorks />;
       case "find-work":
         return <FindWork />;
       case "overview":

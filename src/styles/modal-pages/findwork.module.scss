@@ -1,0 +1,104 @@
+// findwork.module.scss
+@use "../variables" as vars;
+@use 'sass:color';
+
+.find-work-page {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  padding: vars.$spacing-large;
+
+  .header-section {
+    background: vars.$gradient-background;
+    color: vars.$text-color-light;
+    padding: vars.$spacing-large;
+    border-radius: vars.$border-radius-small;
+    text-align: center;
+
+    h1 {
+      font-size: vars.$font-size-xl;
+      font-weight: vars.$font-weight-bold;
+    }
+
+    p {
+      font-size: vars.$font-size-base;
+      margin: vars.$spacing-medium 0;
+    }
+
+    .cta-button {
+      background-color: vars.$primary-color;
+      color: vars.$text-color-light;
+      font-size: vars.$font-size-base;
+      padding: vars.$spacing-small vars.$spacing-medium;
+      border: none;
+      border-radius: vars.$border-radius-small;
+      cursor: pointer;
+      transition: vars.$transition;
+
+      &:hover {
+        background-color: color.scale(vars.$primary-color, $lightness: -10%);
+      }
+    }
+  }
+
+  .job-categories {
+    margin-top: vars.$spacing-large;
+    text-align: center;
+
+    h2 {
+      font-size: vars.$font-size-xl;
+      color: vars.$secondary-color;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: vars.$spacing-small;
+
+      li {
+        margin: vars.$spacing-small 0;
+
+        a {
+          color: vars.$secondary-color;
+          font-size: vars.$font-size-base;
+          text-decoration: none;
+          transition: vars.$transition;
+
+          &:hover {
+            color: vars.$primary-color;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .remote-jobs {
+    margin-top: vars.$spacing-large;
+    text-align: center;
+
+    h2 {
+      font-size: vars.$font-size-xl;
+      color: vars.$secondary-color;
+    }
+
+    p {
+      font-size: vars.$font-size-base;
+      margin: vars.$spacing-medium 0;
+    }
+
+    .cta-button {
+      background-color: vars.$secondary-color;
+      color: vars.$text-color-light;
+      font-size: vars.$font-size-base;
+      padding: vars.$spacing-small vars.$spacing-medium;
+      border: none;
+      border-radius: vars.$border-radius-small;
+      cursor: pointer;
+      transition: vars.$transition;
+
+      &:hover {
+        background-color: color.scale(vars.$secondary-color, $lightness: -10%);
+      }
+    }
+  }
+}

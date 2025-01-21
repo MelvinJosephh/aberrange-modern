@@ -1,16 +1,11 @@
 'use client';
 
 import React from "react";
-import { useHireTalent } from "../context/hire-talent-context"; // Use the updated context
-import StepTemplate from "../components/step-template";
+import { useHireTalent } from "../context/hire-talent-context"; // Updated context for hire talent
+import StepTemplate from "../components/step-template"; // Updated path for StepTemplate
 
-interface Step6SkillsProps {
-  onNext: () => void;
-  onBack: () => void;
-}
-
-const Step6Skills: React.FC<Step6SkillsProps> = ({ onNext, onBack }) => {
-  const { formData, updateFormData } = useHireTalent(); // Use the hiretalent context
+const Step6Skills: React.FC = () => {
+  const { formData, updateFormData } = useHireTalent(); // Updated to use the updated context
 
   const skills = [
     "JavaScript",
@@ -36,20 +31,12 @@ const Step6Skills: React.FC<Step6SkillsProps> = ({ onNext, onBack }) => {
     updateFormData("skills", newSkills); // Update the skills array in formData
   };
 
-  const handleNext = () => {
-    onNext();
-  };
-
   return (
     <StepTemplate
-      title="What skills would you like to see in your new hire?"
       options={skills}
       selectedOption={selectedSkills}
       onSelect={(value: string) => handleSkillToggle(value)}
       isMultiSelect={true}
-      onNext={handleNext}
-      onBack={onBack}
-      showSkipButton={true}
     />
   );
 };
