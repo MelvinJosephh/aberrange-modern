@@ -1,11 +1,11 @@
 export const steps = [
-    { id: 'step1', component: 'Step1WhoToHire', title: 'Who do you want to hire?' },
-    { id: 'step2', component: 'Step2CompanySize', title: 'What is your company size?' },
-    { id: 'step3', component: 'Step3ProjectType', title: 'What type of project is it?' },
-    { id: 'step4', component: 'Step4ProjectType', title: 'What type of project is it?' },
-    { id: 'step5', component: 'Step5Commitment', title: 'What commitment level do you need?' },
-    { id: 'step6', component: 'Step6Skills', title: 'What skills are required?' },
-    { id: 'step7', component: 'Step7StartDate', title: 'When do you need to start?' },
-    { id: 'step8', component: 'Step8Success', title: 'Success!' },
+    { id: 'step1', component: 'step1-who-to-hire', title: 'Who do you want to hire?' },
+    { id: 'step2', component: 'step2-company-size', title: 'What is your company size?' },
+    { id: 'step3', component: 'step3-project-type', title: 'What type of project is it?' },
+    { id: 'step4', component: 'step4-project-type', title: 'What type of project is it?' },
+    { id: 'step5', component: 'step5-commitment', title: 'What commitment level do you need?' },
+    { id: 'step6', component: 'step6-skills', title: 'What skills are required?' },
+    { id: 'step7', component: 'step7-start-date', title: 'When do you need to start?' },
+    { id: 'step8', component: 'step8-success', title: 'Success!' },
   ];
   

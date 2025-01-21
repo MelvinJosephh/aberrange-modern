@@ -1,8 +1,8 @@
 'use client';
 
 import React from "react";
-import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../components/step-template";
+import { useHireTalent } from "../context/hire-talent-context"; // Use the updated context
+import StepTemplate from "../components/step-template";
 
 interface Step7StartDateProps {
   onNext: () => void;
@@ -10,7 +10,7 @@ interface Step7StartDateProps {
 }
 
 const Step7StartDate: React.FC<Step7StartDateProps> = ({ onNext, onBack }) => {
-  const { formData, updateStepData } = useStepContext();
+  const { formData, updateFormData } = useHireTalent(); // Use the hiretalent context
 
   const options: string[] = [
     "Immediately",
@@ -23,7 +23,7 @@ const Step7StartDate: React.FC<Step7StartDateProps> = ({ onNext, onBack }) => {
 
   const handleNext = () => {
     if (selectedOption) {
-      updateStepData("startDate", selectedOption);
+      updateFormData("startDate", selectedOption); // Update the startDate in formData
       onNext();
     }
   };
@@ -33,7 +33,7 @@ const Step7StartDate: React.FC<Step7StartDateProps> = ({ onNext, onBack }) => {
       title="When do you need the developer?"
       options={options}
       selectedOption={selectedOption || ""}
-      onSelect={(value: string) => updateStepData("startDate", value)}
+      onSelect={(value: string) => updateFormData("startDate", value)} // Update on select
       onNext={handleNext}
       onBack={onBack}
     />

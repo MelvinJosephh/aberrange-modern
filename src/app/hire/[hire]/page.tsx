@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import HireDevelopers from "@/app/modal-pages/hire-developers";
 import HireDesigners from "@/app/modal-pages/hire-designers";
 import HireAcademic from "@/app/modal-pages/hire-academic";
@@ -10,7 +10,8 @@ import ProjectManagers from "@/app/modal-pages/project-managers";
 import FindWork from "@/app/modal-pages/find-work";
 import Overview from "@/app/modal-pages/overview";
 
-const HirePage = ({ params }: { params: { hire: string } }) => {
+const HirePage = (props: { params: Promise<{ hire: string }> }) => {
+  const params = use(props.params);
   const [hire, setHire] = useState<string | null>(null);
 
   useEffect(() => {

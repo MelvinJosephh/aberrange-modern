@@ -1,8 +1,8 @@
 'use client';
 
 import React from "react";
-import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../components/step-template";
+import { useHireTalent } from "../context/hire-talent-context"; // Use the updated context
+import StepTemplate from "../components/step-template";
 
 interface Step2CompanySizeProps {
   onNext: () => void;
@@ -10,7 +10,7 @@ interface Step2CompanySizeProps {
 }
 
 const Step2CompanySize: React.FC<Step2CompanySizeProps> = ({ onNext, onBack }) => {
-  const { formData, updateStepData } = useStepContext();
+  const { formData, updateFormData } = useHireTalent(); // Use the hiretalent context
 
   const options = [
     "1-10 Employees",
@@ -24,7 +24,7 @@ const Step2CompanySize: React.FC<Step2CompanySizeProps> = ({ onNext, onBack }) =
 
   const handleNext = () => {
     if (selectedOption) {
-      updateStepData("companySize", selectedOption);
+      updateFormData("companySize", selectedOption); // Update the companySize field in formData
       onNext();
     }
   };
@@ -33,8 +33,8 @@ const Step2CompanySize: React.FC<Step2CompanySizeProps> = ({ onNext, onBack }) =
     <StepTemplate
       title="How many people are employed at your company?"
       options={options}
-      selectedOption={selectedOption}
-      onSelect={(value: string) => updateStepData("companySize", value)}
+      selectedOption={selectedOption} // Get the companySize value from formData
+      onSelect={(value: string) => updateFormData("companySize", value)} // Update the companySize field in formData
       onNext={handleNext}
       onBack={onBack}
     />

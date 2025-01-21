@@ -1,6 +1,6 @@
 import React from "react";
-import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../components/step-template";
+import { useHireTalent } from "../context/hire-talent-context"; // Use the updated context
+import StepTemplate from "../components/step-template";
 
 interface Step4ProjectLengthProps {
   onNext: () => void;
@@ -8,7 +8,7 @@ interface Step4ProjectLengthProps {
 }
 
 const Step4ProjectLength: React.FC<Step4ProjectLengthProps> = ({ onNext, onBack }) => {
-  const { formData, updateStepData } = useStepContext();
+  const { formData, updateFormData } = useHireTalent(); // Use the hiretalent context
 
   const options = [
     "Less than 1 month",
@@ -21,7 +21,7 @@ const Step4ProjectLength: React.FC<Step4ProjectLengthProps> = ({ onNext, onBack 
 
   const handleNext = () => {
     if (selectedOption) {
-      updateStepData("projectLength", selectedOption);
+      updateFormData("projectLength", selectedOption); // Update the projectLength field in formData
       onNext();
     }
   };
@@ -30,8 +30,8 @@ const Step4ProjectLength: React.FC<Step4ProjectLengthProps> = ({ onNext, onBack 
     <StepTemplate
       title="How long do you need assistance with this service?"
       options={options}
-      selectedOption={selectedOption}
-      onSelect={(value: string) => updateStepData("projectLength", value)}
+      selectedOption={selectedOption} // Get the projectLength value from formData
+      onSelect={(value: string) => updateFormData("projectLength", value)} // Update the projectLength field in formData
       onNext={handleNext}
       onBack={onBack}
     />

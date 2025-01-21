@@ -1,8 +1,8 @@
 'use client';
 
 import React from "react";
-import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../components/step-template";
+import { useHireTalent } from "../context/hire-talent-context"; // Use the updated context
+import StepTemplate from "../components/step-template";
 
 interface Step6SkillsProps {
   onNext: () => void;
@@ -10,7 +10,7 @@ interface Step6SkillsProps {
 }
 
 const Step6Skills: React.FC<Step6SkillsProps> = ({ onNext, onBack }) => {
-  const { formData, updateStepData } = useStepContext();
+  const { formData, updateFormData } = useHireTalent(); // Use the hiretalent context
 
   const skills = [
     "JavaScript",
@@ -33,7 +33,7 @@ const Step6Skills: React.FC<Step6SkillsProps> = ({ onNext, onBack }) => {
       ? selectedSkills.filter((item) => item !== skill)
       : [...selectedSkills, skill];
 
-    updateStepData("skills", newSkills);
+    updateFormData("skills", newSkills); // Update the skills array in formData
   };
 
   const handleNext = () => {

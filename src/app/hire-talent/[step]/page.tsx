@@ -5,7 +5,7 @@ import { steps } from '../utils/step-config'; // Path to your steps config
 import { useHireTalent } from '../context/hire-talent-context';
 import dynamic from 'next/dynamic'; // Import dynamic from Next.js
 import StepTemplate from '../components/step-template'; // Ensure correct import of StepTemplate
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 
 // Function to dynamically import each step's component based on the step id
 const DynamicStepComponent = ({ componentName }: { componentName: string }) => {
@@ -19,7 +19,7 @@ const DynamicStepComponent = ({ componentName }: { componentName: string }) => {
 
   try {
     // Dynamically import the component from the correct path
-    const StepComponent = dynamic(() => import(`../components/${componentName}`), { ssr: false });
+    const StepComponent = dynamic(() => import(`../steps/${componentName}`), { ssr: false });
     return <StepComponent />;
   } catch (error) {
     console.error('Error loading component:', error);
@@ -27,7 +27,8 @@ const DynamicStepComponent = ({ componentName }: { componentName: string }) => {
   }
 };
 
-const DynamicStepPage = ({ params }: { params: { step: string } }) => {
+const DynamicStepPage = (props: { params: Promise<{ step: string }> }) => {
+  const params = use(props.params);
   const [stepId, setStepId] = useState<string | null>(null);
   const { formData, updateFormData } = useHireTalent();
   const router = useRouter();

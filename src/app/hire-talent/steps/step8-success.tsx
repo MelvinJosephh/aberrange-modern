@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, ChangeEvent } from "react";
-import { useStepContext } from "@/context/step-context";
-import StepTemplate from "../../components/step-template";
-import { StyledTextField } from "../../../shared/styled-component";
+import { useHireTalent } from "../context/hire-talent-context"; // Use the updated context
+import StepTemplate from "../components/step-template";
+import { StyledTextField } from "../../shared/styled-component";
 import "@/styles/hire-talent/step-eight.module.scss";
 import axios from "axios";
 
@@ -19,7 +19,7 @@ interface ContactInfo {
 }
 
 const Step8Success: React.FC<Step8SuccessProps> = ({ onBack }) => {
-  const { formData } = useStepContext();
+  const { formData } = useHireTalent(); // Use the hiretalent context
   const { startDate } = formData;
 
   const [contactInfo, setContactInfo] = useState<ContactInfo>({
