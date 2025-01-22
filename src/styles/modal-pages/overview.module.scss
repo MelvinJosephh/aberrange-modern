@@ -1,0 +1,129 @@
+@use "../variables" as vars;
+
+.overviewPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: vars.$text-color-light;
+  color: vars.$text-color-dark;
+  padding: vars.$spacing-large;
+  min-height: 100vh;
+  transition: vars.$transition;
+
+  .headerSection {
+    text-align: center;
+    margin-bottom: vars.$spacing-large;
+
+    h1 {
+      font-size: vars.$font-size-xl;
+      color: vars.$primary-color;
+      margin-bottom: vars.$spacing-small;
+    }
+
+    p {
+      font-size: vars.$font-size-base;
+      margin-bottom: vars.$spacing-medium;
+      line-height: 1.6;
+    }
+
+    .ctaButton {
+      background-color: vars.$primary-color;
+      color: vars.$text-color-light;
+      padding: vars.$spacing-small vars.$spacing-medium;
+      font-size: vars.$font-size-base;
+      border: none;
+      border-radius: vars.$border-radius-small;
+      cursor: pointer;
+      transition: vars.$transition;
+      width: auto;
+
+      &:hover {
+        background-color: vars.$gradient-background;
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+
+  .whyAberrange,
+  .howItWorks,
+  .testimonials {
+    margin-bottom: vars.$spacing-large;
+    width: 100%;
+    max-width: 800px;
+
+    h2 {
+      font-size: vars.$font-size-xl;
+      color: vars.$primary-color;
+      margin-bottom: vars.$spacing-small;
+    }
+
+    h3 {
+      font-size: vars.$font-size-base;
+      margin-bottom: vars.$spacing-small;
+    }
+
+    ul,
+    ol {
+      font-size: vars.$font-size-base;
+      line-height: 1.6;
+      margin-left: vars.$spacing-medium;
+    }
+
+    li {
+      margin-bottom: vars.$spacing-small;
+    }
+
+    blockquote {
+      font-size: vars.$font-size-base;
+      font-style: italic;
+      border-left: 4px solid vars.$primary-color;
+      padding-left: vars.$spacing-medium;
+      margin: vars.$spacing-large 0;
+      color: vars.$text-color-dark;
+    }
+
+    cite {
+      display: block;
+      font-size: 0.9rem;
+      font-style: normal;
+      color: vars.$secondary-color;
+      margin-top: vars.$spacing-small;
+      text-align: right;
+    }
+  }
+
+  .ctaFooter {
+    text-align: center;
+
+    h2 {
+      font-size: vars.$font-size-xl;
+      color: vars.$primary-color;
+      margin-bottom: vars.$spacing-medium;
+    }
+
+    .ctaButton {
+      background-color: vars.$primary-color;
+      color: vars.$text-color-light;
+      padding: vars.$spacing-small vars.$spacing-medium;
+      font-size: vars.$font-size-base;
+      border: none;
+      border-radius: vars.$border-radius-small;
+      cursor: pointer;
+      transition: vars.$transition;
+      width: auto;
+
+      &:hover {
+        background-color: vars.$gradient-background;
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+}

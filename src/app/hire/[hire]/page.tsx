@@ -1,15 +1,16 @@
-'use client';
+"use client";
 
 import React, { useState, useEffect, use } from "react";
 import HireDevelopers from "@/app/modal-pages/hire-developers";
 import HireDesigners from "@/app/modal-pages/hire-designers";
 import HireAcademic from "@/app/modal-pages/hire-academic";
 import HireAssistants from "@/app/modal-pages/hire-assistants";
-import ProductManagers from "@/app/modal-pages/product-managers";
-import ProjectManagers from "@/app/modal-pages/project-managers";
 import FindWork from "@/app/modal-pages/find-work";
 import Overview from "@/app/modal-pages/overview";
 import HowAberrangeWorks from "@/app/modal-pages/how-aberrange-works";
+import PricingPage from "@/app/modal-pages/pricing";
+import HireProjectManagers from "@/app/modal-pages/project-managers";
+import HireProductManagers from "@/app/modal-pages/product-managers";
 
 const HirePage = (props: { params: Promise<{ hire: string }> }) => {
   const params = use(props.params);
@@ -31,14 +32,16 @@ const HirePage = (props: { params: Promise<{ hire: string }> }) => {
         return <HireAcademic />;
       case "hire-assistants":
         return <HireAssistants />;
-      case "product-managers":
-        return <ProductManagers />;
-      case "project-managers":
-        return <ProjectManagers />;
-        case "how-aberrange-works":
+      case "hire-product-managers":
+        return <HireProductManagers />;
+      case "hire-project-managers":
+        return <HireProjectManagers />;
+      case "how-aberrange-works":
         return <HowAberrangeWorks />;
       case "find-work":
         return <FindWork />;
+      case "pricing":
+        return <PricingPage />;
       case "overview":
         return <Overview />;
       default:

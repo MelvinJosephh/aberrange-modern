@@ -32,7 +32,7 @@ const companiesData = [
     {
       id: 7,
       name: "Hire Research Writer",
-      link: "/hire/hire-writers",
+      link: "/hire/hire-academic",
     },
     {
       id: 8,

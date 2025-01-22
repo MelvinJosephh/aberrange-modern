@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import React, { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
-import '@/styles/modal-pages/hire-developers.module.scss';
+import styles from '@/styles/modal-pages/hire-developers.module.scss';
 import categories from '@/lib/data/skills/developersData';
 import { useRouter } from 'next/navigation';  
 
@@ -36,24 +36,24 @@ const HireDevelopers: React.FC = () => {
   if (!showPage) return null;
 
   return (
-    <div className="hire-developers-page">
-      <div className="header-section">
+    <div className={styles.hireDevelopersPage}>
+      <div className={styles.headerSection}>
         <h3>Hire Developers</h3>
-        <CloseIcon className="close-icon" onClick={closePage} />
+        <CloseIcon className={styles.closeIcon} onClick={closePage} />
       </div>
 
-      <div className="categories">
+      <div className={styles.categories}>
         {categories.map((category, index) => (
-          <div key={index} className="category">
+          <div key={index} className={styles.category}>
             <div
-              className="category-header"
+              className={styles.categoryHeader}
               onClick={() => toggleCategory(index)}
             >
               <h2>{category.title}</h2>
               <span>{activeCategory === index ? '-' : '+'}</span>
             </div>
             {activeCategory === index && (
-              <ul className="category-items">
+              <ul className={styles.categoryItems}>
                 {category.items.map((item, idx) => (
                   <li
                     key={idx}
@@ -70,12 +70,12 @@ const HireDevelopers: React.FC = () => {
 
       {/* Show Item Detail Modal if activeItem is selected */}
       {activeItem && (
-        <div className="item-detail-modal">
-          <div className="modal-content">
-            <CloseIcon className="close-icon" onClick={closeItemDetail} />
+        <div className={styles.itemDetailModal}>
+          <div className={styles.modalContent}>
+            <CloseIcon className={styles.closeIcon} onClick={closeItemDetail} />
             <h4>{activeItem}</h4>
             <p>Details about the selected developer skill will be shown here.</p>
-            <button className="primary-btn" onClick={handleActionClick}>
+            <button className={styles.primaryBtn} onClick={handleActionClick}>
               Hire Developer
             </button>
           </div>
