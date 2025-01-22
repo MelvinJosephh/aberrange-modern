@@ -36,16 +36,16 @@ export default function Footer() {
         <div className={styles.box}>
           <h3>Recent Posts</h3>
           <div>
-            <p>Why Bill Gates Visits Kenya</p>
-            <span>28 Feb 2022</span>
+            <p>Planet alignment</p>
+            <span>28 Feb 2024</span>
           </div>
           <div>
-            <p>Why Bill Gates Visits Kenya</p>
-            <span>28 Feb 2022</span>
+            <p>Kasongo trends</p>
+            <span>28 Feb 2024</span>
           </div>
           <div>
-            <p>Why Bill Gates Visits Kenya</p>
-            <span>28 Feb 2022</span>
+            <p>Trump&apos;s Presidency</p>
+            <span>28 Feb 2024</span>
           </div>
         </div>
 
@@ -62,7 +62,7 @@ export default function Footer() {
           </div>
           <div className={styles.icon}>
             <i className="fa fa-envelope" aria-hidden="true"></i>
-            <label>Email: Essayacademy@gmail.com</label>
+            <label>Email: support@aberrange.com</label>
           </div>
         </div>
       </section>

@@ -60,11 +60,11 @@
 
     .socialIcons {
       display: flex;
-      gap: vars.$spacing-small;
+      gap: vars.$spacing-medium;
     
       i {
-        font-size: 2rem;  // Increase icon size
-        color: vars.$text-color-dark;  // Change icon color for visibility
+        font-size: 1.2rem;  // Increase icon size
+        // color: vars.$text-color-dark;  
         cursor: pointer;
         transition: color 0.3s;
     

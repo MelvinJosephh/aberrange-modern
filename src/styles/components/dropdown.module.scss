@@ -29,7 +29,7 @@
   top: 100%;
   left: 0;
   width: max-content;
-  background: white;
+  background: #627792;
   border: 1px solid #ddd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -38,7 +38,9 @@
 
 /* Display the dropdown content when open */
 .dropdownContent.active {
-  display: block;
+  // align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
 }
 
 /* Dropdown section title styling */
