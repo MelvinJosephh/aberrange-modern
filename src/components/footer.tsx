@@ -1,5 +1,6 @@
 // src/components/Footer.tsx
 import styles from '@/styles/components/footer.module.scss';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export default function Footer() {
   return (

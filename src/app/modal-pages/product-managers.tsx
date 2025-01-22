@@ -35,7 +35,7 @@ const HireProductManagers: React.FC = () => {
 
   const handleActionClick = () => {
     closeItemDetail();  // Close the item detail modal
-    router.push('/hire-product-manager/step2');  // Navigate to the next step in the hiring process
+    router.push('/hire-talent/step2');  // Navigate to the next step in the hiring process
   };
 
   if (!showPage) return null;

@@ -1,0 +1,149 @@
+@use '../variables.scss' as vars;
+@use 'sass:color';
+
+.hireProductManagersPage {
+  background: vars.$gradient-background;
+  color: vars.$text-color-light;
+  font-size: vars.$font-size-base;
+  padding: vars.$spacing-large;
+  height: 100vh;
+  overflow-y: auto;
+
+  .headerSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: vars.$spacing-medium;
+
+    h1 {
+      font-size: vars.$font-size-xl;
+      font-weight: vars.$font-weight-bold;
+    }
+
+    .closeIcon {
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: vars.$transition;
+
+      &:hover {
+        color: vars.$primary-color;
+      }
+    }
+  }
+
+  .categories {
+    .category {
+      margin-bottom: vars.$spacing-medium;
+      background: color.scale(vars.$primary-color, $lightness: 40%);
+      border-radius: vars.$border-radius-small;
+      overflow: hidden;
+
+      .categoryHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: vars.$spacing-medium;
+        background: vars.$primary-color;
+        color: vars.$text-color-light;
+        font-weight: vars.$font-weight-bold;
+        cursor: pointer;
+        transition: vars.$transition;
+
+        &:hover {
+          background: color.scale(vars.$primary-color, $lightness: -10%);
+        }
+
+        h2 {
+          margin: 0;
+        }
+
+        span {
+          font-size: 1.2rem;
+        }
+      }
+
+      .categoryItems {
+        list-style: none;
+        padding: vars.$spacing-small vars.$spacing-medium;
+        margin: 0;
+
+        li {
+          margin-bottom: vars.$spacing-small;
+
+          a {
+            text-decoration: none;
+            color: vars.$secondary-color;
+            transition: vars.$transition;
+
+            &:hover {
+              color: vars.$primary-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .itemDetailModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10;
+
+    .modalContent {
+      background: vars.$text-color-light;
+      color: vars.$text-color-dark;
+      border-radius: vars.$border-radius-small;
+      padding: vars.$spacing-large;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+
+      .closeIcon {
+        position: absolute;
+        top: vars.$spacing-small;
+        right: vars.$spacing-small;
+        cursor: pointer;
+        transition: vars.$transition;
+
+        &:hover {
+          color: vars.$primary-color;
+        }
+      }
+
+      h4 {
+        margin-bottom: vars.$spacing-medium;
+        font-size: vars.$font-size-xl;
+        font-weight: vars.$font-weight-bold;
+      }
+
+      p {
+        margin-bottom: vars.$spacing-medium;
+        font-size: vars.$font-size-base;
+      }
+
+      .primaryBtn {
+        background: vars.$primary-color;
+        color: vars.$text-color-light;
+        border: none;
+        padding: vars.$spacing-medium vars.$spacing-large;
+        border-radius: vars.$border-radius-small;
+        font-size: vars.$font-size-base;
+        font-weight: vars.$font-weight-bold;
+        cursor: pointer;
+        transition: vars.$transition;
+
+        &:hover {
+          background: color.scale(vars.$primary-color, $lightness: -10%);
+        }
+      }
+    }
+  }
+}

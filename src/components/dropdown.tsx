@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useRef, useEffect, useState } from "react";
 import Link from "next/link";
@@ -48,7 +48,12 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <div ref={dropdownRef} className={styles.dropdownWrapper}>
-      <button onClick={(e) => { e.preventDefault(); toggleDropdown(); }} className={styles.dropdownToggle}>
+      <button
+        onClick={(e) => { e.preventDefault(); toggleDropdown(); }}
+        className={styles.dropdownToggle}
+        aria-expanded={isOpen ? "true" : "false"}
+        aria-haspopup="true"
+      >
         {title}
       </button>
       <div className={`${styles.dropdownContent} ${isOpen ? styles.active : ''}`}>

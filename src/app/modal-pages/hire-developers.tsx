@@ -30,7 +30,7 @@ const HireDevelopers: React.FC = () => {
 
   const handleActionClick = () => {
     closeItemDetail();  // Close the item detail modal
-    router.push('/hire-talent/step2-company-size');  // Navigate to the hire developer process
+    router.push('/hire-talent/step2');  // Navigate to the hire developer process
   };
 
   if (!showPage) return null;

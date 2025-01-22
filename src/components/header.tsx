@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState } from "react";
 import Link from "next/link";
@@ -15,11 +15,12 @@ const Header = () => {
   const [selectedDeveloper, setSelectedDeveloper] = useState<string | null>(null);
   const [selectedArea, setSelectedArea] = useState<string>("Frontend");
   const [showDevAndButton, setShowDevAndButton] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // for mobile menu toggle
 
   const unifiedButton = (label: string, link: string) => (
-    <button className={styles.primaryBtn}>
-      <Link href={link}>{label}</Link>
-    </button>
+    <Link href={link} className={styles.primaryBtn}>
+      {label}
+    </Link>
   );
 
   const renderCompaniesContent = (items: any) => renderContent(items, "companies");
@@ -68,7 +69,7 @@ const Header = () => {
         Object.keys(data).map((area) => (
           <p
             key={area}
-            className={selectedArea === area ? styles.active : ""}
+            className={`${selectedArea === area ? styles.active : ""} ${styles.clickable}`}
             onClick={() => {
               setSelectedArea(area);
               setShowDevAndButton(true);
@@ -87,7 +88,7 @@ const Header = () => {
                   setSelectedDeveloper(dev);
                   setShowDevAndButton(true);
                 }}
-                className={selectedDeveloper === dev ? styles.active : ""}
+                className={`${selectedDeveloper === dev ? styles.active : ""} ${styles.clickable}`}
               >
                 {dev}
               </p>
@@ -126,7 +127,11 @@ const Header = () => {
             />
           </Link>
         </div>
-        <nav className={styles.navLinks}>
+        <button className={styles.menuIcon} onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen ? "true" : "false"} aria-haspopup="true">
+          {/* Hamburger Icon */}
+          <span>☰</span>
+        </button>
+        <nav className={`${styles.navLinks} ${menuOpen ? styles.mobile : ""}`}>
           <ul>
             <li>
               <Dropdown title="For Companies" items={companiesData} renderContent={renderCompaniesContent} />

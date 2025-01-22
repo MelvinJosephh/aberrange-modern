@@ -1,64 +1,64 @@
-@use '../variables.scss' as vars;
-@use 'sass:color';
-
+/* Header Layout Styles */
 .header {
-  background-color: vars.$primary-color;
-  color: vars.$text-color-light;
-  padding: vars.$spacing-medium;
+  width: 100%;
+  background-color: #fff;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: vars.$transition;
+}
 
-  .container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  img {
+    width: 150px;
+    height: auto;
   }
+}
 
-  .logo {
-    display: flex;
-    align-items: center;
+.navLinks ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
 
-    img {
-      width: 150px;
-      height: auto;
-    }
-  }
+.navLinks li {
+  position: relative;
+}
 
+.menuIcon {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Mobile Menu */
+@media (max-width: 768px) {
   .navLinks {
-    display: flex;
-    align-items: center;
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 1rem;
+  }
 
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      gap: vars.$spacing-large;
-    }
+  .menuIcon {
+    display: block;
+  }
 
-    li {
-      position: relative;
-      font-size: vars.$font-size-base;
-      font-weight: vars.$font-weight-bold;
-
-      &:hover {
-        color: color.scale(vars.$secondary-color, $lightness: -20%);
-      }
-
-      a {
-        text-decoration: none;
-        color: vars.$text-color-light;
-        transition: vars.$transition;
-
-        &:hover {
-          color: color.scale(vars.$secondary-color, $lightness: -20%);
-        }
-      }
-    }
+  .navLinks.mobile {
+    display: block;
   }
 }
