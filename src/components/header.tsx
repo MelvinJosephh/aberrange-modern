@@ -17,7 +17,10 @@ const Header = () => {
   const [showDevAndButton, setShowDevAndButton] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false); // for mobile menu toggle
 
-  const unifiedButton = (label: string, link: string) => (
+  const unifiedButton = (label: string, link: string, p0: {
+  className: string; // Add styles conditionally
+  disabled: boolean;
+}) => (
     <Link href={link} className={styles.primaryBtn}>
       {label}
     </Link>
@@ -64,55 +67,65 @@ const Header = () => {
   );
 
   const renderHireContent = () => (
-    <div className={styles.column}>
-      {!showDevAndButton ? (
-        Object.keys(data).map((area) => (
-          <p
-            key={area}
-            className={`${selectedArea === area ? styles.active : ""} ${styles.clickable}`}
-            onClick={() => {
-              setSelectedArea(area);
-              setShowDevAndButton(true);
-            }}
-          >
-            {area}
-          </p>
-        ))
-      ) : (
-        <>
-          <div className={styles.column}>
-            {data[selectedArea]?.map((dev) => (
-              <p
-                key={dev}
-                onClick={() => {
-                  setSelectedDeveloper(dev);
-                  setShowDevAndButton(true);
-                }}
-                className={`${selectedDeveloper === dev ? styles.active : ""} ${styles.clickable}`}
-              >
-                {dev}
-              </p>
-            ))}
-          </div>
-          <div className={styles.column}>
-            <h3>{selectedDeveloper || selectedArea} Developer</h3>
-            <p>{descriptions[selectedArea]}</p>
-            {unifiedButton(`Hire ${selectedDeveloper || selectedArea}`, "/hire-talent/step2")}
-          </div>
-          <button
-            className={styles.resetSelectionBtn}
-            onClick={() => {
-              setSelectedDeveloper(null);
-              setShowDevAndButton(false);
-            }}
-          >
-            Reset Selection
-          </button>
-        </>
+    <div className={`${styles.column} ${styles.hireTalentDropdown}`}>
+      <div className={styles.grid}>
+        {!showDevAndButton ? (
+          Object.keys(data).map((area) => (
+            <p
+              key={area}
+              className={`${selectedArea === area ? styles.active : ""} ${styles.clickable}`}
+              onClick={() => {
+                setSelectedArea(area);
+                setShowDevAndButton(true);
+              }}
+            >
+              {area}
+            </p>
+          ))
+        ) : (
+          <>
+            <div className={styles.grid}>
+              {data[selectedArea]?.map((dev) => (
+                <p
+                  key={dev}
+                  onClick={() => {
+                    setSelectedDeveloper(dev);
+                  }}
+                  className={`${selectedDeveloper === dev ? styles.active : ""} ${styles.clickable}`}
+                >
+                  {dev}
+                </p>
+              ))}
+            </div>
+            <div>
+      <h3>{selectedDeveloper || selectedArea} Developer</h3>
+      <p>{descriptions[selectedArea]}</p>
+      {unifiedButton(
+        `Hire ${selectedDeveloper || selectedArea}`,
+        "/hire-talent/step2",
+        {
+          className: `${styles.button} ${
+            !selectedDeveloper && !selectedArea ? styles.disabled : ""
+          }`, // Add styles conditionally
+          disabled: !selectedDeveloper && !selectedArea, // Disable if no selection
+        }
       )}
     </div>
+          </>
+        )}
+      </div>
+      <button
+        className={styles.resetSelectionBtn}
+        onClick={() => {
+          setSelectedDeveloper(null);
+          setShowDevAndButton(false);
+        }}
+      >
+        Reset Selection
+      </button>
+    </div>
   );
-
+  
   return (
     <header className={styles.header}>
       <div className={styles.container}>
