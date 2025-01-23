@@ -12,3 +12,13 @@ $spacing-medium: 1rem;
 $spacing-large: 2rem;
 $border-radius-small: 5px;
 $transition: all 0.3s ease-in-out;
+$container-width: 1200px;
+
+// New text colors for better visibility and friendliness
+$text-color-primary: #333;  // Dark gray for general text on light backgrounds
+$text-color-secondary: #f0f0f0;  // Light gray for text on dark backgrounds
+$text-color-highlight: #1a1a1a;  // Darker for headers or important text on light backgrounds
+$text-color-muted: #777;  // For less important text or placeholders
+$text-color-on-primary: #f9e0df;  // Light text for contrast on primary color
+$text-color-on-secondary: #e7ebf0;  // Light text for contrast on secondary color
+$text-color-on-gradient: #f9e0df;  // Light text for use on gradient backgrounds

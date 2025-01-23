@@ -1,172 +1,76 @@
 'use client';
 
-import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import Dropdown from "@/components/dropdown";
-import styles from "@/styles/components/header.module.scss";
-import { data, descriptions } from "@/lib/models/hire-talent-model";
-import { industriesData } from "@/lib/models/industries-model";
-import { servicesData } from "@/lib/models/services-model";
-import companiesData from "@/lib/data/companiesData";
-import talentData from "@/lib/data/talentData";
+import React, { useState } from 'react';
+import styles from '@/styles/components/header.module.scss';
+import Dropdown from './dropdown';
+import talentData from '@/lib/data/talentData';
+import companiesData from '@/lib/data/companiesData';
+import { industriesData } from '@/lib/models/industries-model';
+import { servicesData } from '@/lib/models/services-model';
+import Link from 'next/link';
+import Image from 'next/image'; // Import Image component
 
-const Header = () => {
-  const [selectedDeveloper, setSelectedDeveloper] = useState<string | null>(null);
-  const [selectedArea, setSelectedArea] = useState<string>("Frontend");
-  const [showDevAndButton, setShowDevAndButton] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false); // for mobile menu toggle
+const Header: React.FC = () => {
+  const navItems = [
+    { name: 'For Companies', data: companiesData },
+    { name: 'For Talent', data: talentData },
+    { name: 'Industries', data: industriesData, link: '/industries' },
+    { name: 'Our Solutions', data: servicesData },
+    { name: 'What we do', data: [], link: '/about' }
+  ];
 
-  const unifiedButton = (label: string, link: string, p0: {
-  className: string; // Add styles conditionally
-  disabled: boolean;
-}) => (
-    <Link href={link} className={styles.primaryBtn}>
-      {label}
-    </Link>
-  );
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const renderCompaniesContent = (items: any) => renderContent(items, "companies");
-  const renderTalentContent = (items: any) => renderContent(items, "talent");
+  const toggleDropdown = (title: string) => {
+    setActiveDropdown(activeDropdown === title ? null : title);
+  };
 
-  const renderIndustriesContent = (items) => (
-    <div className={styles.column}>
-      {items.actions.map((action) => (
-        <p key={action.name}>
-          <Link href={action.link}>{action.name}</Link>
-        </p>
-      ))}
-      {unifiedButton(items.button.label, items.button.link)}
-    </div>
-  );
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
-  const renderServicesContent = (items) => (
-    <div className={styles.column}>
-      {items.engagementModels.map((service) => (
-        <p key={service.title}>
-          <Link href={`/services/${service.title.toLowerCase().replace(/ /g, "-")}`}>
-            {service.title}
-          </Link>
-        </p>
-      ))}
-      {unifiedButton("View All Services", "/services")}
-    </div>
-  );
-
-  const renderContent = (items, type) => (
-    <div className={styles.column}>
-      {items.map((item) => (
-        <p key={item.name || item.title}>
-          <Link href={item.link || `/services/${item.title.toLowerCase().replace(/ /g, "-")}`}>
-            {item.name || item.title}
-          </Link>
-        </p>
-      ))}
-      {type === "industries" && unifiedButton("View All Services", "/services")}
-    </div>
-  );
-
-  const renderHireContent = () => (
-    <div className={`${styles.column} ${styles.hireTalentDropdown}`}>
-      <div className={styles.grid}>
-        {!showDevAndButton ? (
-          Object.keys(data).map((area) => (
-            <p
-              key={area}
-              className={`${selectedArea === area ? styles.active : ""} ${styles.clickable}`}
-              onClick={() => {
-                setSelectedArea(area);
-                setShowDevAndButton(true);
-              }}
-            >
-              {area}
-            </p>
-          ))
-        ) : (
-          <>
-            <div className={styles.grid}>
-              {data[selectedArea]?.map((dev) => (
-                <p
-                  key={dev}
-                  onClick={() => {
-                    setSelectedDeveloper(dev);
-                  }}
-                  className={`${selectedDeveloper === dev ? styles.active : ""} ${styles.clickable}`}
-                >
-                  {dev}
-                </p>
-              ))}
-            </div>
-            <div>
-      <h3>{selectedDeveloper || selectedArea} Developer</h3>
-      <p>{descriptions[selectedArea]}</p>
-      {unifiedButton(
-        `Hire ${selectedDeveloper || selectedArea}`,
-        "/hire-talent/step2",
-        {
-          className: `${styles.button} ${
-            !selectedDeveloper && !selectedArea ? styles.disabled : ""
-          }`, // Add styles conditionally
-          disabled: !selectedDeveloper && !selectedArea, // Disable if no selection
-        }
-      )}
-    </div>
-          </>
-        )}
-      </div>
-      <button
-        className={styles.resetSelectionBtn}
-        onClick={() => {
-          setSelectedDeveloper(null);
-          setShowDevAndButton(false);
-        }}
-      >
-        Reset Selection
-      </button>
-    </div>
-  );
-  
   return (
     <header className={styles.header}>
-      <div className={styles.container}>
-        <div className={styles.logo}>
-          <Link href="/">
-            <Image
-              src="/assets/logo/aberrange-logo-themed.png"
-              alt="Aberrange Logo"
-              width={150}
-              height={40}
-              priority
-            />
-          </Link>
-        </div>
-        <button className={styles.menuIcon} onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen ? "true" : "false"} aria-haspopup="true">
-          {/* Hamburger Icon */}
-          <span>☰</span>
-        </button>
-        <nav className={`${styles.navLinks} ${menuOpen ? styles.mobile : ""}`}>
-          <ul>
-            <li>
-              <Dropdown title="For Companies" items={companiesData} renderContent={renderCompaniesContent} />
-            </li>
-            <li>
-              <Dropdown title="For Talent" items={talentData} renderContent={renderTalentContent} />
-            </li>
-            <li>
-              <Link href="/about">What we do</Link>
-            </li>
-            <li>
-              <Dropdown title="Industries" items={industriesData} renderContent={renderIndustriesContent} />
-            </li>
-            <li>
-              <Dropdown title="Services" items={servicesData} renderContent={renderServicesContent} />
-            </li>
-            <li>
-              <Dropdown title="Hire Talent" items={data} renderContent={renderHireContent} />
-            </li>
-          </ul>
-        </nav>
+      <div className={styles.logo}>
+        <Link href="/">
+          <Image 
+            src="/assets/logo/aberrange-logo-themed.png" // replace with the actual path to your logo
+            alt="Aberrange"
+            width={140}  // adjust based on your logo size
+            height={40}  // adjust based on your logo size
+            priority
+          />
+        </Link>
       </div>
+      <div className={styles.mobileMenuToggle} onClick={toggleMobileMenu}>
+        {isMobileMenuOpen ? '✕' : '☰'}
+      </div>
+      <nav className={`${styles.nav} ${isMobileMenuOpen ? styles.mobileOpen : ''}`}>
+        {navItems.map((item, index) => (
+          <div key={index} className={styles.navItem}>
+            {item.link ? (
+              <Link 
+                href={item.link} 
+                className={styles.navLink} 
+                onClick={() => {
+                  setActiveDropdown(null);
+                  toggleMobileMenu();
+                }}
+              >
+                {item.name}
+              </Link>
+            ) : (
+              <Dropdown 
+                title={item.name} 
+                data={item.data} 
+                isOpen={activeDropdown === item.name} 
+                onToggle={() => toggleDropdown(item.name)} 
+              />
+            )}
+          </div>
+        ))}
+      </nav>
     </header>
   );
 };

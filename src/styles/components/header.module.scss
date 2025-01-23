@@ -1,159 +1,89 @@
+@use "../variables" as vars;
 @use 'sass:color';
 
-/* Centralized Variables */
-$primary-color: #fc5546;
-$secondary-color: #ffffff;
-$hover-color: #e0453d;
-$border-color: #e0e0e0;
-$shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-$border-radius: 8px;
-
-/* General Styles */
 .header {
-  width: 100%;
-  background-color: $secondary-color;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.container {
+  background: vars.$gradient-background;
+  padding: vars.$spacing-medium vars.$spacing-small; // Reduced padding on sides for mobile
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  width: 100%;
-}
-
-.logo img {
-  width: 150px;
-  height: auto;
-}
-
-.navLinks {
-  ul {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-  }
-
-  &.mobile {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background-color: $secondary-color;
-    padding: 1rem;
-    box-shadow: $shadow;
-
-    ul {
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    li {
-      text-align: center;
-    }
-  }
 
   @media (max-width: 768px) {
-    display: none; /* Hide by default */
+    padding: vars.$spacing-small;
   }
 }
-.menuIcon {
-  display: none;
-  font-size: 2rem;
-  background: none;
-  border: none;
-  cursor: pointer;
 
+.logo {
+  // Hide logo on mobile
   @media (max-width: 768px) {
-    display: block;
-  }
-}
-
-/* Dropdown Styles */
-.dropdownContent {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 400px;
-  max-width: 90%;
-  padding: 1rem;
-  border: 1px solid $border-color;
-  box-shadow: $shadow;
-  border-radius: $border-radius;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 0.5rem;
-}
-
-.resetSelectionBtn {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background: $primary-color;
-  color: $secondary-color;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-align: center;
-  transition: background 0.3s ease;
-
-  &:hover {
-    background: $hover-color;
-  }
-}
-
-/* Reusable Button Style */
-.primaryBtn {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background: $primary-color;
-  color: $secondary-color;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: $hover-color;
-  }
-
-  &.disabled {
-    background-color: lighten($primary-color, 20%);
-    cursor: not-allowed;
-  }
-}
-
-/* Interactive States */
-.clickable {
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-
-  &:hover {
-    background-color: $primary-color;
-    color: $secondary-color;
-    border-radius: 4px;
-  }
-}
-
-.active {
-  color: $secondary-color;
-  font-weight: bold;
-  background-color: $primary-color;
-  border-radius: 4px;
-  padding: 0.5rem;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .navLinks {
     display: none;
   }
+}
 
-  .menuIcon {
-    display: block;
+.nav {
+  display: flex;
+  justify-content: flex-end; // Align items to the right
+  max-width: 100%; // Full width on larger screens too
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    display: none; // Hide nav on mobile unless toggled
+    width: 100%; // Full width on mobile
+  }
+}
+
+.mobileOpen {
+  @media (max-width: 768px) {
+    display: flex;
+  }
+}
+
+.navItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: vars.$spacing-small;
+  }
+}
+
+.navLink {
+  background: none;
+  border: none;
+  font-size: vars.$font-size-base;
+  padding: vars.$spacing-small vars.$spacing-medium;
+  color: vars.$text-color-on-gradient; 
+  // text-transform: none;
+  text-decoration: bold;
+  transition: vars.$transition;
+  
+  &:hover {
+    color: vars.$primary-color;
+  }
+
+  @media (max-width: 768px) {
+    font-size: vars.$font-size-base * 0.9;
+  }
+}
+
+.mobileMenuToggle {
+  cursor: pointer;
+  font-size: vars.$font-size-xl * 0.8; // Smaller for mobile but still visible
+  color: vars.$text-color-light;
+  // Position at top right for all screen sizes
+  position: absolute;
+  right: vars.$spacing-small;
+  top: vars.$spacing-small;
+  z-index: 1001; // Ensure it's above everything else
+
+  @media (min-width: 769px) {
+    display: none; // Hide on desktop
   }
 }

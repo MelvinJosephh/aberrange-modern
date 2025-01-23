@@ -1,64 +1,131 @@
-.dropdownWrapper {
-  position: relative;
+@use "../variables" as vars;
+@use 'sass:color';
 
-  .dropdownToggle {
+.dropdown {
+  cursor: pointer;
+  position: relative;
+  
+  .dropdownBtn {
     background: none;
     border: none;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 10px;
+    font-size: vars.$font-size-base;
+    padding: vars.$spacing-small vars.$spacing-medium;
+    color: vars.$text-color-light; 
+    // text-transform: uppercase;
+    transition: vars.$transition;
+    
     &:hover {
-      color: var(--primary-color);
+      color: vars.$primary-color;
     }
   }
+
+  &.open {
+    .dropdownBtn {
+      color: vars.$primary-color;
+    }
+  }
+
 
   .dropdownContent {
-    position: absolute;
-    top: 100%; /* Align dropdown below the button */
+    position: fixed;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%); /* Center dropdown */
-    width: 80vw; /* Adjust to fit content */
-    max-width: 1200px; /* Optional: set a max width */
-    background-color: var(--background-color);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 20px;
-    display: none; /* Hidden by default */
-    flex-wrap: wrap; /* Wrap content for responsiveness */
-    gap: 20px;
-    z-index: 1000;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: vars.$text-color-secondary; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1001; // Make sure it's above the header
+    padding: vars.$spacing-medium;
+    border-radius: vars.$border-radius-small;
+    color: vars.$text-color-primary; 
 
-    &.active {
-      display: flex; /* Show on active state */
+    .gridContainer {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); 
+      gap: vars.$spacing-medium;
+    }
+    .simpleList, .engagementModels, .categories, .items {
+      padding: vars.$spacing-small;
+    }
+
+    .model, .item {
+      margin-bottom: vars.$spacing-medium;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    h3, h4 {
+      cursor: pointer;
+      color: vars.$text-color-highlight; // Highlight color for headings
+      &:hover {
+        color: vars.$primary-color;
+      }
+    }
+
+    .category, .subcategory {
+      margin-bottom: vars.$spacing-medium;
+    }
+
+    .actionLink, .quoteButton {
+      display: block;
+      margin-top: vars.$spacing-small;
+      padding: vars.$spacing-small vars.$spacing-medium;
+      text-decoration: none;
+      background-color: vars.$primary-color;
+      color: vars.$text-color-on-primary; // Light text for contrast on primary background
+      border-radius: vars.$border-radius-small;
+      transition: vars.$transition;
+      &:hover {
+        background-color: color.scale(vars.$primary-color, $lightness: -10%);
+      }
+    }
+
+    .quoteButton {
+      border: none;
+      cursor: pointer;
+    }
+
+    .footer {
+      grid-column: 1 / -1;
+      margin-top: vars.$spacing-large;
+      padding: vars.$spacing-medium;
+      background: vars.$secondary-color; // Use secondary color directly for better contrast
+      color: vars.$text-color-on-secondary; // Light text for contrast on secondary background
+      border-radius: vars.$border-radius-small;
+    }
+
+    .contactButton {
+      background: vars.$primary-color;
+      color: vars.$text-color-on-primary;
+      border: none;
+      padding: vars.$spacing-small vars.$spacing-medium;
+      cursor: pointer;
+      transition: vars.$transition;
+      &:hover {
+        background: color.scale(vars.$primary-color, $lightness: -10%);
+      }
     }
   }
 
-  .dropdownSections {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive columns */
-    gap: 20px;
-  }
-
-  .dropdownSection {
-    .sectionTitle {
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-
-      li {
-        margin-bottom: 10px;
-
-        a {
-          text-decoration: none;
-          color: var(--link-color);
-          &:hover {
-            color: var(--primary-color);
-          }
+  @media (max-width: 768px) {
+    .dropdownContent {
+      width: 100%;
+      .gridContainer {
+        grid-template-columns: 1fr; 
+        .engagementModels {
+          display: none; 
         }
+        .simpleList, .categories, .items {
+          grid-column: 1; 
+        }
+      }
+      .footer {
+        grid-column: 1; 
       }
     }
   }

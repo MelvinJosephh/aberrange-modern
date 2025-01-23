@@ -38,12 +38,12 @@
     text-align: center;
 
     &:hover {
-      background-color: color.adjust(vars.$primary-color, $lightness: -10%);
+      background-color: vars.$secondary-color;
     }
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px color.adjust(vars.$primary-color, $lightness: 40%);
+      box-shadow: 0 0 0 3px vars.$secondary-color;
     }
   }
 }
