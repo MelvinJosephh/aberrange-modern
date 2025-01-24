@@ -1,32 +1,31 @@
-// findwork.module.scss
 @use "../variables" as vars;
 @use 'sass:color';
 
-.find-work-page {
+.findWorkPage {
   font-family: Arial, sans-serif;
   background-color: #f7f7f7;
   padding: vars.$spacing-large;
 
-  .header-section {
+  .headerSection {
     background: vars.$gradient-background;
-    color: vars.$text-color-light;
+    color: vars.$text-color-on-gradient; // Changed to use on-gradient text color for better contrast
     padding: vars.$spacing-large;
     border-radius: vars.$border-radius-small;
     text-align: center;
 
-    h1 {
+    .title {
       font-size: vars.$font-size-xl;
       font-weight: vars.$font-weight-bold;
     }
 
-    p {
+    .description {
       font-size: vars.$font-size-base;
       margin: vars.$spacing-medium 0;
     }
 
-    .cta-button {
+    .ctaButton {
       background-color: vars.$primary-color;
-      color: vars.$text-color-light;
+      color: vars.$text-color-on-primary; // Changed for contrast
       font-size: vars.$font-size-base;
       padding: vars.$spacing-small vars.$spacing-medium;
       border: none;
@@ -35,60 +34,70 @@
       transition: vars.$transition;
 
       &:hover {
-        background-color: color.scale(vars.$primary-color, $lightness: -10%);
+        background-color: vars.$gradient-background; // Using darken instead of scale for simplicity
       }
     }
   }
 
-  .job-categories {
+  .jobCategories {
     margin-top: vars.$spacing-large;
     text-align: center;
 
-    h2 {
+    .subtitle {
       font-size: vars.$font-size-xl;
       color: vars.$secondary-color;
     }
 
-    ul {
+    .categoryList {
       list-style: none;
       padding: 0;
       margin-top: vars.$spacing-small;
+      display: flex; // Changed to flex for better layout control
+      flex-wrap: wrap;
+      justify-content: center; // Center-align items
 
-      li {
-        margin: vars.$spacing-small 0;
+      .categoryItem {
+        margin: vars.$spacing-small;
 
-        a {
+        .categoryLink {
           color: vars.$secondary-color;
           font-size: vars.$font-size-base;
           text-decoration: none;
           transition: vars.$transition;
+          padding: vars.$spacing-small vars.$spacing-medium; // Added padding for better touch targets
+          border: 1px solid vars.$secondary-color;
+          border-radius: vars.$border-radius-small;
 
           &:hover {
             color: vars.$primary-color;
-            text-decoration: underline;
+            background: vars.$gradient-background; // Semi-transparent background on hover
+            text-decoration: none;
           }
         }
       }
     }
   }
 
-  .remote-jobs {
+  .remoteJobs {
     margin-top: vars.$spacing-large;
     text-align: center;
+    background: vars.$gradient-background;
+    padding: vars.$spacing-large;
+    border-radius: vars.$border-radius-small;
 
-    h2 {
+    .subtitle {
       font-size: vars.$font-size-xl;
-      color: vars.$secondary-color;
+     
     }
 
-    p {
+    .description {
       font-size: vars.$font-size-base;
       margin: vars.$spacing-medium 0;
     }
 
-    .cta-button {
+    .ctaButton {
       background-color: vars.$secondary-color;
-      color: vars.$text-color-light;
+      color: vars.$text-color-on-secondary; // Changed for contrast
       font-size: vars.$font-size-base;
       padding: vars.$spacing-small vars.$spacing-medium;
       border: none;
@@ -97,8 +106,25 @@
       transition: vars.$transition;
 
       &:hover {
-        background-color: color.scale(vars.$secondary-color, $lightness: -10%);
+        background-color: vars.$gradient-background;
       }
+    }
+  }
+
+  // Responsive design adjustments
+  @media (max-width: 768px) {
+    padding: vars.$spacing-small;
+
+    .headerSection, .jobCategories, .remoteJobs {
+      padding: vars.$spacing-medium;
+    }
+
+    .categoryList {
+      flex-direction: column; // Stack items vertically on smaller screens
+    }
+
+    .categoryItem {
+      margin: vars.$spacing-small 0; // Adjust margins for vertical layout
     }
   }
 }

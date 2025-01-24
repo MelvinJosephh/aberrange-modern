@@ -3,87 +3,92 @@
 
 .header {
   background: vars.$gradient-background;
-  padding: vars.$spacing-medium vars.$spacing-small; // Reduced padding on sides for mobile
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  padding: vars.$spacing-medium;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  @media (max-width: 768px) {
-    padding: vars.$spacing-small;
-  }
-}
-
-.logo {
-  // Hide logo on mobile
-  @media (max-width: 768px) {
-    display: none;
-  }
-}
-
-.nav {
-  display: flex;
-  justify-content: flex-end; // Align items to the right
-  max-width: 100%; // Full width on larger screens too
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
-    display: none; // Hide nav on mobile unless toggled
-    width: 100%; // Full width on mobile
-  }
-}
-
-.mobileOpen {
-  @media (max-width: 768px) {
-    display: flex;
-  }
-}
-
-.navItem {
   position: relative;
-  display: flex;
-  align-items: center;
+  z-index: 1000;
 
-  @media (max-width: 768px) {
-    width: 100%;
-    margin-bottom: vars.$spacing-small;
-  }
-}
+  .logo {
+    a {
+      display: flex;
+      align-items: center;
+      color: vars.$text-color-on-secondary;
+      text-decoration: none;
 
-.navLink {
-  background: none;
-  border: none;
-  font-size: vars.$font-size-base;
-  padding: vars.$spacing-small vars.$spacing-medium;
-  color: vars.$text-color-on-gradient; 
-  // text-transform: none;
-  text-decoration: bold;
-  transition: vars.$transition;
-  
-  &:hover {
-    color: vars.$primary-color;
+      img {
+        width: auto;
+        height: 40px; // Matches the height set in header.tsx
+      }
+    }
   }
 
-  @media (max-width: 768px) {
-    font-size: vars.$font-size-base * 0.9;
+  .mobileMenuToggle {
+    display: none;
+    color: vars.$text-color-on-secondary;
+    font-size: vars.$font-size-base * 1.5;
+    cursor: pointer;
+    @media (max-width: 768px) {
+      display: block;
+    }
   }
-}
 
-.mobileMenuToggle {
-  cursor: pointer;
-  font-size: vars.$font-size-xl * 0.8; // Smaller for mobile but still visible
-  color: vars.$text-color-light;
-  // Position at top right for all screen sizes
-  position: absolute;
-  right: vars.$spacing-small;
-  top: vars.$spacing-small;
-  z-index: 1001; // Ensure it's above everything else
+  .nav {
+    display: flex;
+    gap: vars.$spacing-medium;
 
-  @media (min-width: 769px) {
-    display: none; // Hide on desktop
+    .navItem {
+      .navLink, .dropdownBtn {
+        color: vars.$text-color-on-secondary;
+        text-decoration: none;
+        font-weight: vars.$font-weight-bold;
+        transition: vars.$transition;
+        padding: vars.$spacing-small vars.$spacing-medium;
+        border-radius: vars.$border-radius-small;
+        background: transparent;
+        display: inline-block; 
+
+        &:hover, &:focus {
+          background: color.adjust(vars.$secondary-color, $alpha: -0.7); 
+        }
+      }
+    }
+
+    // Mobile view adjustments
+    @media (max-width: 768px) {
+      flex-direction: column;
+      position: absolute;
+      top: 60px; 
+      left: 0;
+      right: 0;
+      background: color.adjust(vars.$secondary-color, $lightness: -10%);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      padding: vars.$spacing-small;
+      gap: vars.$spacing-small;
+
+      &.mobileOpen {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .navItem {
+        width: 100%;
+        .navLink, .dropdownBtn {
+          display: block;
+          text-align: left;
+          padding: vars.$spacing-small;
+          color: vars.$text-color-on-secondary;
+          background: transparent;
+          font-weight: vars.$font-weight-bold;
+          transition: vars.$transition;
+          &:hover, &:focus {
+            background: color.adjust(vars.$secondary-color, $alpha: -0.7);
+          }
+        }
+      }
+    }
   }
 }

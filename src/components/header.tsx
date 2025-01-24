@@ -4,18 +4,16 @@ import React, { useState } from 'react';
 import styles from '@/styles/components/header.module.scss';
 import Dropdown from './dropdown';
 import talentData from '@/lib/data/talentData';
-import companiesData from '@/lib/data/companiesData';
 import { industriesData } from '@/lib/models/industries-model';
-import { servicesData } from '@/lib/models/services-model';
 import Link from 'next/link';
 import Image from 'next/image'; // Import Image component
 
 const Header: React.FC = () => {
   const navItems = [
-    { name: 'For Companies', data: companiesData },
+    { name: 'For Companies', data: industriesData },
     { name: 'For Talent', data: talentData },
-    { name: 'Industries', data: industriesData, link: '/industries' },
-    { name: 'Our Solutions', data: servicesData },
+    { name: 'Industries', link: '/industries' },
+    { name: 'Our Solutions', link: '/our-solutions' },
     { name: 'What we do', data: [], link: '/about' }
   ];
 
@@ -28,17 +26,24 @@ const Header: React.FC = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+    setActiveDropdown(null);
   };
+
+  // const getIndustryLink = (industry: string) => {
+  //   // Convert industry names to kebab-case for URL
+  //   const industryPath = industry.toLowerCase().replace(/[ &]/g, '-');
+  //   return `/industries/${industryPath}`;
+  // };
 
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
         <Link href="/">
           <Image 
-            src="/assets/logo/aberrange-logo-themed.png" // replace with the actual path to your logo
+            src="/assets/logo/aberrange-logo-themed.png" 
             alt="Aberrange"
-            width={140}  // adjust based on your logo size
-            height={40}  // adjust based on your logo size
+            width={140}  
+            height={40}  
             priority
           />
         </Link>
@@ -65,7 +70,7 @@ const Header: React.FC = () => {
                 title={item.name} 
                 data={item.data} 
                 isOpen={activeDropdown === item.name} 
-                onToggle={() => toggleDropdown(item.name)} 
+                onToggle={() => toggleDropdown(item.name)}
               />
             )}
           </div>

@@ -2,131 +2,118 @@
 @use 'sass:color';
 
 .dropdown {
-  cursor: pointer;
   position: relative;
-  
+  display: inline-block;
+
   .dropdownBtn {
     background: none;
     border: none;
-    font-size: vars.$font-size-base;
-    padding: vars.$spacing-small vars.$spacing-medium;
-    color: vars.$text-color-light; 
-    // text-transform: uppercase;
+    color: vars.$text-color-on-secondary;
+    font-weight: vars.$font-weight-bold;
+    cursor: pointer;
     transition: vars.$transition;
-    
+    padding: vars.$spacing-small vars.$spacing-medium;
+    border-radius: vars.$border-radius-small;
+
     &:hover {
-      color: vars.$primary-color;
+      background: color.adjust(vars.$secondary-color, $alpha: -0.7);
     }
   }
-
-  &.open {
-    .dropdownBtn {
-      color: vars.$primary-color;
-    }
-  }
-
 
   .dropdownContent {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 1200px;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: vars.$text-color-secondary; 
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1001; // Make sure it's above the header
-    padding: vars.$spacing-medium;
+    position: absolute;
+    background: vars.$secondary-color;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
     border-radius: vars.$border-radius-small;
-    color: vars.$text-color-primary; 
+    padding: vars.$spacing-medium;
+    // display: none;
+    max-height: 80vh;
+    overflow-y: auto;
+
+    &.open {
+      display: block;
+    }
 
     .gridContainer {
       display: grid;
-      grid-template-columns: repeat(3, 1fr); 
       gap: vars.$spacing-medium;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
     }
-    .simpleList, .engagementModels, .categories, .items {
+
+    .simpleList {
+      // For Talent data - list style
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li, .item {
+        margin-bottom: vars.$spacing-small;
+        a {
+          color: vars.$text-color-on-secondary;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    .categories {
+      // For Companies data - more structured layout
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li, .item {
+        margin-bottom: vars.$spacing-small;
+        color: vars.$text-color-on-secondary;
+      }
+
+      .actionLink {
+        display: block;
+        margin-top: vars.$spacing-small;
+        background: vars.$primary-color;
+        color: vars.$text-color-on-primary;
+        padding: vars.$spacing-small vars.$spacing-medium;
+        border-radius: vars.$border-radius-small;
+        text-decoration: none;
+        transition: vars.$transition;
+
+        &:hover {
+          background: color.adjust(vars.$primary-color, $lightness: -10%);
+        }
+      }
+
+      .quoteButton {
+        display: block;
+        width: 100%;
+        margin-top: vars.$spacing-small;
+        background: vars.$primary-color;
+        color: vars.$text-color-on-primary;
+        padding: vars.$spacing-small vars.$spacing-medium;
+        border: none;
+        border-radius: vars.$border-radius-small;
+        cursor: pointer;
+        text-align: center;
+        transition: vars.$transition;
+
+        &:hover {
+          background: color.adjust(vars.$primary-color, $lightness: -10%);
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      max-height: 60vh;
       padding: vars.$spacing-small;
-    }
-
-    .model, .item {
-      margin-bottom: vars.$spacing-medium;
-      img {
-        width: 20px;
-        height: 20px;
-      }
-    }
-
-    h3, h4 {
-      cursor: pointer;
-      color: vars.$text-color-highlight; // Highlight color for headings
-      &:hover {
-        color: vars.$primary-color;
-      }
-    }
-
-    .category, .subcategory {
-      margin-bottom: vars.$spacing-medium;
-    }
-
-    .actionLink, .quoteButton {
-      display: block;
-      margin-top: vars.$spacing-small;
-      padding: vars.$spacing-small vars.$spacing-medium;
-      text-decoration: none;
-      background-color: vars.$primary-color;
-      color: vars.$text-color-on-primary; // Light text for contrast on primary background
-      border-radius: vars.$border-radius-small;
-      transition: vars.$transition;
-      &:hover {
-        background-color: color.scale(vars.$primary-color, $lightness: -10%);
-      }
-    }
-
-    .quoteButton {
-      border: none;
-      cursor: pointer;
-    }
-
-    .footer {
-      grid-column: 1 / -1;
-      margin-top: vars.$spacing-large;
-      padding: vars.$spacing-medium;
-      background: vars.$secondary-color; // Use secondary color directly for better contrast
-      color: vars.$text-color-on-secondary; // Light text for contrast on secondary background
-      border-radius: vars.$border-radius-small;
-    }
-
-    .contactButton {
-      background: vars.$primary-color;
-      color: vars.$text-color-on-primary;
-      border: none;
-      padding: vars.$spacing-small vars.$spacing-medium;
-      cursor: pointer;
-      transition: vars.$transition;
-      &:hover {
-        background: color.scale(vars.$primary-color, $lightness: -10%);
-      }
-    }
-  }
-
-  @media (max-width: 768px) {
-    .dropdownContent {
-      width: 100%;
-      .gridContainer {
-        grid-template-columns: 1fr; 
-        .engagementModels {
-          display: none; 
-        }
-        .simpleList, .categories, .items {
-          grid-column: 1; 
-        }
-      }
-      .footer {
-        grid-column: 1; 
-      }
     }
   }
 }
