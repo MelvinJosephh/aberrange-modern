@@ -12,6 +12,7 @@ interface StepTemplateProps {
   onBack?: () => void;
   isFirst?: boolean;
   isFinalStep?: boolean;
+  showNext?: boolean; // New prop to control visibility of Next button
   children?: React.ReactNode;
 }
 
@@ -24,6 +25,7 @@ const StepTemplate: React.FC<StepTemplateProps> = ({
   onBack,
   isFirst = false,
   isFinalStep = false,
+  showNext = true, // Default to show the Next button
   children,
 }) => {
   const handleOptionClick = (option: string) => {
@@ -73,9 +75,11 @@ const StepTemplate: React.FC<StepTemplateProps> = ({
             Back
           </button>
         )}
-        <button className={styles.button} onClick={onNext}>
-          {isFinalStep ? 'Finish' : 'Next'}
-        </button>
+        {showNext && (
+          <button className={styles.button} onClick={onNext}>
+            {isFinalStep ? 'Finish' : 'Next'}
+          </button>
+        )}
       </div>
     </div>
   );
