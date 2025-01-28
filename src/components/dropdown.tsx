@@ -1,77 +1,46 @@
-'use client';
-
+// src/components/Dropdown.tsx
 import React from 'react';
-import Link from 'next/link';
-import styles from '@/styles/components/dropdown.module.scss';
+import { 
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger 
+} from "@/components/ui/navigation-menu";
+import { JobCategory, JobDescription } from '../lib/models/services-model';
 
 interface DropdownProps {
-  title: string;
-  data: any; 
-  onToggle: () => void; 
-  isOpen: boolean; 
+  data?: JobCategory;
+  descriptions?: JobDescription;
 }
 
-interface Item {
-  name: string;
-  description?: string;
-  link?: string;
-}
-
-const getIndustryLink = (industry: string) => {
-  return `/industries-specific/${industry.toLowerCase().replace(/[ &]/g, '-')}`;
-};
-
-const Dropdown: React.FC<DropdownProps> = ({ title, data, isOpen, onToggle }) => {
-  const renderContent = () => {
-    if (!data || Object.keys(data).length === 0) return <div>No data available</div>;
-
-    if (Array.isArray(data)) {
-      // For Talent
-      return (
-        <div className={styles.simpleList}>
-          {data.map((item: Item, idx) => (
-            <div key={idx} className={styles.item}>
-              <Link href={item.link || '#'}>{item.name}</Link>
-            </div>
-          ))}
-        </div>
-      );
-    } else if ('industries' in data) {
-      // For Companies (Industries)
-      return (
-        <div className={styles.gridContainer}>
-          <div className={styles.categories}>
-            <ul>
-              {data.industries.map((industry: string, i: number) => (
-                <li key={i} className={styles.item}>
-                  <Link href={getIndustryLink(industry)}>{industry}</Link>
-                </li>
-              ))}
-            </ul>
-            {data.actions && data.actions.map((action: any, idx: number) => (
-              <Link key={idx} href={action.link} className={styles.actionLink}>{action.name}</Link>
-            ))}
-            {data.button && <Link href={data.button.link} className={styles.quoteButton}>{data.button.label}</Link>}
-          </div>
-        </div>
-      );
-    }
-
-    return <p>Content for {title} not specified</p>;
-  };
+export const Dropdown: React.FC<DropdownProps> = ({ data, descriptions }) => {
+  if (!data || !descriptions) return null;
 
   return (
-    <div className={`${styles.dropdown} ${isOpen ? styles.open : ''}`}>
-      <button onClick={onToggle} className={styles.dropdownBtn}>
-        {title}
-      </button>
-      {isOpen && (
-        <div className={styles.dropdownContent}>
-          {renderContent()}
-        </div>
-      )}
-    </div>
+    <NavigationMenu>
+      <NavigationMenuList>
+        {Object.keys(data).map(category => (
+          <NavigationMenuItem key={category}>
+            <NavigationMenuTrigger>{category}</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
+                {data[category].map((item, index) => (
+                  <li key={index}>
+                    <NavigationMenuLink className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                      {item}
+                    </NavigationMenuLink>
+                  </li>
+                ))}
+                <li>
+                  <p className="text-sm text-muted-foreground">{descriptions[category]}</p>
+                </li>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        ))}
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };
-
-export default Dropdown;

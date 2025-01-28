@@ -206,4 +206,47 @@ export const servicesData = {
     name: string;
     description: string;
   }
+  export interface JobCategory {
+    [key: string]: string[];
+  }
   
+  export interface JobDescription {
+    [key: string]: string;
+  }
+  
+  export interface Action {
+    name: string;
+    link: string;
+  }
+  
+  export interface Button {
+    label: string;
+    link: string;
+  }
+  
+  export interface EngagementModel {
+    icon: string;
+    title: string;
+    description: string;
+  }
+  
+  export interface ServiceItem {
+    name: string;
+    description: string;
+  }
+  
+  export interface Subcategory {
+    title: string;
+    items: ServiceItem[];
+  }
+  
+  export interface ServiceCategory {
+    title: string;
+    subcategories: Subcategory[];
+  }
+  
+  export interface ServicesFooter {
+    title: string;
+    description: string;
+    buttonLabel: string;
+  }
