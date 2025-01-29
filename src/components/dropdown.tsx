@@ -1,46 +1,80 @@
+'use client';
 // src/components/Dropdown.tsx
-import React from 'react';
+import React, { useState } from 'react';
+import Link from 'next/link';
 import { 
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger 
+  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { JobCategory, JobDescription } from '../lib/models/services-model';
+import { data, descriptions } from '../lib/models/hire-talent-model';
+import styles from '../styles/components/dropdown.module.scss';
 
 interface DropdownProps {
-  data?: JobCategory;
-  descriptions?: JobDescription;
+  data: typeof data;
+  descriptions: typeof descriptions;
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({ data, descriptions }) => {
-  if (!data || !descriptions) return null;
+export function Dropdown({ data, descriptions }: DropdownProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+  const handleToggle = () => setIsOpen(!isOpen);
 
   return (
     <NavigationMenu>
-      <NavigationMenuList>
-        {Object.keys(data).map(category => (
-          <NavigationMenuItem key={category}>
-            <NavigationMenuTrigger>{category}</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px]">
-                {data[category].map((item, index) => (
-                  <li key={index}>
-                    <NavigationMenuLink className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                      {item}
-                    </NavigationMenuLink>
-                  </li>
-                ))}
-                <li>
-                  <p className="text-sm text-muted-foreground">{descriptions[category]}</p>
+      <NavigationMenuItem>
+        <NavigationMenuTrigger 
+          onMouseEnter={handleToggle} 
+          onMouseLeave={handleToggle} 
+          onClick={handleToggle}
+          className={styles.hasDropdown}
+        >
+          Hire Talent
+        </NavigationMenuTrigger>
+        <div className={`${styles.dropdown} ${isOpen ? styles.open : ''}`}>
+          <div className={styles.categoryList}>
+            <ul>
+              {Object.keys(data).map(category => (
+                <li key={category} className={styles.categoryItem}>
+                  <button 
+                    onClick={() => {
+                      setActiveCategory(category);
+                      handleToggle(); // Close the dropdown after selection for cleaner UX
+                    }}
+                    className={styles.categoryButton}
+                  >
+                    {category}
+                  </button>
                 </li>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        ))}
-      </NavigationMenuList>
+              ))}
+            </ul>
+          </div>
+
+          {activeCategory && (
+            <div className={styles.content}>
+              <div className={styles.itemList}>
+                <ul>
+                  {data[activeCategory].map((item, index) => (
+                    <li key={index} className={styles.item}>
+                      <Link href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}>
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className={styles.description}>
+                <h3>{activeCategory}</h3>
+                <p>{descriptions[activeCategory]}</p>
+                <Link href="/contact" className={styles.learnMoreButton}>
+                  Learn More
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+      </NavigationMenuItem>
     </NavigationMenu>
   );
-};
+}

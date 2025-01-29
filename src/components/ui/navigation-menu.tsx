@@ -48,3 +48,5 @@ export const NavigationMenuTrigger = React.forwardRef<
   <button ref={ref} className={cn("navigation-menu-trigger", className)} {...props} />
 ));
 NavigationMenuTrigger.displayName = "NavigationMenuTrigger";
+
+export { cn };

@@ -1,12 +1,6 @@
 @use './variables' as vars;
 @use 'sass:color'; // Import the color module
 
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
 // Reset Styles
 * {
   margin: 0;

@@ -1,119 +1,84 @@
 @use "../variables" as vars;
 @use 'sass:color';
-
 .dropdown {
-  position: relative;
-  display: inline-block;
+  position: absolute;
+  top: calc(100% + 1rem); // Position below the nav item with some space
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  z-index: 1000;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 1rem;
+  max-width: calc(100vw - 4rem); // Ensure it doesn't go off-screen on mobile
+  width: 300px; // Default width, adjust as needed
+  text-align: center;
 
-  .dropdownBtn {
-    background: none;
-    border: none;
-    color: vars.$text-color-on-secondary;
-    font-weight: vars.$font-weight-bold;
-    cursor: pointer;
-    transition: vars.$transition;
-    padding: vars.$spacing-small vars.$spacing-medium;
-    border-radius: vars.$border-radius-small;
+  &.open {
+    display: block;
+  }
 
-    &:hover {
-      background: color.adjust(vars.$secondary-color, $alpha: -0.7);
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin: 0.5rem 0;
+
+      a {
+        color: #007bff;
+        text-decoration: none;
+        display: block;
+        padding: 0.5rem;
+        border-radius: 4px;
+
+        &:hover {
+          background-color: #e9ecef;
+        }
+      }
     }
   }
 
-  .dropdownContent {
-    position: absolute;
-    background: vars.$secondary-color;
-    min-width: 200px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    z-index: 1;
-    border-radius: vars.$border-radius-small;
-    padding: vars.$spacing-medium;
-    // display: none;
-    max-height: 80vh;
-    overflow-y: auto;
+  // Media query for responsiveness
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 
-    &.open {
-      display: block;
-    }
+  // Common for both dropdown types
+  .actions, .button {
+    margin-top: 1rem;
+  }
 
-    .gridContainer {
-      display: grid;
-      gap: vars.$spacing-medium;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 
-      @media (max-width: 768px) {
-        grid-template-columns: 1fr;
+    a {
+      background-color: #007bff;
+      color: white;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: #0056b3;
       }
     }
+  }
 
-    .simpleList {
-      // For Talent data - list style
-      ul {
-        list-style-type: none;
-        padding: 0;
-      }
+  .button {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
 
-      li, .item {
-        margin-bottom: vars.$spacing-small;
-        a {
-          color: vars.$text-color-on-secondary;
-          text-decoration: none;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-    }
-
-    .categories {
-      // For Companies data - more structured layout
-      ul {
-        list-style-type: none;
-        padding: 0;
-      }
-
-      li, .item {
-        margin-bottom: vars.$spacing-small;
-        color: vars.$text-color-on-secondary;
-      }
-
-      .actionLink {
-        display: block;
-        margin-top: vars.$spacing-small;
-        background: vars.$primary-color;
-        color: vars.$text-color-on-primary;
-        padding: vars.$spacing-small vars.$spacing-medium;
-        border-radius: vars.$border-radius-small;
-        text-decoration: none;
-        transition: vars.$transition;
-
-        &:hover {
-          background: color.adjust(vars.$primary-color, $lightness: -10%);
-        }
-      }
-
-      .quoteButton {
-        display: block;
-        width: 100%;
-        margin-top: vars.$spacing-small;
-        background: vars.$primary-color;
-        color: vars.$text-color-on-primary;
-        padding: vars.$spacing-small vars.$spacing-medium;
-        border: none;
-        border-radius: vars.$border-radius-small;
-        cursor: pointer;
-        text-align: center;
-        transition: vars.$transition;
-
-        &:hover {
-          background: color.adjust(vars.$primary-color, $lightness: -10%);
-        }
-      }
-    }
-
-    @media (max-width: 768px) {
-      max-height: 60vh;
-      padding: vars.$spacing-small;
+    &:hover {
+      background-color: #218838;
     }
   }
 }

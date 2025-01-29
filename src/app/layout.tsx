@@ -1,5 +1,5 @@
 // src/app/layout.tsx
-import {Header} from '@/components/header';   // Import the Header component
+import Header from '@/components/header';   // Import the Header component
 import Footer from '@/components/footer';   // Import the Footer component
 import '@/styles/globals.scss'; 
 import 'font-awesome/css/font-awesome.min.css';
