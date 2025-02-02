@@ -1,43 +1,75 @@
 'use client';
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { industriesData } from '../lib/models/industries-model'; // Assuming this is where your data is defined
-import styles from '../styles/styles.module.scss';
+
+import React from 'react';
+import { industriesData } from '../lib/models/industries-model';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuLink,
+} from '@/components/ui/navigation-menu';
 
 const IndustriesDropdown: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => setIsOpen(!isOpen);
-
   return (
-    <div className="dropdown-wrapper">
-      <button onClick={toggleDropdown} className={styles['dropdown-toggle']}>
-        Industries {isOpen ? '▲' : '▼'}
-      </button>
-      {isOpen && (
-        <div className={styles['dropdown-menu']}>
-          <ul className={styles['industry-list']}>
-            {industriesData.industries.map((industry, index) => (
-              <li key={index}>
-                <Link href={`/industries/${industry.toLowerCase().replace(/\s+/g, '-')}`}>
-                  {industry}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className={styles['actions']}>
-            {industriesData.actions.map((action, index) => (
-              <Link key={index} href={action.link} className={styles['action-link']}>
-                {action.name}
-              </Link>
-            ))}
-          </div>
-          <Link href={industriesData.button.link} className={styles['button']}>
-            {industriesData.button.label}
-          </Link>
-        </div>
-      )}
-    </div>
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Industries</NavigationMenuTrigger>
+          <NavigationMenuContent 
+            className="grid grid-cols-2 gap-4 p-6 md:w-[400px] lg:w-[500px]"
+          >
+            <div className="col-span-1">
+              <h3 className="mb-2 text-lg font-medium">Industries</h3>
+              <ul className="space-y-2">
+                {industriesData.industries.map((industry, index) => (
+                  <li key={index}>
+                    <NavigationMenuLink asChild>
+                      <a 
+                        href={`/industries-specific/${industry.toLowerCase().replace(/\s+/g, '-')}`}
+                        className="block text-gray-700 p-2 rounded-md hover:bg-gray-100 transition"
+                      >
+                        {industry}
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="col-span-1">
+              <h3 className="mb-2 text-lg font-medium">Actions</h3>
+              <ul className="space-y-2">
+                {industriesData.actions.map((action, index) => (
+                  <li key={index}>
+                    <NavigationMenuLink asChild>
+                      <a 
+                        href={action.link}
+                        className="block text-sm text-blue-600 p-2 rounded-md hover:underline hover:bg-gray-100 transition"
+                      >
+                        {action.name}
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="col-span-2 mt-4">
+              <NavigationMenuLink asChild>
+                <a 
+                  href={industriesData.button.link}
+                  className="w-full text-center bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+                >
+                  {industriesData.button.label}
+                </a>
+              </NavigationMenuLink>
+            </div>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };
 

@@ -3,7 +3,7 @@ import Header from '@/components/header';   // Import the Header component
 import Footer from '@/components/footer';   // Import the Footer component
 import '@/styles/globals.scss'; 
 import 'font-awesome/css/font-awesome.min.css';
-import { data, descriptions } from '@/lib/models/hire-talent-model';
+
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Other head elements like metadata, fonts, etc. */}
       </head>
       <body>
-        <Header data={data} descriptions={descriptions}/>   {/* Always show Header */}
+        <Header />   {/* Always show Header */}
         <main>
           {children}  {/* This is where the content of each page will be injected */}
         </main>

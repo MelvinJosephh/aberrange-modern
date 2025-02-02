@@ -1,0 +1,88 @@
+@use "../variables" as vars;
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.toggle {
+  background: vars.$primary-color;
+  color: vars.$text-color-on-primary;
+  padding: vars.$spacing-medium;
+  border: none;
+  border-radius: vars.$border-radius-small;
+  cursor: pointer;
+  transition: vars.$transition;
+
+  &:hover {
+    background: darken(vars.$primary-color, 10%);
+  }
+}
+
+.menu {
+  position: absolute; // Positioning relative to the toggle
+  top: 100%; // Position just below the toggle button
+  left: 50%; // Center horizontally
+  transform: translateX(-50%); // Adjust for centering
+
+  max-width: vars.$container-width; // Limit width on larger screens
+  background: vars.$secondary-color;
+  color: vars.$text-color-on-secondary;
+  border-radius: vars.$border-radius-small;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000; // Ensure it's on top of other elements
+  padding: vars.$spacing-medium;
+  max-height: 80vh; // Limit height to avoid taking too much screen space
+  overflow-y: auto; // Allow scrolling if content overflows
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // Three columns for categories, subcategories, and details
+  gap: vars.$spacing-medium;
+}
+
+.categoryColumn, .subcategoryColumn, .detailsColumn {
+  padding: vars.$spacing-small;
+}
+
+.categories, .subcategories {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-small;
+}
+
+.category, .subcategory {
+  cursor: pointer;
+  padding: vars.$spacing-small;
+  border-radius: vars.$border-radius-small;
+  transition: vars.$transition;
+  background: transparent;
+
+  &:hover, &.active {
+    background: vars.$primary-color;
+    color: vars.$text-color-on-primary;
+  }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-small;
+  background: vars.$gradient-background;
+  padding: vars.$spacing-small;
+  border-radius: vars.$border-radius-small;
+  color: vars.$text-color-on-gradient;
+
+  .detailsTitle {
+    font-weight: vars.$font-weight-bold;
+  }
+
+  .detailsDescription {
+    font-size: 0.9rem;
+    color: vars.$text-color-muted;
+  }
+}

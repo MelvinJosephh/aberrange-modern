@@ -1,50 +1,28 @@
 @use "../variables" as vars;
 @use 'sass:color';
 
+
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background: var(--background);
   padding: 1rem 2rem;
-  background-color: #f8f9fa;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  position: relative; // for absolute positioning of dropdowns
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    text-decoration: none;
-  }
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  .navItems {
-    display: flex;
-    gap: 1rem;
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 
-    a {
-      position: relative; // for dropdown positioning
-      text-decoration: none;
-      color: #333;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      transition: background-color 0.3s;
-
-      &:hover {
-        background-color: #e9ecef;
-      }
-
-      &.hasDropdown {
-        padding-right: 2rem; // space for the dropdown icon
-
-        &::after {
-          content: '\25BC'; // down arrow unicode
-          position: absolute;
-          right: 0.5rem;
-          top: 50%;
-          transform: translateY(-50%);
-          font-size: 0.75rem;
-        }
-      }
-    }
-  }
+.dropdowns {
+  display: flex;
+  gap: 1.5rem;
 }

@@ -1,0 +1,114 @@
+@use "../variables" as vars;
+
+.dropdownContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.toggle {
+  background: vars.$primary-color;
+  color: vars.$text-color-on-primary;
+  padding: vars.$spacing-medium;
+  border: none;
+  border-radius: vars.$border-radius-small;
+  cursor: pointer;
+  transition: vars.$transition;
+
+  &:hover {
+    background: darken(vars.$primary-color, 10%);
+  }
+}
+
+.fullWidthMenu {
+  position: fixed; // Use fixed positioning to span the entire screen width
+  top: calc(100% + var(--spacing-medium)); // Position below the toggle button
+  left: 0;
+  right: 0; // Stretch across the screen
+  z-index: 1000; // Ensure it's above other content
+  background: vars.$secondary-color;
+  color: vars.$text-color-on-secondary;
+  border-radius: vars.$border-radius-small vars.$border-radius-small 0 0; // Only round top corners
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 80vh; // Limit height to 80% of viewport height
+  overflow-y: auto; // Allow scrolling if content overflows
+}
+
+.navigationMenuList {
+  list-style: none;
+  margin: 0;
+  padding: vars.$spacing-medium;
+  display: grid;
+  gap: vars.$spacing-medium;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); // Responsive grid for menu items
+}
+
+.navigationMenuItem {
+  margin-bottom: vars.$spacing-small;
+}
+
+.navigationMenuTrigger {
+  background: vars.$secondary-color;
+  color: vars.$text-color-on-secondary;
+  border: none;
+  padding: vars.$spacing-small;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: vars.$transition;
+  border-radius: vars.$border-radius-small;
+
+  &:hover {
+    background: lighten(vars.$secondary-color, 10%);
+  }
+}
+
+.navigationMenuContent {
+  display: grid;
+  gap: vars.$spacing-small;
+  padding: vars.$spacing-small;
+}
+
+.gridList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: vars.$spacing-small;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.listItem {
+  background: vars.$gradient-background;
+  border-radius: vars.$border-radius-small;
+  padding: vars.$spacing-small;
+}
+
+.navigationMenuLink {
+  display: block;
+  text-decoration: none;
+  color: vars.$text-color-on-gradient;
+  padding: vars.$spacing-small;
+  transition: vars.$transition;
+
+  &:hover {
+    background: vars.$gradient-background;
+  }
+}
+
+.title {
+  font-size: vars.$font-size-base;
+  font-weight: vars.$font-weight-bold;
+  margin-bottom: vars.$spacing-small;
+}
+
+.description {
+  font-size: 0.9em;
+  color: vars.$text-color-muted;
+}
+
+.item {
+  margin-bottom: vars.$spacing-small;
+  strong {
+    color: vars.$text-color-highlight;
+  }
+}

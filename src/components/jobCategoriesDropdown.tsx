@@ -1,42 +1,92 @@
 'use client';
+
 import React, { useState } from 'react';
 import { data, descriptions } from '../lib/models/hire-talent-model';
-import styles from '../styles/styles.module.scss'; 
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuLink,
+} from '@/components/ui/navigation-menu';
+import { cn } from '@/lib/utils'; // Assuming you have this utility for class concatenation
 
 const JobCategoriesDropdown: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const [activeSubCategory, setActiveSubCategory] = useState<string | null>(null);
 
   return (
-    <div className="dropdown-wrapper">
-      <button onClick={toggleDropdown} className="dropdown-toggle">
-        Hire Talent {isOpen ? '▲' : '▼'}
-      </button>
-      {isOpen && (
-        <div className="dropdown-menu">
-          <ul className="categories">
-            {Object.keys(data).map(category => (
-              <li key={category} onClick={() => setActiveCategory(category)}>
-                {category}
-              </li>
-            ))}
-          </ul>
-          {activeCategory && (
-            <div className="category-details">
-              <h3>{activeCategory}</h3>
-              <p>{descriptions[activeCategory]}</p>
-              <ul className="job-roles">
-                {data[activeCategory].map((role, index) => (
-                  <li key={index}>{role}</li>
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Hire Talent</NavigationMenuTrigger>
+          <NavigationMenuContent 
+            className="grid grid-cols-3 gap-4 p-6 md:w-[600px] lg:w-[800px]"
+          >
+            {/* Categories */}
+            <div className="col-span-1">
+              <h3 className="mb-2 text-lg font-medium">Categories</h3>
+              <ul className="space-y-2">
+                {Object.keys(data).map((category) => (
+                  <li key={category}>
+                    <NavigationMenuLink asChild>
+                      <a 
+                        onClick={() => {
+                          setActiveCategory(category);
+                          setActiveSubCategory(null);
+                        }}
+                        className={cn(
+                          "block text-gray-700 p-2 rounded-md transition",
+                          activeCategory === category ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'
+                        )}
+                      >
+                        {category}
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
                 ))}
               </ul>
             </div>
-          )}
-        </div>
-      )}
-    </div>
+
+            {/* Subcategories */}
+            {activeCategory && (
+              <div className="col-span-1">
+                <h3 className="mb-2 text-lg font-medium">Roles</h3>
+                <ul className="space-y-2">
+                  {data[activeCategory].map((role, index) => (
+                    <li key={index}>
+                      <NavigationMenuLink asChild>
+                        <a 
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setActiveSubCategory(role);
+                          }}
+                          className={cn(
+                            "block text-gray-700 p-2 rounded-md transition",
+                            activeSubCategory === role ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'
+                          )}
+                        >
+                          {role}
+                        </a>
+                      </NavigationMenuLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Details */}
+            {activeSubCategory && (
+              <div className="col-span-1 p-2">
+                <h3 className="text-lg font-semibold">{activeSubCategory}</h3>
+                <p className="text-gray-600 text-sm mt-1">{descriptions[activeCategory]}</p>
+              </div>
+            )}
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };
 
