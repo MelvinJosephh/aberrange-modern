@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { servicesData } from '../lib/models/services-model';
 import {
   NavigationMenu,
@@ -38,7 +39,13 @@ const ServicesDropdown: React.FC = () => {
                 <ul className="space-y-2">
                   {servicesData.engagementModels.map((model) => (
                     <li key={model.title} className="flex items-center space-x-2">
-                      <img src={model.icon} alt={model.title} className="w-6 h-6" />
+                     <Image 
+                        src={model.icon} 
+                        alt={model.title} 
+                        width={24} // Match the width to the CSS class 'w-6' which is 24px
+                        height={24} // Match the height to the CSS class 'h-6' which is 24px
+                        className="w-6 h-6 object-contain"
+                      />
                       <div>
                         <span className="font-medium">{model.title}</span>
                         <p className="text-sm text-muted-foreground">{model.description}</p>
@@ -50,7 +57,7 @@ const ServicesDropdown: React.FC = () => {
 
               {/* Categories */}
               <div className="col-span-1 overflow-y-auto max-h-60">
-                <h2 className="mb-2 text-lg font-medium text-center">Categories</h2>
+                {/* <h2 className="mb-2 text-lg font-medium text-center">Categories</h2> */}
                 <ul>
                   {servicesData.categories.map((category, index) => (
                     <ListItem 
@@ -65,7 +72,7 @@ const ServicesDropdown: React.FC = () => {
 
               {/* Subcategories */}
               <div className="col-span-1 overflow-y-auto max-h-60">
-                <h2 className="mb-2 text-lg font-medium text-center">Subcategories</h2>
+                {/* <h2 className="mb-2 text-lg font-medium text-center">Subcategories</h2> */}
                 {selectedCategory && 
                   <ul>
                     {servicesData.categories
@@ -84,7 +91,7 @@ const ServicesDropdown: React.FC = () => {
 
               {/* Items */}
               <div className="col-span-1 overflow-y-auto max-h-60">
-                <h2 className="mb-2 text-lg font-medium text-center">Items</h2>
+                {/* <h2 className="mb-2 text-lg font-medium text-center">Items</h2> */}
                 {selectedSubcategory && 
                   <ul>
                     {servicesData.categories

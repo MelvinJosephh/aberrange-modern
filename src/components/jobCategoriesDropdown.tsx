@@ -17,7 +17,7 @@ const JobCategoriesDropdown: React.FC = () => {
   const [activeSubCategory, setActiveSubCategory] = useState<string | null>(null);
 
   return (
-    <NavigationMenu>
+    <NavigationMenu  className="flex justify-center items-start w-full">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Hire Talent</NavigationMenuTrigger>
