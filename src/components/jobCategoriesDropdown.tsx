@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { data, descriptions } from '../lib/models/hire-talent-model';
+import { hireTalentData } from '../lib/models/hire-talent-model';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,79 +10,84 @@ import {
   NavigationMenuTrigger,
   NavigationMenuLink,
 } from '@/components/ui/navigation-menu';
-import { cn } from '@/lib/utils'; // Assuming you have this utility for class concatenation
 
 const JobCategoriesDropdown: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [activeSubCategory, setActiveSubCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedRole, setSelectedRole] = useState(null);
+
+  const handleCategoryClick = (category) => {
+    setSelectedRole(null); // Reset role when changing category
+    setSelectedCategory(category);
+  };
+
+  const handleRoleClick = (role) => {
+    setSelectedRole(role);
+  };
 
   return (
-    <NavigationMenu  className="flex justify-center items-start w-full">
+    <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Hire Talent</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Job Categories</NavigationMenuTrigger>
           <NavigationMenuContent 
-            className="grid grid-cols-3 gap-4 p-6 md:w-[600px] lg:w-[800px]"
+            className="absolute left-1/2 transform -translate-x-1/2 mt-2 grid grid-cols-3 gap-4 p-6 shadow-lg bg-white rounded-lg md:w-[700px] lg:w-[900px]"
           >
             {/* Categories */}
             <div className="col-span-1">
-              <h3 className="mb-2 text-lg font-medium">Categories</h3>
+              <h3 className="mb-2 text-lg font-semibold">Categories</h3>
               <ul className="space-y-2">
-                {Object.keys(data).map((category) => (
-                  <li key={category}>
-                    <NavigationMenuLink asChild>
-                      <a 
-                        onClick={() => {
-                          setActiveCategory(category);
-                          setActiveSubCategory(null);
-                        }}
-                        className={cn(
-                          "block text-gray-700 p-2 rounded-md transition",
-                          activeCategory === category ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'
-                        )}
-                      >
-                        {category}
-                      </a>
-                    </NavigationMenuLink>
+                {hireTalentData.map((category, index) => (
+                  <li 
+                    key={index} 
+                    onClick={() => handleCategoryClick(category)}
+                    className={`p-2 rounded-md cursor-pointer transition ${selectedCategory === category ? 'bg-blue-100' : 'hover:bg-gray-100'}`}
+                  >
+                    {category.category}
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Subcategories */}
-            {activeCategory && (
-              <div className="col-span-1">
-                <h3 className="mb-2 text-lg font-medium">Roles</h3>
-                <ul className="space-y-2">
-                  {data[activeCategory].map((role, index) => (
-                    <li key={index}>
-                      <NavigationMenuLink asChild>
-                        <a 
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setActiveSubCategory(role);
-                          }}
-                          className={cn(
-                            "block text-gray-700 p-2 rounded-md transition",
-                            activeSubCategory === role ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'
-                          )}
-                        >
-                          {role}
-                        </a>
-                      </NavigationMenuLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            {/* Roles */}
+            <div className="col-span-1">
+              {selectedCategory && (
+                <>
+                  <h3 className="mb-2 text-lg font-semibold">Roles</h3>
+                  <ul className="space-y-2">
+                    {selectedCategory.roles.map((role, idx) => (
+                      <li 
+                        key={idx}
+                        onClick={() => handleRoleClick(role)}
+                        className={`p-2 rounded-md cursor-pointer transition ${selectedRole === role ? 'bg-blue-100' : 'hover:bg-gray-100'}`}
+                      >
+                        {role.title}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
 
-            {/* Details */}
-            {activeSubCategory && (
-              <div className="col-span-1 p-2">
-                <h3 className="text-lg font-semibold">{activeSubCategory}</h3>
-                <p className="text-gray-600 text-sm mt-1">{descriptions[activeCategory]}</p>
-              </div>
-            )}
+            {/* Role Details */}
+            <div className="col-span-1">
+              {selectedRole && (
+                <>
+                  <h3 className="mb-2 text-lg font-semibold">Details</h3>
+                  <div className="p-2 rounded-md bg-gray-50">
+                    <p className="font-medium">{selectedRole.title}</p>
+                    <p className="text-sm text-gray-600">{selectedCategory.description}</p>
+                    <NavigationMenuLink asChild>
+                      <a 
+                        href={selectedRole.link}
+                        className="w-full block text-center bg-blue-600 text-white py-2 mt-2 rounded-md hover:bg-blue-700 transition"
+                      >
+                        Hire
+                      </a>
+                    </NavigationMenuLink>
+                  </div>
+                </>
+              )}
+            </div>
           </NavigationMenuContent>
         </NavigationMenuItem>
       </NavigationMenuList>

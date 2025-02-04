@@ -18,17 +18,17 @@ const IndustriesDropdown: React.FC = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Industries</NavigationMenuTrigger>
           <NavigationMenuContent 
-            className="grid grid-cols-2 gap-4 p-6 md:w-[400px] lg:w-[500px]"
+            className="absolute left-1/2 transform -translate-x-1/2 mt-2 grid grid-cols-2 gap-4 p-6 shadow-lg bg-white rounded-lg md:w-[400px] lg:w-[500px]"
           >
             <div className="col-span-1">
-              <h3 className="mb-2 text-lg font-medium">Industries</h3>
+              <h3 className="mb-2 text-lg font-semibold">Industries</h3>
               <ul className="space-y-2">
                 {industriesData.industries.map((industry, index) => (
                   <li key={index}>
                     <NavigationMenuLink asChild>
                       <a 
                         href={`/industries-specific/${industry.toLowerCase().replace(/\s+/g, '-')}`}
-                        className="block text-gray-700 p-2 rounded-md hover:bg-gray-100 transition"
+                        className="block p-2 rounded-md hover:bg-gray-100 transition text-gray-700"
                       >
                         {industry}
                       </a>
@@ -39,14 +39,14 @@ const IndustriesDropdown: React.FC = () => {
             </div>
 
             <div className="col-span-1">
-              <h3 className="mb-2 text-lg font-medium">Actions</h3>
+              <h3 className="mb-2 text-lg font-semibold">Actions</h3>
               <ul className="space-y-2">
                 {industriesData.actions.map((action, index) => (
                   <li key={index}>
                     <NavigationMenuLink asChild>
                       <a 
                         href={action.link}
-                        className="block text-sm text-blue-600 p-2 rounded-md hover:underline hover:bg-gray-100 transition"
+                        className="block text-sm text-blue-600 p-2 rounded-md hover:bg-gray-100 transition"
                       >
                         {action.name}
                       </a>
@@ -60,7 +60,7 @@ const IndustriesDropdown: React.FC = () => {
               <NavigationMenuLink asChild>
                 <a 
                   href={industriesData.button.link}
-                  className="w-full text-center bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+                  className="w-full block text-center bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
                 >
                   {industriesData.button.label}
                 </a>
