@@ -1,51 +1,51 @@
-@use '../variables.scss' as vars; // Importing variables
+// src/styles/components/branding.module.scss
+@import '@/styles/variables';
 
-.branding {
-  background: vars.$gradient-background; // Utilize global gradient background
-  padding: vars.$spacing-large 0;
-  color: vars.$text-color-light;
+.painPoints {
+  padding: $spacing-xxl 0;
+  background-color: $background-light;
+  color: $text-primary;
 
-  .brandingContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: vars.$spacing-medium;
-    padding: 0 vars.$spacing-large;
+  .splitScreen {
+    display: flex;
+    max-width: $breakpoint-lg;
+    margin: 0 auto;
+    gap: $spacing-xl;
 
-    .box {
-      background-color: rgba(255, 255, 255, 0.1); // Light background for each box
-      padding: vars.$spacing-medium;
-      border-radius: vars.$border-radius-small;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease-in-out;
+    .problems, .solutions {
+      flex: 1;
+      padding: $spacing-md;
+      border-radius: $border-radius-md;
+      transition: transform $transition-duration-medium $transition-timing-function;
 
       &:hover {
         transform: translateY(-10px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        box-shadow: $shadow-md;
       }
+    }
 
-      .text {
-        text-align: center;
-        h1 {
-          font-size: vars.$font-size-xl;
-          font-weight: vars.$font-weight-bold;
-          color: vars.$primary-color;
-        }
-      }
+    .problems {
+      background-color: $secondary-color;
+    }
 
-      .para {
-        text-align: center;
-        h2 {
-          font-size: vars.$font-size-base;
-          font-weight: vars.$font-weight-bold;
-          color: vars.$secondary-color;
-          margin-bottom: vars.$spacing-small;
-        }
+    .solutions {
+      background-color: $primary-color;
+      color: $text-light;
+    }
 
-        p {
-          font-size: vars.$font-size-base;
-          line-height: 1.6;
-          color: vars.$text-color-light;
-        }
+    .sectionTitle {
+      font-size: $font-size-large;
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-md;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        font-size: $font-size-medium;
+        margin-bottom: $spacing-sm;
       }
     }
   }

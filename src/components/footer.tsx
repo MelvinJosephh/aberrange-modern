@@ -8,7 +8,9 @@ export default function Footer() {
       <section className={styles.footerContainer}>
         {/* Connect Section */}
         <div className={styles.box}>
-          <p>Connect with me and get the best for your firm</p>
+          <p className={styles.connectText}>
+            Connect with me and get the best for your firm
+          </p>
           <div className={styles.socialIcons}>
             <i className="fab fa-facebook-f" aria-label="Facebook"></i>
             <i className="fab fa-instagram" aria-label="Instagram"></i>
@@ -21,8 +23,8 @@ export default function Footer() {
 
         {/* Quick Links Section */}
         <div className={styles.box}>
-          <h3>Quick Links</h3>
-          <ul>
+          <h3 className={styles.boxTitle}>Quick Links</h3>
+          <ul className={styles.quickLinks}>
             <li>Home</li>
             <li>About</li>
             <li>Portfolio</li>
@@ -34,16 +36,16 @@ export default function Footer() {
 
         {/* Recent Posts Section */}
         <div className={styles.box}>
-          <h3>Recent Posts</h3>
-          <div>
+          <h3 className={styles.boxTitle}>Recent Posts</h3>
+          <div className={styles.recentPost}>
             <p>Planet alignment</p>
             <span>28 Feb 2024</span>
           </div>
-          <div>
+          <div className={styles.recentPost}>
             <p>Kasongo trends</p>
             <span>28 Feb 2024</span>
           </div>
-          <div>
+          <div className={styles.recentPost}>
             <p>Trump&apos;s Presidency</p>
             <span>28 Feb 2024</span>
           </div>
@@ -51,7 +53,7 @@ export default function Footer() {
 
         {/* Get in Touch Section */}
         <div className={styles.box}>
-          <h3>Get in Touch</h3>
+          <h3 className={styles.boxTitle}>Get in Touch</h3>
           <div className={styles.icon}>
             <i className="fa fa-map-marker" aria-hidden="true"></i>
             <label>Location: 87 Division, Kikuyu Sub, Kiambu County, Nairobi, Kenya</label>

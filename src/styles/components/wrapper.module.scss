@@ -1,81 +1,25 @@
-// Section background gradient and centering content
-.brandingWrapper {
+// src/styles/components/wrapper.module.scss
+@import '@/styles/variables';
+
+.successMetrics {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 64vh;
-  background: linear-gradient(to bottom right, #fc5546, #21325d);
-  color: #fff;
-  padding: 2rem;
-}
+  justify-content: space-around;
+  padding: $spacing-xxl 0;
+  background-color: $neutral-color;
+  color: $text-light;
 
-// Container with a max-width for centering content and adding spacing
-// .container {
-//   max-width: 1200px;
-//   width: 100%;
-//   text-align: center;
-// }
+  .metric {
+    text-align: center;
 
-// Each box styled similarly to the given home content box
-.box {
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 1200px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
-  // Styling h3, h2, and p within the box
-  h3 {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-  }
+    h3 {
+      font-size: $font-size-medium;
+      font-weight: $font-weight-regular;
+      margin-bottom: $spacing-sm;
+    }
 
-  h2 {
-    font-size: 1.75rem;
-    color: #fc5546; // Using the gradient's prominent color
-    margin-bottom: 15px;
-  }
-
-  p {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 20px;
-    line-height: 1.6;
-  }
-
-  // Hover effect for the box
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  }
-}
-
-// 'Contact Us' button styled similarly to your CTA button
-.primaryBtn {
-  display: inline-block;
-  padding: 0.8rem 1.5rem;
-  background-color: #fc5546; /* Button background */
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-
-  &:hover {
-    background-color: #d9433b;
-    transform: scale(1.05);
-  }
-}
-
-// Media query for responsiveness: Adjust box size on smaller screens
-@media (max-width: 768px) {
-  .box {
-    width: 100%; // Full width on smaller screens
+    p {
+      font-size: $font-size-xlarge;
+      font-weight: $font-weight-bold;
+    }
   }
 }

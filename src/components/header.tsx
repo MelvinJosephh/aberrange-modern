@@ -1,48 +1,42 @@
-'use client';
-import React, { useState } from 'react';
+// src/components/Header.tsx
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
-import IndustriesDropdown from './industriesDropdown';
-import ServicesDropdown from './servicesDropdown';
-import JobCategoriesDropdown from './jobCategoriesDropdown';
+import styles from '@/styles/components/header.module.scss';
 
 const Header: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <header className="shadow-md">
-      <nav className="container mx-auto flex flex-col md:flex-row items-center justify-between px-6 py-4">
+    <header className={styles.header}>
+      <div className={styles.container}>
         {/* Logo */}
-        <div className="text-xl font-bold text-primary mb-4 md:mb-0">
-          <Link href="/">Aberrange</Link>
-        </div>
+        <Link href="/" className={styles.logo}>
+          Aberrange
+        </Link>
 
-        {/* Desktop Dropdowns */}
-        <div className="w-full md:w-auto md:flex-grow flex justify-center md:justify-start">
-          <div className="flex-grow hidden md:flex space-x-4">
-            <JobCategoriesDropdown />
-            <ServicesDropdown />
-            <IndustriesDropdown />
-          </div>
-        </div>
+        {/* Navigation */}
+        <nav className={styles.nav}>
+          <ul className={styles.navList}>
+            <li className={styles.navItem}>
+              <Link href="/">Home</Link>
+            </li>
+            <li className={styles.navItem}>
+              <Link href="/services">Services</Link>
+            </li>
+            <li className={styles.navItem}>
+              <Link href="/about">About</Link>
+            </li>
+            <li className={styles.navItem}>
+              <Link href="/blog">Blog</Link>
+            </li>
+            <li className={styles.navItem}>
+              <Link href="/contact">Contact</Link>
+            </li>
+          </ul>
+        </nav>
 
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-gray-700 focus:outline-none"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        {/* CTA Button */}
+        <button className={styles.ctaButton}>
+          Get Started →
         </button>
-
-        {/* Mobile Dropdowns */}
-        {isOpen && (
-          <div className="md:hidden w-full flex flex-col items-center space-y-3 pt-4">
-            <JobCategoriesDropdown />
-            <ServicesDropdown />
-            <IndustriesDropdown />
-          </div>
-        )}
-      </nav>
+      </div>
     </header>
   );
 };

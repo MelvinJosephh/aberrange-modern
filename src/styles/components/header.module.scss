@@ -1,28 +1,71 @@
-@use "../variables" as vars;
-@use 'sass:color';
-
+// src/styles/components/Header.module.scss
+@import '@/styles/variables';
 
 .header {
-  background: var(--background);
-  padding: 1rem 2rem;
-  box-shadow: var(--shadow);
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 1000;
-}
+  left: 0;
+  width: 100%;
+  background-color: rgba($neutral-color, 0.9);
+  backdrop-filter: blur(10px);
+  z-index: $z-index-sticky;
+  padding: $spacing-md 0;
+  box-shadow: $shadow-sm;
 
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: $breakpoint-lg;
+    margin: 0 auto;
+    padding: 0 $spacing-md;
+  }
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
+  .logo {
+    font-size: $font-size-large;
+    font-weight: $font-weight-bold;
+    color: $text-light;
+    text-decoration: none;
+    transition: color $transition-duration-fast $transition-timing-function;
 
-.dropdowns {
-  display: flex;
-  gap: 1.5rem;
+    &:hover {
+      color: $accent-color;
+    }
+  }
+
+  .nav {
+    .navList {
+      display: flex;
+      gap: $spacing-lg;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      .navItem {
+        a {
+          font-size: $font-size-medium;
+          color: $text-light;
+          text-decoration: none;
+          transition: color $transition-duration-fast $transition-timing-function;
+
+          &:hover {
+            color: $accent-color;
+          }
+        }
+      }
+    }
+  }
+
+  .ctaButton {
+    background-color: $accent-color;
+    color: $neutral-color;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $border-radius-md;
+    font-weight: $font-weight-bold;
+    transition: background-color $transition-duration-fast $transition-timing-function;
+
+    &:hover {
+      background-color: darken($accent-color, 10%);
+    }
+  }
 }

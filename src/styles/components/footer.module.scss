@@ -1,113 +1,119 @@
-// footer.module.scss
-
-@use "../variables" as vars;
-@use 'sass:color'; // Import the color module
+// src/styles/components/footer.module.scss
+@import '@/styles/variables';
 
 .footer {
-  background-color: vars.$secondary-color;
-  color: vars.$text-color-light;
-  padding: vars.$spacing-large 0;
-  font-family: 'Arial', sans-serif;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: vars.$spacing-large;
+  background-color: $neutral-color-dark;
+  color: $text-light;
+  padding: $spacing-xxl 0;
 
   .footerContainer {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
-    max-width: 1200px;
-    width: 100%;
-    gap: vars.$spacing-medium;
-    padding: 0 vars.$spacing-medium;
-  }
+    max-width: $breakpoint-lg;
+    margin: 0 auto;
+    padding: 0 $spacing-md;
 
-  .box {
-    flex: 1;
-    min-width: 250px;
-    margin: vars.$spacing-small 0;
-    padding: vars.$spacing-small;
-    
-    h2 {
-      font-size: vars.$font-size-xl;
-      font-weight: vars.$font-weight-bold;
-      margin-bottom: vars.$spacing-small;
-    }
+    .box {
+      flex: 1;
+      margin: 0 $spacing-md;
 
-    p {
-      font-size: vars.$font-size-base;
-      margin-bottom: vars.$spacing-small;
-    }
+      .connectText {
+        font-size: $font-size-medium;
+        font-weight: $font-weight-regular;
+        margin-bottom: $spacing-md;
+      }
 
-    ul {
-      list-style: none;
-      padding-left: 0;
-      
-      li {
-        font-size: vars.$font-size-base;
-        margin-bottom: vars.$spacing-small;
-        cursor: pointer;
-        transition: color 0.3s;
+      .socialIcons {
+        display: flex;
+        gap: $spacing-md;
 
-        &:hover {
-          color: vars.$primary-color;
+        i {
+          font-size: $font-size-medium;
+          color: $accent-color;
+          transition: color $transition-duration-fast $transition-timing-function;
+
+          &:hover {
+            color: $accent-color-dark;
+          }
         }
       }
-    }
 
-    .socialIcons {
-      display: flex;
-      gap: vars.$spacing-medium;
-    
-      i {
-        font-size: 1.2rem;  // Increase icon size
-        // color: vars.$text-color-dark;  
-        cursor: pointer;
-        transition: color 0.3s;
-    
-        &:hover {
-          color: vars.$primary-color;
+      .boxTitle {
+        font-size: $font-size-large;
+        font-weight: $font-weight-bold;
+        margin-bottom: $spacing-md;
+        color: $primary-color;
+      }
+
+      .quickLinks {
+        list-style: none;
+        padding: 0;
+
+        li {
+          margin-bottom: $spacing-sm;
+          font-size: $font-size-small;
+          color: $text-light;
+          transition: color $transition-duration-fast $transition-timing-function;
+
+          &:hover {
+            color: $accent-color;
+          }
         }
       }
-    }
-    
 
-    .icon {
-      display: flex;
-      align-items: center;
-      margin-bottom: vars.$spacing-small;
+      .recentPost {
+        margin-bottom: $spacing-md;
 
-      i {
-        font-size: 1.2rem;
-        margin-right: vars.$spacing-small;
+        p {
+          font-size: $font-size-small;
+          color: $text-light;
+          margin: 0;
+        }
+
+        span {
+          font-size: $font-size-small;
+          color: $text-secondary;
+        }
       }
 
-      label {
-        font-size: vars.$font-size-base;
-        color: vars.$text-color-light;
+      .icon {
+        display: flex;
+        align-items: center;
+        margin-bottom: $spacing-sm;
+
+        i {
+          font-size: $font-size-medium;
+          color: $accent-color;
+          margin-right: $spacing-sm;
+        }
+
+        label {
+          font-size: $font-size-small;
+          color: $text-light;
+        }
       }
     }
   }
 
   .legal {
-    background-color: vars.$secondary-color;
-    padding: vars.$spacing-small 0;
     text-align: center;
-    font-size: vars.$font-size-base;
-    width: 100%;
-    color: vars.$text-color-light;
+    margin-top: $spacing-xl;
+    padding-top: $spacing-md;
+    border-top: $border-width-thin solid $border-color-dark;
+
+    p {
+      font-size: $font-size-small;
+      color: $text-light;
+      margin: 0;
+    }
 
     label {
-      font-size: 0.9rem;
-      color: vars.$text-color-light;
-      margin-top: vars.$spacing-small;
+      font-size: $font-size-small;
+      color: $text-light;
 
       span {
-        font-weight: vars.$font-weight-bold;
-        color: vars.$primary-color;
+        color: $accent-color;
+        font-weight: $font-weight-bold;
       }
     }
   }

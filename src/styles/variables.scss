@@ -1,24 +1,179 @@
-// variables.scss
-$primary-color: #fc5546;
-$secondary-color: #627792;
-$text-color-light: #fff;
-$text-color-dark: #000;
-$gradient-background: linear-gradient(to bottom right, #fc5546, #21325d);
-$font-size-base: 1rem;
-$font-size-xl: 3rem;
-$font-weight-bold: bold;
-$spacing-small: 0.5rem;
-$spacing-medium: 1rem;
-$spacing-large: 2rem;
-$border-radius-small: 5px;
-$transition: all 0.3s ease-in-out;
-$container-width: 1200px;
+// ====================
+// Color Palette
+// ====================
 
-// New text colors for better visibility and friendliness
-$text-color-primary: #333;  // Dark gray for general text on light backgrounds
-$text-color-secondary: #f0f0f0;  // Light gray for text on dark backgrounds
-$text-color-highlight: #1a1a1a;  // Darker for headers or important text on light backgrounds
-$text-color-muted: #777;  // For less important text or placeholders
-$text-color-on-primary: #f9e0df;  // Light text for contrast on primary color
-$text-color-on-secondary: #e7ebf0;  // Light text for contrast on secondary color
-$text-color-on-gradient: #f9e0df;  // Light text for use on gradient backgrounds
+// Primary Colors
+$primary-color: #6A0DAD; // Deep Purple
+$primary-color-light: lighten($primary-color, 10%);
+$primary-color-dark: darken($primary-color, 10%);
+
+// Secondary Colors
+$secondary-color: #F5F5F5; // Soft Gray
+$secondary-color-light: lighten($secondary-color, 10%);
+$secondary-color-dark: darken($secondary-color, 10%);
+
+// Accent Colors
+$accent-color: #00BFFF; // Electric Blue
+$accent-color-light: lighten($accent-color, 10%);
+$accent-color-dark: darken($accent-color, 10%);
+
+// Neutral Colors
+$neutral-color: #333333; // Charcoal Black
+$neutral-color-light: lighten($neutral-color, 10%);
+$neutral-color-dark: darken($neutral-color, 10%);
+
+// Background Colors
+$background-light: #FFFFFF; // White
+$background-dark: $neutral-color;
+
+// Text Colors
+$text-primary: $neutral-color;
+$text-secondary: $neutral-color-dark;
+$text-light: $secondary-color;
+$text-dark: $neutral-color;
+
+// ====================
+// Typography
+// ====================
+
+// Font Families
+$font-primary: 'Inter', sans-serif; // Modern, clean font
+$font-secondary: 'Roboto', sans-serif; // Fallback font
+
+// Font Sizes
+$font-size-base: 16px;
+$font-size-small: $font-size-base * 0.875; // 14px
+$font-size-medium: $font-size-base * 1.25; // 20px
+$font-size-large: $font-size-base * 1.5; // 24px
+$font-size-xlarge: $font-size-base * 2; // 32px
+
+// Font Weights
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Line Heights
+$line-height-base: 1.5;
+$line-height-tight: 1.25;
+$line-height-loose: 1.75;
+
+// ====================
+// Spacing
+// ====================
+
+// Base Spacing Unit
+$spacing-unit: 8px;
+
+// Spacing Scale
+$spacing-xxs: $spacing-unit * 0.5; // 4px
+$spacing-xs: $spacing-unit; // 8px
+$spacing-sm: $spacing-unit * 1.5; // 12px
+$spacing-md: $spacing-unit * 2; // 16px
+$spacing-lg: $spacing-unit * 3; // 24px
+$spacing-xl: $spacing-unit * 4; // 32px
+$spacing-xxl: $spacing-unit * 6; // 48px
+
+// ====================
+// Borders
+// ====================
+
+// Border Radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+// Border Width
+$border-width-thin: 1px;
+$border-width-thick: 2px;
+
+// Border Colors
+$border-color-light: $secondary-color;
+$border-color-dark: $neutral-color;
+
+// ====================
+// Shadows
+// ====================
+
+$shadow-sm: 0 1px 2px rgba($neutral-color, 0.1);
+$shadow-md: 0 4px 6px rgba($neutral-color, 0.1);
+$shadow-lg: 0 10px 15px rgba($neutral-color, 0.1);
+
+// ====================
+// Breakpoints
+// ====================
+
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 1024px;
+$breakpoint-lg: 1280px;
+$breakpoint-xl: 1440px;
+
+// ====================
+// Z-Index
+// ====================
+
+$z-index-base: 1;
+$z-index-dropdown: 100;
+$z-index-sticky: 200;
+$z-index-modal: 300;
+$z-index-overlay: 400;
+
+// ====================
+// Transitions
+// ====================
+
+$transition-duration-fast: 0.2s;
+$transition-duration-medium: 0.3s;
+$transition-duration-slow: 0.5s;
+
+$transition-timing-function: ease-in-out;
+
+// ====================
+// Themes
+// ====================
+
+// Light Theme
+$light-theme: (
+  background: $background-light,
+  text: $text-primary,
+  border: $border-color-light,
+  shadow: $shadow-sm,
+);
+
+// Dark Theme
+$dark-theme: (
+  background: $background-dark,
+  text: $text-light,
+  border: $border-color-dark,
+  shadow: $shadow-lg,
+);
+
+// ====================
+// Utility Classes
+// ====================
+
+// Example: Generate utility classes for colors, spacing, etc.
+@mixin generate-utility-classes($property, $values, $prefix: '') {
+  @each $key, $value in $values {
+    .#{$prefix}#{$key} {
+      #{$property}: $value;
+    }
+  }
+}
+
+// Example: Generate color utility classes
+@include generate-utility-classes('color', (
+  'primary': $primary-color,
+  'secondary': $secondary-color,
+  'accent': $accent-color,
+  'neutral': $neutral-color,
+), 'text-');
+
+// Example: Generate background utility classes
+@include generate-utility-classes('background-color', (
+  'primary': $primary-color,
+  'secondary': $secondary-color,
+  'accent': $accent-color,
+  'neutral': $neutral-color,
+), 'bg-');

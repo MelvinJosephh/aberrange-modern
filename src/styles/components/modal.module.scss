@@ -1,128 +1,28 @@
-@use "../variables" as vars;
-@use 'sass:color';
+// src/styles/components/FinalCTA.module.scss
+@import '@/styles/variables';
 
-.skill {
-  background: vars.$gradient-background;
-  padding: vars.$spacing-large;
-  border-radius: vars.$border-radius-small;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.heading {
+.finalCTA {
+  padding: $spacing-xxl 0;
+  background-color: $primary-color;
+  color: $text-light;
   text-align: center;
-  margin-bottom: vars.$spacing-medium;
 
-  h1 {
-    font-size: vars.$font-size-xl;
-    color: vars.$text-color-light;
-    font-weight: vars.$font-weight-bold;
+  .ctaTitle {
+    font-size: $font-size-xlarge;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-lg;
   }
 
-  h3 {
-    font-size: vars.$font-size-base;
-    color: vars.$text-color-light;
-    margin-top: vars.$spacing-small;
-  }
-}
+  .ctaButton {
+    background-color: $accent-color;
+    color: $neutral-color;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $border-radius-lg;
+    font-weight: $font-weight-bold;
+    transition: background-color $transition-duration-fast $transition-timing-function;
 
-.content {
-  display: flex;
-  justify-content: space-between;
-  margin-top: vars.$spacing-large;
-
-  .left {
-    width: 65%;
-    h2 {
-      font-size: 1.5rem;
-      font-weight: vars.$font-weight-bold;
-      color: vars.$text-color-light;
-      margin-bottom: vars.$spacing-medium;
+    &:hover {
+      background-color: darken($accent-color, 10%);
     }
-  }
-
-  .right {
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    .additional-info {
-      background: color.adjust(vars.$secondary-color, $lightness: -10%);
-      padding: vars.$spacing-medium;
-      border-radius: vars.$border-radius-small;
-      color: vars.$text-color-light;
-      text-align: center;
-
-      h1 {
-        font-size: 2rem;
-        margin-bottom: vars.$spacing-small;
-      }
-
-      p {
-        font-size: vars.$font-size-base;
-        margin-bottom: vars.$spacing-medium;
-      }
-    }
-  }
-}
-
-.skill-category {
-  margin-top: vars.$spacing-medium;
-  
-  h2 {
-    font-size: 1.25rem;
-    font-weight: vars.$font-weight-bold;
-    color: vars.$text-color-dark;
-    margin-bottom: vars.$spacing-small;
-  }
-}
-
-.skill-card {
-  background: vars.$text-color-light;
-  border-radius: vars.$border-radius-small;
-  padding: vars.$spacing-medium;
-  margin-bottom: vars.$spacing-small;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: vars.$transition;
-  
-  &:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transform: translateY(-5px);
-  }
-
-  h3 {
-    font-size: 1.25rem;
-    color: vars.$text-color-dark;
-    margin-bottom: vars.$spacing-small;
-  }
-
-  p {
-    font-size: vars.$font-size-base;
-    color: vars.$text-color-dark;
-    margin-bottom: vars.$spacing-small;
-  }
-}
-
-.primary-btn {
-  display: inline-block;
-  background-color: vars.$primary-color;
-  color: vars.$text-color-light;
-  padding: vars.$spacing-small vars.$spacing-medium;
-  text-align: center;
-  text-decoration: none;
-  font-weight: vars.$font-weight-bold;
-  border-radius: vars.$border-radius-small;
-  transition: vars.$transition;
-
-  &:hover {
-    background-color: color.adjust(vars.$primary-color, $lightness: -10%);
-    transform: scale(1.05);
   }
 }

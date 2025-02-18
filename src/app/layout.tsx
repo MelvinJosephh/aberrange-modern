@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Header />   {/* Always show Header */}
         <main>
-          {children}  {/* This is where the content of each page will be injected */}
+          {children}  
         </main>
         <Footer />   {/* Always show Footer */}
       </body>

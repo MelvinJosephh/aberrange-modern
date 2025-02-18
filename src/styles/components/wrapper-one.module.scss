@@ -1,47 +1,35 @@
-// wrapper-one.module.scss
-@use "../variables" as vars;
-@use 'sass:color'; // Import the color module
+// src/styles/components/AIDemo.module.scss
+@import '@/styles/variables';
 
-.WrapperOne {
-  background: vars.$gradient-background;
-  padding: vars.$spacing-large;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 40vh;
+.aiDemo {
+  padding: $spacing-xxl 0;
+  background-color: $background-light;
+  color: $text-primary;
+  text-align: center;
 
-  .container {
-    display: flex;
-    justify-content: center;
-    gap: vars.$spacing-medium;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    width: 100%;
+  .sectionTitle {
+    font-size: $font-size-large;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-lg;
   }
 
-  .box {
-    background-color: vars.$secondary-color;
-    border-radius: vars.$border-radius-small;
-    padding: vars.$spacing-medium;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: calc(24% - vars.$spacing-medium);
-    text-align: center;
-    color: vars.$text-color-light;
-    transition: vars.$transition;
-
-    &:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    h1 {
-      font-size: vars.$font-size-xl;
-      font-weight: vars.$font-weight-bold;
-      margin-bottom: vars.$spacing-small;
-    }
+  .chatWidget {
+    max-width: $breakpoint-md;
+    margin: 0 auto;
+    padding: $spacing-md;
+    background-color: $secondary-color;
+    border-radius: $border-radius-md;
 
     p {
-      font-size: vars.$font-size-base;
+      font-size: $font-size-medium;
+      margin-bottom: $spacing-md;
+    }
+
+    input {
+      width: 100%;
+      padding: $spacing-sm;
+      border: $border-width-thin solid $border-color-light;
+      border-radius: $border-radius-sm;
     }
   }
 }
