@@ -1,71 +1,147 @@
-// src/styles/components/Header.module.scss
 @import '@/styles/variables';
+@import '@/styles/mixins';
 
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba($neutral-color, 0.9);
-  backdrop-filter: blur(10px);
-  z-index: $z-index-sticky;
+  background-color: $background-color;
+  color: $text-primary;
   padding: $spacing-md 0;
+  position: relative;
+  z-index: $z-index-sticky;
   box-shadow: $shadow-sm;
 
   .container {
-    display: flex;
+    @include flex-center();
     justify-content: space-between;
-    align-items: center;
-    max-width: $breakpoint-lg;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 $spacing-md;
+
+    @include media($breakpoint-sm) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   .logo {
+    color: $primary-color;
     font-size: $font-size-large;
     font-weight: $font-weight-bold;
-    color: $text-light;
     text-decoration: none;
-    transition: color $transition-duration-fast $transition-timing-function;
+    margin-right: $spacing-lg;
 
-    &:hover {
-      color: $accent-color;
+    @include media($breakpoint-sm) {
+      margin-bottom: $spacing-md;
     }
   }
 
   .nav {
-    .navList {
-      display: flex;
-      gap: $spacing-lg;
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    display: flex;
+    gap: $spacing-md;
 
-      .navItem {
-        a {
-          font-size: $font-size-medium;
-          color: $text-light;
-          text-decoration: none;
-          transition: color $transition-duration-fast $transition-timing-function;
+    @include media($breakpoint-sm) {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: $spacing-md;
+    }
+  }
 
-          &:hover {
-            color: $accent-color;
-          }
-        }
+  .link {
+    color: $text-primary;
+    text-decoration: none;
+    font-weight: $font-weight-medium;
+    transition: color $transition-duration-fast $transition-timing-function;
+
+    &:hover, &:focus {
+      color: $interactive-hover;
+    }
+  }
+
+  .dropdownWrapper {
+    position: relative;
+  }
+
+  .dropdownButton {
+    @include button-styles($bg-color: transparent, $text-color: $text-primary);
+    font-size: $font-size-base;
+    border: none;
+    padding: 0;
+
+    &:hover, &:focus {
+      color: $interactive-hover;
+    }
+  }
+
+  .dropdownMenu {
+    position: absolute;
+    top: calc(100% + $spacing-sm);
+    left: 0;
+    background-color: $secondary-color;
+    border: $border-width-thin solid $border-color-light;
+    border-radius: $border-radius-sm;
+    box-shadow: $shadow-md;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    padding: $spacing-sm;
+    min-width: 200px;
+    z-index: $z-index-dropdown;
+
+    a {
+      color: $text-primary;
+      text-decoration: none;
+      padding: $spacing-xs;
+      transition: background-color $transition-duration-fast $transition-timing-function;
+
+      &:hover {
+        background-color: lighten($secondary-color, 5%);
       }
     }
   }
 
-  .ctaButton {
-    background-color: $accent-color;
-    color: $neutral-color;
-    padding: $spacing-sm $spacing-md;
-    border-radius: $border-radius-md;
-    font-weight: $font-weight-bold;
-    transition: background-color $transition-duration-fast $transition-timing-function;
+  .actions {
+    display: flex;
+    align-items: center;
+  }
+
+  .profileWrapper {
+    position: relative;
+  }
+
+  .profileIcon {
+    cursor: pointer;
+    font-size: $font-size-large;
+    color: $interactive-color;
+    transition: color $transition-duration-fast $transition-timing-function;
 
     &:hover {
-      background-color: darken($accent-color, 10%);
+      color: $interactive-hover;
+    }
+  }
+
+  .profileDropdown {
+    position: absolute;
+    top: calc(100% + $spacing-sm);
+    right: 0;
+    background-color: $secondary-color;
+    border: $border-width-thin solid $border-color-light;
+    border-radius: $border-radius-sm;
+    box-shadow: $shadow-md;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    padding: $spacing-sm;
+    min-width: 150px;
+    z-index: $z-index-dropdown;
+
+    a {
+      color: $text-primary;
+      text-decoration: none;
+      padding: $spacing-xs;
+      transition: background-color $transition-duration-fast $transition-timing-function;
+
+      &:hover {
+        background-color: lighten($secondary-color, 5%);
+      }
     }
   }
 }

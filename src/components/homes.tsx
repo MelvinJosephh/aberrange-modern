@@ -1,26 +1,41 @@
 // src/components/Hero.tsx
 import styles from '@/styles/components/homes.module.scss';
 
-const Homes: React.FC = () => {
+const Hero: React.FC = () => {
   return (
     <section className={styles.hero}>
-      <div className={styles.heroContent}>
+      {/* Left Section: Text and CTAs */}
+      <div className={styles.leftSection}>
         <h1 className={styles.heroTitle}>
-          Aberrange – The Future of Virtual Assistance & AI Automation
+          Smart Virtual Assistance for Tech, Finance, Research, and Executive Operations
         </h1>
         <p className={styles.heroSubtitle}>
-          Streamline. Automate. Scale. — Achieve more with Aberrange.
+          Aberrange delivers cutting-edge AI-powered solutions to streamline your business, reduce costs, and boost productivity. 
+          Whether you're a startup, small business, or enterprise, we’ve got you covered.
         </p>
-        <button className={styles.ctaButton}>
-          Get Started with AI Assistance →
-        </button>
+        <div className={styles.ctaButtons}>
+          <button className={styles.ctaButtonPrimary}>
+            Hire a Virtual Assistant →
+          </button>
+          <button className={styles.ctaButtonSecondary}>
+            Call Us Now
+          </button>
+        </div>
       </div>
-      <div className={styles.scrollIndicator}>
-        <span>Scroll Down</span>
-        <i className="fas fa-chevron-down"></i>
+
+      {/* Right Section: Animation */}
+      <div className={styles.rightSection}>
+        <div className={styles.animationContainer}>
+          {/* AI Assistant Animation */}
+          <div className={styles.aiAssistant}>
+            <div className={styles.aiHead}></div>
+            <div className={styles.aiBody}></div>
+            <div className={styles.aiPulse}></div>
+          </div>
+        </div>
       </div>
     </section>
   );
 };
 
-export default Homes;
+export default Hero;

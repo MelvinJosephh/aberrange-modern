@@ -13,9 +13,8 @@ $secondary-color-light: lighten($secondary-color, 10%);
 $secondary-color-dark: darken($secondary-color, 10%);
 
 // Accent Colors
-$accent-color: #00BFFF; // Electric Blue
+$accent-color: #00BFFF; // Electric Blue (for potential future use or special elements)
 $accent-color-light: lighten($accent-color, 10%);
-$accent-color-dark: darken($accent-color, 10%);
 
 // Neutral Colors
 $neutral-color: #333333; // Charcoal Black
@@ -23,14 +22,19 @@ $neutral-color-light: lighten($neutral-color, 10%);
 $neutral-color-dark: darken($neutral-color, 10%);
 
 // Background Colors
-$background-light: #FFFFFF; // White
-$background-dark: $neutral-color;
+$background-color: $secondary-color; // Soft Gray for main page background
+$background-dark: $neutral-color; // For dark mode or overlays
 
 // Text Colors
-$text-primary: $neutral-color;
-$text-secondary: $neutral-color-dark;
-$text-light: $secondary-color;
-$text-dark: $neutral-color;
+$text-primary: $neutral-color; // Main text color
+$text-secondary: $neutral-color-light; // For less important text or in lighter backgrounds
+$text-light: $secondary-color-dark; // For text on dark backgrounds
+$text-dark: $neutral-color; // For emphasis on light backgrounds
+
+// Interactive Elements
+$interactive-color: $primary-color; // Color for buttons, icons, links
+$interactive-hover: $primary-color-light; // Hover state for interactive elements
+$interactive-active: $primary-color-dark; // Active state for interactive elements
 
 // ====================
 // Typography
@@ -45,7 +49,7 @@ $font-size-base: 16px;
 $font-size-small: $font-size-base * 0.875; // 14px
 $font-size-medium: $font-size-base * 1.25; // 20px
 $font-size-large: $font-size-base * 1.5; // 24px
-$font-size-xlarge: $font-size-base * 2; // 32px
+$font-size-xlarge: $font-size-base * 3; // 48px
 
 // Font Weights
 $font-weight-light: 300;
@@ -88,7 +92,7 @@ $border-width-thin: 1px;
 $border-width-thick: 2px;
 
 // Border Colors
-$border-color-light: $secondary-color;
+$border-color-light: $secondary-color-dark;
 $border-color-dark: $neutral-color;
 
 // ====================
@@ -135,7 +139,7 @@ $transition-timing-function: ease-in-out;
 
 // Light Theme
 $light-theme: (
-  background: $background-light,
+  background: $background-color,
   text: $text-primary,
   border: $border-color-light,
   shadow: $shadow-sm,
@@ -153,7 +157,6 @@ $dark-theme: (
 // Utility Classes
 // ====================
 
-// Example: Generate utility classes for colors, spacing, etc.
 @mixin generate-utility-classes($property, $values, $prefix: '') {
   @each $key, $value in $values {
     .#{$prefix}#{$key} {
@@ -166,7 +169,6 @@ $dark-theme: (
 @include generate-utility-classes('color', (
   'primary': $primary-color,
   'secondary': $secondary-color,
-  'accent': $accent-color,
   'neutral': $neutral-color,
 ), 'text-');
 
@@ -174,6 +176,17 @@ $dark-theme: (
 @include generate-utility-classes('background-color', (
   'primary': $primary-color,
   'secondary': $secondary-color,
-  'accent': $accent-color,
   'neutral': $neutral-color,
 ), 'bg-');
+
+// Interactive states
+@include generate-utility-classes('color', (
+  'hover': $interactive-hover,
+  'active': $interactive-active,
+), 'btn-');
+
+// Example: Generate border utility classes
+@include generate-utility-classes('border-color', (
+  'primary': $primary-color,
+  'neutral': $neutral-color,
+), 'border-');

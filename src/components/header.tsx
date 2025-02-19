@@ -1,8 +1,14 @@
-// src/components/Header.tsx
+'use client';
+
 import Link from 'next/link';
+import { useState } from 'react';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import styles from '@/styles/components/header.module.scss';
 
 const Header: React.FC = () => {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -11,31 +17,47 @@ const Header: React.FC = () => {
           Aberrange
         </Link>
 
-        {/* Navigation */}
+        {/* Navigation Links */}
         <nav className={styles.nav}>
-          <ul className={styles.navList}>
-            <li className={styles.navItem}>
-              <Link href="/">Home</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/services">Services</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/about">About</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/blog">Blog</Link>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/contact">Contact</Link>
-            </li>
-          </ul>
+          <Link href="/hire" className={styles.link}>Hire a VA</Link>
+          <Link href="/join" className={styles.link}>Join as a VA</Link>
+          <Link href="/resources" className={styles.link}>Resources</Link>
+
+          {/* Services Dropdown */}
+          <div 
+            className={styles.dropdownWrapper} 
+            onMouseEnter={() => setIsServicesOpen(true)} 
+            onMouseLeave={() => setIsServicesOpen(false)}
+          >
+            <button className={styles.dropdownButton}>Services</button>
+            {isServicesOpen && (
+              <div className={styles.dropdownMenu}>
+                <Link href="/services/ai-business-automation">AI-Powered Business Automation</Link>
+                <Link href="/services/tech-it-support">Tech & IT Support</Link>
+                <Link href="/services/admin-assistance">Admin & Executive Assistance</Link>
+                <Link href="/services/finance-bookkeeping">Finance & Bookkeeping</Link>
+              </div>
+            )}
+          </div>
         </nav>
 
-        {/* CTA Button */}
-        <button className={styles.ctaButton}>
-          Get Started →
-        </button>
+        {/* Right-Aligned Actions */}
+        <div className={styles.actions}>
+          {/* User Profile Dropdown */}
+          <div className={styles.profileWrapper}>
+            <AccountCircleIcon
+              className={styles.profileIcon}
+              onClick={() => setIsProfileOpen(!isProfileOpen)}
+            />
+            {isProfileOpen && (
+              <div className={styles.profileDropdown}>
+                <Link href="/login">Login</Link>
+                <Link href="/signup">Sign Up</Link>
+                <Link href="/dashboard">Dashboard</Link>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </header>
   );

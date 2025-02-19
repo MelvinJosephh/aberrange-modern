@@ -1,120 +1,134 @@
 // src/styles/components/footer.module.scss
 @import '@/styles/variables';
+@import '@/styles/mixins';
 
 .footer {
-  background-color: $neutral-color-dark;
-  color: $text-light;
-  padding: $spacing-xxl 0;
+  background-color: $neutral-color;
+  color: $secondary-color;
+  padding: $spacing-xl 0;
 
   .footerContainer {
-    display: flex;
+    @include flex-center();
     justify-content: space-between;
-    max-width: $breakpoint-lg;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 $spacing-md;
+    flex-wrap: wrap;
 
-    .box {
-      flex: 1;
-      margin: 0 $spacing-md;
+    @include media($breakpoint-sm) {
+      flex-direction: column;
+    }
+  }
 
-      .connectText {
-        font-size: $font-size-medium;
-        font-weight: $font-weight-regular;
-        margin-bottom: $spacing-md;
-      }
+  .box {
+    flex: 1;
+    margin: $spacing-md 0;
 
-      .socialIcons {
-        display: flex;
-        gap: $spacing-md;
+    @include media($breakpoint-sm) {
+      width: 100%;
+      margin-bottom: $spacing-lg;
+    }
 
-        i {
-          font-size: $font-size-medium;
-          color: $accent-color;
-          transition: color $transition-duration-fast $transition-timing-function;
-
-          &:hover {
-            color: $accent-color-dark;
-          }
-        }
-      }
-
-      .boxTitle {
-        font-size: $font-size-large;
-        font-weight: $font-weight-bold;
-        margin-bottom: $spacing-md;
-        color: $primary-color;
-      }
-
-      .quickLinks {
-        list-style: none;
-        padding: 0;
-
-        li {
-          margin-bottom: $spacing-sm;
-          font-size: $font-size-small;
-          color: $text-light;
-          transition: color $transition-duration-fast $transition-timing-function;
-
-          &:hover {
-            color: $accent-color;
-          }
-        }
-      }
-
-      .recentPost {
-        margin-bottom: $spacing-md;
-
-        p {
-          font-size: $font-size-small;
-          color: $text-light;
-          margin: 0;
-        }
-
-        span {
-          font-size: $font-size-small;
-          color: $text-secondary;
-        }
-      }
-
-      .icon {
-        display: flex;
-        align-items: center;
-        margin-bottom: $spacing-sm;
-
-        i {
-          font-size: $font-size-medium;
-          color: $accent-color;
-          margin-right: $spacing-sm;
-        }
-
-        label {
-          font-size: $font-size-small;
-          color: $text-light;
-        }
+    &:last-child {
+      @include media($breakpoint-sm) {
+        margin-bottom: 0;
       }
     }
   }
 
-  .legal {
-    text-align: center;
-    margin-top: $spacing-xl;
-    padding-top: $spacing-md;
-    border-top: $border-width-thin solid $border-color-dark;
+  .connectText {
+    color: $secondary-color-light;
+    font-size: $font-size-medium;
+    margin-bottom: $spacing-md;
+  }
+
+  .socialIcons {
+    display: flex;
+    gap: $spacing-sm;
+
+    i {
+      font-size: $font-size-medium;
+      color: $secondary-color;
+      transition: color $transition-duration-fast $transition-timing-function;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .boxTitle {
+    color: $secondary-color;
+    font-size: $font-size-large;
+    margin-bottom: $spacing-md;
+  }
+
+  .quickLinks {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      color: $secondary-color-light;
+      margin-bottom: $spacing-sm;
+      cursor: pointer;
+      transition: color $transition-duration-fast $transition-timing-function;
+
+      &:hover {
+        color: $primary-color-light;
+      }
+    }
+  }
+
+  .recentPost {
+    margin-bottom: $spacing-sm;
 
     p {
+      color: $secondary-color;
       font-size: $font-size-small;
-      color: $text-light;
-      margin: 0;
+      margin-bottom: $spacing-xs;
+    }
+
+    span {
+      color: $secondary-color-light;
+      font-size: $font-size-small;
+    }
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-sm;
+
+    i {
+      font-size: $font-size-medium;
+      color: $primary-color;
+      margin-right: $spacing-sm;
     }
 
     label {
-      font-size: $font-size-small;
-      color: $text-light;
+      color: $secondary-color-light;
+    }
+  }
+
+  .legal {
+    background-color: darken($neutral-color, 5%);
+    padding: $spacing-md 0;
+    text-align: center;
+    color: $secondary-color-light;
+    font-size: $font-size-small;
+
+    p, label {
+      margin: 0;
+      display: inline-block;
 
       span {
-        color: $accent-color;
-        font-weight: $font-weight-bold;
+        color: $primary-color;
+        font-weight: $font-weight-medium;
       }
+    }
+
+    p {
+      margin-right: $spacing-sm;
     }
   }
 }

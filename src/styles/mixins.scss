@@ -1,107 +1,99 @@
-// Mixins for common styles
-@mixin navigationMenuTriggerStyle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    padding: 0.75rem 1rem;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--foreground);
-    border-radius: var(--radius);
-  
-    &:hover, &[aria-expanded="true"] {
-      background-color: var(--secondary);
+// mixins.scss
+
+// Mixin for flexbox centering
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Mixin for responsive typography
+@mixin responsive-font($minSize, $maxSize, $minViewportWidth: 320px, $maxViewportWidth: 1200px) {
+  font-size: $minSize;
+  @media screen and (min-width: $minViewportWidth) {
+    font-size: calc(#{$minSize} + #{strip-unit($maxSize - $minSize)} * ((100vw - #{$minViewportWidth}) / #{strip-unit($maxViewportWidth - $minViewportWidth)}));
+  }
+  @media screen and (min-width: $maxViewportWidth) {
+    font-size: $maxSize;
+  }
+}
+
+// Mixin for media queries
+@mixin media($width, $type: max) {
+  @if $type == max {
+    @media only screen and (max-width: $width) {
+      @content;
+    }
+  } @else if $type == min {
+    @media only screen and (min-width: $width) {
+      @content;
     }
   }
-  
-  @mixin navigationMenuLinkStyle {
-    display: block;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius);
-    color: var(--foreground);
-    text-decoration: none;
-  
-    &:hover {
-      background-color: var(--secondary);
-    }
+}
+
+// Mixin for button styles
+@mixin button-styles($bg-color: $interactive-color, $text-color: $text-light) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: $border-width-thin solid $bg-color;
+  border-radius: $border-radius-sm;
+  padding: $spacing-sm $spacing-md;
+  font-family: inherit;
+  font-size: $font-size-base;
+  cursor: pointer;
+  transition: all $transition-duration-medium $transition-timing-function;
+
+  &:hover, &:focus {
+    background-color: lighten($bg-color, 10%);
+    border-color: lighten($bg-color, 10%);
+    outline: none;
   }
-  
-  // Main styles for the dropdown
-  .dropdown-wrapper {
-    position: relative;
-  
-    .dropdown-toggle {
-      @include navigationMenuTriggerStyle;
-      width: 100%;
-    }
-  
-    .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 300px;
-      background-color: var(--background);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      z-index: 1;
-  
-      .industry-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-  
-        li {
-          @include navigationMenuLinkStyle;
-          margin: 0;
-  
-          a {
-            color: var(--foreground);
-            display: block;
-            width: 100%;
-  
-            &:hover {
-              background-color: var(--secondary);
-            }
-          }
-        }
-      }
-  
-      .actions {
-        display: flex;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-  
-        .action-link {
-          @include navigationMenuLinkStyle;
-          color: var(--primary);
-          text-decoration: none;
-  
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-  
-      .button {
-        @include navigationMenuLinkStyle;
-        display: block;
-        width: calc(100% - 2rem);
-        margin: 0.5rem 1rem;
-        padding: 0.5rem 0;
-        text-align: center;
-        background-color: var(--primary);
-        color: var(--background);
-        border-radius: var(--radius);
-        text-decoration: none;
-  
-        &:hover {
-          background-color: var(--primary-hover);
-        }
-      }
-    }
+  &:active {
+    background-color: darken($bg-color, 10%);
+    border-color: darken($bg-color, 10%);
   }
+}
+
+// Mixin for box shadow
+@mixin box-shadow($level: 1) {
+  @if $level == 1 {
+    box-shadow: $shadow-sm;
+  } @else if $level == 2 {
+    box-shadow: $shadow-md;
+  } @else if $level == 3 {
+    box-shadow: $shadow-lg;
+  }
+}
+
+// Mixin for creating a clearfix
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// Helper function to strip units from numbers (useful for calculations in mixins)
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+// Mixin for animations
+@mixin animation($name, $duration, $timing-function: ease, $delay: 0s, $iteration-count: 1, $direction: normal) {
+  animation-name: $name;
+  animation-duration: $duration;
+  animation-timing-function: $timing-function;
+  animation-delay: $delay;
+  animation-iteration-count: $iteration-count;
+  animation-direction: $direction;
+}
+
+// Mixin for gradient background
+@mixin gradient-background($start-color, $end-color, $angle: 45deg) {
+  background: $start-color;
+  background: -webkit-linear-gradient($angle, $start-color, $end-color);
+  background: -o-linear-gradient($angle, $start-color, $end-color);
+  background: -moz-linear-gradient($angle, $start-color, $end-color);
+  background: linear-gradient($angle, $start-color, $end-color);
+}

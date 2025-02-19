@@ -1,52 +1,63 @@
 // src/styles/components/branding.module.scss
 @import '@/styles/variables';
+@import '@/styles/mixins';
 
 .painPoints {
-  padding: $spacing-xxl 0;
-  background-color: $background-light;
+  background-color: $secondary-color;
+  padding: $spacing-xl $spacing-md;
   color: $text-primary;
 
   .splitScreen {
     display: flex;
-    max-width: $breakpoint-lg;
-    margin: 0 auto;
-    gap: $spacing-xl;
+    justify-content: space-between;
+    gap: $spacing-lg;
 
-    .problems, .solutions {
-      flex: 1;
-      padding: $spacing-md;
-      border-radius: $border-radius-md;
-      transition: transform $transition-duration-medium $transition-timing-function;
-
-      &:hover {
-        transform: translateY(-10px);
-        box-shadow: $shadow-md;
-      }
+    @include media($breakpoint-sm) {
+      flex-direction: column;
     }
+  }
 
-    .problems {
-      background-color: $secondary-color;
-    }
-
-    .solutions {
-      background-color: $primary-color;
-      color: $text-light;
-    }
-
-    .sectionTitle {
-      font-size: $font-size-large;
-      font-weight: $font-weight-bold;
-      margin-bottom: $spacing-md;
-    }
+  .problems, .solutions {
+    flex: 1;
 
     ul {
-      list-style: none;
-      padding: 0;
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: $spacing-md;
 
       li {
-        font-size: $font-size-medium;
         margin-bottom: $spacing-sm;
+        padding-left: $spacing-md;
+        position: relative;
+
+        &::before {
+          content: '✓';
+          position: absolute;
+          left: 0;
+          color: $primary-color;
+          font-weight: $font-weight-bold;
+        }
       }
     }
   }
+
+  .sectionTitle {
+    color: $primary-color;
+    font-size: $font-size-large;
+    margin-bottom: $spacing-md;
+    font-weight: $font-weight-bold;
+  }
+
+  .problems {
+    border-right: $border-width-thin solid $border-color-light;
+
+    @include media($breakpoint-sm) {
+      border-right: none;
+      border-bottom: $border-width-thin solid $border-color-light;
+      margin-bottom: $spacing-lg;
+      padding-bottom: $spacing-lg;
+    }
+  }
+
+ 
 }
