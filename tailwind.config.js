@@ -14,12 +14,8 @@ module.exports = {
     			sm: 'calc(var(--radius) - 4px)'
     		},
 			colors: {
-				'primary': '#fc5546',
-				'secondary': '#627792',
-				'on-primary': '#f9e0df',
-				'on-secondary': '#e7ebf0',
-				'highlight': '#1a1a1a',
-				'muted': '#777'
+				primary: "#6A0DAD",
+        "primary-light": "#8A3DC8",
 			  },
     	}
     },

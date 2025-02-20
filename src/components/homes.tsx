@@ -11,7 +11,7 @@ const Hero: React.FC = () => {
         </h1>
         <p className={styles.heroSubtitle}>
           Aberrange delivers cutting-edge AI-powered solutions to streamline your business, reduce costs, and boost productivity. 
-          Whether you're a startup, small business, or enterprise, we’ve got you covered.
+          Whether you&apos;re a startup, small business, or enterprise, we&apos;ve got you covered.
         </p>
         <div className={styles.ctaButtons}>
           <button className={styles.ctaButtonPrimary}>
