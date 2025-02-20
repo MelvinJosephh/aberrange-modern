@@ -10,7 +10,8 @@ const Hero: React.FC = () => {
           Smart Virtual Assistance for Tech, Finance, Research, and Executive Operations
         </h1>
         <p className={styles.heroSubtitle}>
-          Aberrange delivers cutting-edge AI-powered solutions to streamline your business, reduce costs, and boost productivity. 
+          Aberrange delivers cutting-edge AI-powered solutions to streamline 
+          your business, reduce costs, and boost productivity.
           Whether you&apos;re a startup, small business, or enterprise, we&apos;ve got you covered.
         </p>
         <div className={styles.ctaButtons}>

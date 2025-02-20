@@ -13,10 +13,14 @@ module.exports = {
     			md: 'calc(var(--radius) - 2px)',
     			sm: 'calc(var(--radius) - 4px)'
     		},
-			colors: {
-				primary: "#6A0DAD",
-        "primary-light": "#8A3DC8",
-			  },
+        colors: {
+          primary: '#6A0DAD',
+          'primary-dark': '#4D0A7A',
+          secondary: '#F5F5F5',
+          'secondary-dark': '#E0E0E0',
+          neutral: '#333333',
+          'neutral-light': '#4D4D4D',
+        },
     	}
     },
     // eslint-disable-next-line @typescript-eslint/no-require-imports
