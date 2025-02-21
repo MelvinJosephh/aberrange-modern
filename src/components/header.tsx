@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 
-// Define submenu data without descriptions
+// Define submenu data
 const mainServices = [
   { title: "Administrative VA", href: "/services/administrative-va" },
   { title: "Business Support VA", href: "/services/business-support-va" },
@@ -47,48 +47,57 @@ const Header: React.FC = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-[var(--secondary-color)] shadow-sm fixed w-full top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-neutral">
+        <Link href="/" className="text-2xl font-bold text-[var(--neutral-color)]">
           Aberrange
         </Link>
 
         {/* Hamburger Menu */}
-        <button className="md:hidden p-2" onClick={toggleMenu}>
+        <button className="lg:hidden p-2 text-[var(--neutral-color)]" onClick={toggleMenu}>
           {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
         </button>
 
         {/* Navigation */}
         <nav
           className={cn(
-            "md:flex items-center space-x-6",
-            isMenuOpen ? "block absolute top-16 left-0 w-full bg-white p-4 shadow-md z-10" : "hidden md:block"
+            "lg:flex items-center",
+            isMenuOpen
+              ? "block absolute top-16 left-0 w-full bg-[var(--secondary-color)] p-4 shadow-md z-10"
+              : "hidden lg:block"
           )}
         >
           <NavigationMenu>
-            <NavigationMenuList className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+            <NavigationMenuList
+              className={cn(
+                "flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-6",
+                "lg:items-center"
+              )}
+            >
+              {/* Services */}
               <NavigationMenuItem>
                 <NavigationMenuTrigger
-                  className={cn(navigationMenuTriggerStyle(), "text-neutral hover:text-primary")}
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "text-[var(--neutral-color)] bg-[var(--secondary-color)] hover:font-bold"
+                  )}
                 >
                   Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="w-[300px] sm:w-[400px] md:w-[500px] lg:w-[600px] p-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {/* Main Services Column */}
-                      <div className="space-y-2">
-                        <h3 className="text-sm font-semibold text-neutral">Main Services</h3>
-                        <ul className="space-y-1">
+                  <div className="w-[600px] p-6 bg-[var(--secondary-color)]">
+                    <div className="grid grid-cols-3 gap-6">
+                      <div className="space-y-3">
+                        <h3 className="text-sm font-semibold text-[var(--neutral-color)]">
+                          Main Services
+                        </h3>
+                        <ul className="space-y-2">
                           {mainServices.map((item) => (
                             <li key={item.title}>
                               <NavigationMenuLink
                                 href={item.href}
-                                className={cn(
-                                  "block select-none rounded-md p-2 text-sm text-neutral leading-none no-underline outline-none transition-colors",
-                                  "hover:bg-primary hover:text-white focus:bg-primary focus:text-white"
-                                )}
+                                className="block text-[var(--neutral-color)] hover:font-bold px-2 py-1 rounded-md transition-all text-sm"
                               >
                                 {item.title}
                               </NavigationMenuLink>
@@ -96,18 +105,16 @@ const Header: React.FC = () => {
                           ))}
                         </ul>
                       </div>
-                      {/* Industries Column */}
-                      <div className="space-y-2">
-                        <h3 className="text-sm font-semibold text-neutral">Industries</h3>
-                        <ul className="space-y-1">
+                      <div className="space-y-3">
+                        <h3 className="text-sm font-semibold text-[var(--neutral-color)]">
+                          Industries
+                        </h3>
+                        <ul className="space-y-2">
                           {industries.map((item) => (
                             <li key={item.title}>
                               <NavigationMenuLink
                                 href={item.href}
-                                className={cn(
-                                  "block select-none rounded-md p-2 text-sm text-neutral leading-none no-underline outline-none transition-colors",
-                                  "hover:bg-primary hover:text-white focus:bg-primary focus:text-white"
-                                )}
+                                className="block text-[var(--neutral-color)] hover:font-bold px-2 py-1 rounded-md transition-all text-sm"
                               >
                                 {item.title}
                               </NavigationMenuLink>
@@ -115,18 +122,16 @@ const Header: React.FC = () => {
                           ))}
                         </ul>
                       </div>
-                      {/* Business Hubs Column */}
-                      <div className="space-y-2">
-                        <h3 className="text-sm font-semibold text-neutral">Business Hubs</h3>
-                        <ul className="space-y-1">
+                      <div className="space-y-3">
+                        <h3 className="text-sm font-semibold text-[var(--neutral-color)]">
+                          Business Hubs
+                        </h3>
+                        <ul className="space-y-2">
                           {businessHubs.map((item) => (
                             <li key={item.title}>
                               <NavigationMenuLink
                                 href={item.href}
-                                className={cn(
-                                  "block select-none rounded-md p-2 text-sm text-neutral leading-none no-underline outline-none transition-colors",
-                                  "hover:bg-primary hover:text-white focus:bg-primary focus:text-white"
-                                )}
+                                className="block text-[var(--neutral-color)] hover:font-bold px-2 py-1 rounded-md transition-all text-sm"
                               >
                                 {item.title}
                               </NavigationMenuLink>
@@ -135,68 +140,90 @@ const Header: React.FC = () => {
                         </ul>
                       </div>
                     </div>
-                    {/* Full-Width Schedule a Call Button */}
-                    <NavigationMenuLink
-                      href="/schedule-call"
-                      className="block w-full mt-4 px-4 py-3 text-center rounded-md bg-gradient-to-r from-primary to-primary-dark text-white font-medium text-lg hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary transition-colors"
-                    >
-                      Schedule a Call
-                    </NavigationMenuLink>
                   </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              {/* Other Links */}
+              {/* Other Navigation Links */}
               <NavigationMenuItem>
-                <Link href="/how-it-works" className="text-neutral hover:text-primary">
+                <Link
+                  href="/how-it-works"
+                  className="text-[var(--neutral-color)] hover:font-bold text-sm font-medium"
+                >
                   How It Works
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/pricing" className="text-neutral hover:text-primary">
+                <Link
+                  href="/pricing"
+                  className="text-[var(--neutral-color)] hover:font-bold text-sm font-medium"
+                >
                   Pricing
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/resources" className="text-neutral hover:text-primary">
+                <Link
+                  href="/resources"
+                  className="text-[var(--neutral-color)] hover:font-bold text-sm font-medium"
+                >
                   Resources
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/about" className="text-neutral hover:text-primary">
+                <Link
+                  href="/about"
+                  className="text-[var(--neutral-color)] hover:font-bold text-sm font-medium"
+                >
                   About Us
+                </Link>
+              </NavigationMenuItem>
+
+              {/* Buttons */}
+              <NavigationMenuItem>
+                <Link
+                  href="/hire-va"
+                  className="bg-[var(--secondary-color)] text-[var(--neutral-color)] px-4 py-2 rounded-md hover:font-bold transition-all text-sm font-medium border border-[var(--neutral-color)]"
+                >
+                  Hire a VA
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link
+                  href="/get-quote"
+                  className="bg-[var(--secondary-color)] text-[var(--neutral-color)] px-4 py-2 rounded-md hover:font-bold transition-all text-sm font-medium border border-[var(--neutral-color)]"
+                >
+                  Get a Quote
                 </Link>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-
-          <Link href="/hire-va" className="text-primary font-medium hover:text-primary-dark md:ml-4">
-            Hire a VA
-          </Link>
-          <Link href="/join" className="text-primary font-medium hover:text-primary-dark md:ml-4">
-            Join Us
-          </Link>
         </nav>
 
-        {/* Actions */}
-        <div className="hidden md:flex items-center space-x-4">
-          <Link href="/get-quote" className="bg-secondary text-neutral px-4 py-2 rounded-md hover:bg-secondary-dark">
-            Get a Quote
-          </Link>
+        {/* Profile Actions */}
+        <div className="hidden lg:flex items-center space-x-4">
           <div className="relative">
             <AccountCircleIcon
-              className="text-neutral cursor-pointer"
+              className="text-[var(--neutral-color)] cursor-pointer"
               onClick={() => setIsProfileOpen(!isProfileOpen)}
             />
             {isProfileOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md p-2">
-                <Link href="/login" className="block px-4 py-2 text-neutral hover:bg-secondary">
+              <div className="absolute right-0 mt-2 w-48 bg-[var(--secondary-color)] shadow-lg rounded-md p-2 z-20">
+                <Link
+                  href="/login"
+                  className="block px-4 py-2 text-[var(--neutral-color)] hover:font-bold rounded-md"
+                >
                   Login
                 </Link>
-                <Link href="/signup" className="block px-4 py-2 text-neutral hover:bg-secondary">
+                <Link
+                  href="/signup"
+                  className="block px-4 py-2 text-[var(--neutral-color)] hover:font-bold rounded-md"
+                >
                   Sign Up
                 </Link>
-                <Link href="/dashboard" className="block px-4 py-2 text-neutral hover:bg-secondary">
+                <Link
+                  href="/dashboard"
+                  className="block px-4 py-2 text-[var(--neutral-color)] hover:font-bold rounded-md"
+                >
                   Dashboard
                 </Link>
               </div>

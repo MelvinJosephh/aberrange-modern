@@ -10,7 +10,7 @@
   height: 90vh; // Reasonable height
   padding: 0 $spacing-xxl;
   background: $secondary-color;
-  color: $text-light;
+  color: $neutral-color-dark;
 
   .leftSection {
     max-width: 60%;
@@ -26,7 +26,7 @@
       font-size: $font-size-medium;
       margin-bottom: $spacing-lg;
       line-height: $line-height-base;
-      color: $neutral-color;
+      color: $neutral-color-dark;
     }
 
     .ctaButtons {
