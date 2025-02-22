@@ -1,0 +1,95 @@
+// src/styles/components/ctaBanner.module.scss
+.ctaBanner {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #3f51b5 0%, #1e88e5 100%);
+    text-align: center;
+    color: #fff;
+  
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  
+    .ctaTitle {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+  
+    .ctaSubtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+  
+    .ctaButton {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #3f51b5;
+      background: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: background 0.3s ease, transform 0.3s ease;
+  
+      .ctaIcon {
+        font-size: 1.5rem;
+        transition: transform 0.3s ease;
+      }
+  
+      &:hover {
+        background: #e0e7ff;
+        transform: translateY(-2px);
+  
+        .ctaIcon {
+          transform: translateX(5px);
+        }
+      }
+    }
+  
+    // Responsive adjustments
+    @media (max-width: 768px) {
+      padding: 3rem 1.5rem;
+  
+      .ctaTitle {
+        font-size: 2rem;
+      }
+  
+      .ctaSubtitle {
+        font-size: 1rem;
+      }
+  
+      .ctaButton {
+        font-size: 1.1rem;
+        padding: 0.65rem 1.25rem;
+  
+        .ctaIcon {
+          font-size: 1.3rem;
+        }
+      }
+    }
+  
+    @media (max-width: 480px) {
+      padding: 2rem 1rem;
+  
+      .ctaTitle {
+        font-size: 1.75rem;
+      }
+  
+      .ctaSubtitle {
+        font-size: 0.9rem;
+      }
+  
+      .ctaButton {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+  
+        .ctaIcon {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }

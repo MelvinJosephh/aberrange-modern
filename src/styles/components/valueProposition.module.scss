@@ -1,0 +1,153 @@
+// src/styles/components/valueProposition.module.scss
+.valueProposition {
+    padding: 4rem 2rem;
+    background: #fff;
+    text-align: center;
+  
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  
+    .sectionTitle {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 1rem;
+    }
+  
+    .sectionSubtitle {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 3rem;
+    }
+  
+    .contentWrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+  
+      .benefitsList {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: left;
+  
+        .benefitItem {
+          display: flex;
+          align-items: flex-start;
+          gap: 1rem;
+  
+          .benefitIcon {
+            font-size: 2rem;
+            color: #3f51b5;
+            transition: transform 0.3s ease;
+  
+            &:hover {
+              transform: scale(1.1);
+            }
+          }
+  
+          .benefitTitle {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+          }
+  
+          .benefitDescription {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.5;
+          }
+        }
+      }
+  
+      .visualWrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+  
+        .animationContainer {
+          width: 300px;
+          height: 300px;
+          position: relative;
+  
+          .dataFlow {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #e0e7ff 10%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 2s infinite ease-in-out;
+          }
+        }
+      }
+    }
+  
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.05);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+    }
+  
+    // Responsive adjustments
+    @media (max-width: 768px) {
+      .sectionTitle {
+        font-size: 2rem;
+      }
+  
+      .sectionSubtitle {
+        font-size: 1rem;
+      }
+  
+      .contentWrapper {
+        flex-direction: column;
+        gap: 3rem;
+  
+        .visualWrapper {
+          .animationContainer {
+            width: 200px;
+            height: 200px;
+          }
+        }
+      }
+    }
+  
+    @media (max-width: 480px) {
+      padding: 2rem 1rem;
+  
+      .sectionTitle {
+        font-size: 1.75rem;
+      }
+  
+      .benefitsList {
+        gap: 1rem;
+  
+        .benefitItem {
+          .benefitIcon {
+            font-size: 1.5rem;
+          }
+  
+          .benefitTitle {
+            font-size: 1.1rem;
+          }
+  
+          .benefitDescription {
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+  }

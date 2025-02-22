@@ -1,63 +1,154 @@
 // src/styles/components/branding.module.scss
-@import '@/styles/variables';
-@import '@/styles/mixins';
+.services {
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  text-align: center;
 
-.painPoints {
-  background-color: $secondary-color;
-  padding: $spacing-xl $spacing-md;
-  color: $text-primary;
-
-  .splitScreen {
-    display: flex;
-    justify-content: space-between;
-    gap: $spacing-lg;
-
-    @include media($breakpoint-sm) {
-      flex-direction: column;
-    }
-  }
-
-  .problems, .solutions {
-    flex: 1;
-
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-      margin-top: $spacing-md;
-
-      li {
-        margin-bottom: $spacing-sm;
-        padding-left: $spacing-md;
-        position: relative;
-
-        &::before {
-          content: '✓';
-          position: absolute;
-          left: 0;
-          color: $primary-color;
-          font-weight: $font-weight-bold;
-        }
-      }
-    }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .sectionTitle {
-    color: $primary-color;
-    font-size: $font-size-large;
-    margin-bottom: $spacing-md;
-    font-weight: $font-weight-bold;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
   }
 
-  .problems {
-    border-right: $border-width-thin solid $border-color-light;
+  .sectionSubtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 3rem;
+  }
 
-    @include media($breakpoint-sm) {
-      border-right: none;
-      border-bottom: $border-width-thin solid $border-color-light;
-      margin-bottom: $spacing-lg;
-      padding-bottom: $spacing-lg;
+  .servicesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .serviceCard {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .iconWrapper {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #e0e7ff;
+    }
+
+    .iconAutomation {
+      display: block;
+      width: 30px;
+      height: 30px;
+      background: url('/icons/automation.svg') no-repeat center;
+      background-size: contain;
+    }
+
+    .iconTech {
+      display: block;
+      width: 30px;
+      height: 30px;
+      background: url('/icons/tech.svg') no-repeat center;
+      background-size: contain;
+    }
+
+    .iconAdmin {
+      display: block;
+      width: 30px;
+      height: 30px;
+      background: url('/icons/admin.svg') no-repeat center;
+      background-size: contain;
+    }
+
+    .iconFinance {
+      display: block;
+      width: 30px;
+      height: 30px;
+      background: url('/icons/finance.svg') no-repeat center;
+      background-size: contain;
+    }
+
+    .iconResearch {
+      display: block;
+      width: 30px;
+      height: 30px;
+      background: url('/icons/research.svg') no-repeat center;
+      background-size: contain;
+    }
+
+    .serviceTitle {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 0.75rem;
+    }
+
+    .serviceDescription {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.5;
     }
   }
 
- 
+  .exploreLink {
+    display: inline-block;
+    font-size: 1.1rem;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    .sectionTitle {
+      font-size: 2rem;
+    }
+
+    .sectionSubtitle {
+      font-size: 1rem;
+    }
+
+    .servicesGrid {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .serviceCard {
+      padding: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+
+    .sectionTitle {
+      font-size: 1.75rem;
+    }
+
+    .servicesGrid {
+      grid-template-columns: 1fr;
+    }
+  }
 }

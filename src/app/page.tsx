@@ -1,20 +1,22 @@
 // src/app/page.tsx
-import Homes from '@/components/homes';
-import Wrapper from '@/components/wrapper';
-import WrapperOne from '@/components/wrapper-one';
-// import IndustriesBrief from '@/components/industries-brief';
-import Modal from '@/components/modal';
 import Branding from '@/components/branding';
+import ValueProposition from '@/components/value-proposotion';
+import HowItWorks from '@/components/howItWorks';
+import UseCases from '@/components/useCases';
+import Testimonials from '@/components/testimonials';
+import CtaBanner from '@/components/CtaBanner';
+import Hero from '@/components/hero';
 
 export default function HomePage() {
   return (
     <div>
-      <Homes />             {/* Hero Section or Intro */}
+      <Hero />             
       <Branding/>
-      <Wrapper />           {/* Some informative content */}
-      <WrapperOne />        {/* Secondary informative content */}
-      {/* <IndustriesBrief />   */}
-      <Modal />             {/* Call-to-action or newsletter modal */}
+      <ValueProposition />        
+      <HowItWorks />           
+     <UseCases/>
+     <Testimonials/>
+     <CtaBanner/>
     </div>
   );
 }

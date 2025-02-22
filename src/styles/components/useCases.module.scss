@@ -1,0 +1,145 @@
+// src/styles/components/useCases.module.scss
+.useCases {
+  padding: 4rem 2rem;
+  background: #fff;
+  text-align: center;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .sectionTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+  }
+
+  .sectionSubtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 3rem;
+  }
+
+  .casesGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    .caseCard {
+      background: #f9fafb;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .iconWrapper {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #e0e7ff;
+      }
+
+      .caseIcon {
+        font-size: 2rem;
+        color: #3f51b5;
+        transition: transform 0.3s ease;
+
+        .caseCard:hover & {
+          transform: scale(1.1);
+        }
+      }
+
+      .caseTitle {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 0.75rem;
+      }
+
+      .caseDescription {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+      }
+
+      .caseMetric {
+        display: inline-block;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #3f51b5;
+        background: #e0e7ff;
+        padding: 0.25rem 0.75rem;
+        border-radius: 16px;
+      }
+    }
+  }
+
+  .ctaLink {
+    display: inline-block;
+    font-size: 1.1rem;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    .sectionTitle {
+      font-size: 2rem;
+    }
+
+    .sectionSubtitle {
+      font-size: 1rem;
+    }
+
+    .casesGrid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+
+      .caseCard {
+        padding: 1.5rem;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+
+    .sectionTitle {
+      font-size: 1.75rem;
+    }
+
+    .caseCard {
+      .caseTitle {
+        font-size: 1.25rem;
+      }
+
+      .caseDescription {
+        font-size: 0.9rem;
+      }
+
+      .caseMetric {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

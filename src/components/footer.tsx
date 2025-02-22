@@ -1,81 +1,116 @@
 // src/components/Footer.tsx
-import styles from '@/styles/components/footer.module.scss';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+'use client';
 
-export default function Footer() {
+import React from 'react';
+import Link from 'next/link'; // Next.js Link for client-side navigation
+import styles from '@/styles/components/footer.module.scss';
+
+// Material Icons for Social Media and Contact
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import EmailIcon from '@mui/icons-material/Email';
+
+const Footer: React.FC = () => {
   return (
     <footer className={styles.footer}>
-      <section className={styles.footerContainer}>
-        {/* Connect Section */}
-        <div className={styles.box}>
-          <p className={styles.connectText}>
-            Connect with me and get the best for your firm
+      <div className={styles.container}>
+        {/* Column 1: Logo & Tagline */}
+        <div className={styles.footerColumn}>
+          <h3 className={styles.footerLogo}>Aberrange</h3>
+          <p className={styles.footerTagline}>
+            AI-Powered Business Solutions
           </p>
-          <div className={styles.socialIcons}>
-            <i className="fab fa-facebook-f" aria-label="Facebook"></i>
-            <i className="fab fa-instagram" aria-label="Instagram"></i>
-            <i className="fab fa-twitter" aria-label="Twitter"></i>
-            <i className="fab fa-youtube" aria-label="YouTube"></i>
-            <i className="fab fa-pinterest" aria-label="Pinterest"></i>
-            <i className="fab fa-dribbble" aria-label="Dribbble"></i>
-          </div>
         </div>
 
-        {/* Quick Links Section */}
-        <div className={styles.box}>
-          <h3 className={styles.boxTitle}>Quick Links</h3>
-          <ul className={styles.quickLinks}>
-            <li>Home</li>
-            <li>About</li>
-            <li>Portfolio</li>
-            <li>News</li>
-            <li>Contact</li>
-            <li>FAQ&apos;s</li>
+        {/* Column 2: Quick Links */}
+        <div className={styles.footerColumn}>
+          <h4 className={styles.footerHeading}>Quick Links</h4>
+          <ul className={styles.footerLinks}>
+            <li>
+              <Link href="/" className={styles.footerLink}>
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/services" className={styles.footerLink}>
+                Services
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" className={styles.footerLink}>
+                About
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className={styles.footerLink}>
+                Contact
+              </Link>
+            </li>
           </ul>
         </div>
 
-        {/* Recent Posts Section */}
-        <div className={styles.box}>
-          <h3 className={styles.boxTitle}>Recent Posts</h3>
-          <div className={styles.recentPost}>
-            <p>Planet alignment</p>
-            <span>28 Feb 2024</span>
-          </div>
-          <div className={styles.recentPost}>
-            <p>Kasongo trends</p>
-            <span>28 Feb 2024</span>
-          </div>
-          <div className={styles.recentPost}>
-            <p>Trump&apos;s Presidency</p>
-            <span>28 Feb 2024</span>
-          </div>
+        {/* Column 3: Contact Info */}
+        <div className={styles.footerColumn}>
+          <h4 className={styles.footerHeading}>Contact Us</h4>
+          <p className={styles.footerContact}>
+            <EmailIcon className={styles.contactIcon} />
+            <a href="mailto:support@aberrange.com" className={styles.footerLink}>
+              support@aberrange.com
+            </a>
+          </p>
+          <p className={styles.footerContact}>
+            Phone: +1 (555) 123-4567
+          </p>
         </div>
 
-        {/* Get in Touch Section */}
-        <div className={styles.box}>
-          <h3 className={styles.boxTitle}>Get in Touch</h3>
-          <div className={styles.icon}>
-            <i className="fa fa-map-marker" aria-hidden="true"></i>
-            <label>Location: 87 Division, Kikuyu Sub, Kiambu County, Nairobi, Kenya</label>
-          </div>
-          <div className={styles.icon}>
-            <i className="fa fa-phone" aria-hidden="true"></i>
-            <label>+254702035351</label>
-          </div>
-          <div className={styles.icon}>
-            <i className="fa fa-envelope" aria-hidden="true"></i>
-            <label>Email: support@aberrange.com</label>
+        {/* Column 4: Newsletter & Socials */}
+        <div className={styles.footerColumn}>
+          <h4 className={styles.footerHeading}>Stay Connected</h4>
+          <form className={styles.newsletterForm} onSubmit={(e) => e.preventDefault()}>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className={styles.newsletterInput}
+            />
+            <button type="submit" className={styles.newsletterButton}>
+              Subscribe
+            </button>
+          </form>
+          <div className={styles.socialIcons}>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.socialLink}
+            >
+              <LinkedInIcon className={styles.socialIcon} />
+            </a>
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.socialLink}
+            >
+              <TwitterIcon className={styles.socialIcon} />
+            </a>
           </div>
         </div>
-      </section>
-
-      {/* Legal Section */}
-      <section className={styles.legal}>
-        <p>&copy; 2023. All rights reserved.</p>
-        <label>
-          Designed and Developed by <span>MelvinDev</span>
-        </label>
-      </section>
+      </div>
+      <div className={styles.footerBottom}>
+        <p className={styles.footerCopyright}>
+          © {new Date().getFullYear()} Aberrange. All rights reserved.
+        </p>
+        <div className={styles.footerLegal}>
+          <Link href="/privacy" className={styles.footerLink}>
+            Privacy Policy
+          </Link>
+          <Link href="/terms" className={styles.footerLink}>
+            Terms of Service
+          </Link>
+        </div>
+      </div>
     </footer>
   );
-}
+};
+
+export default Footer;

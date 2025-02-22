@@ -1,5 +1,8 @@
-// src/components/Hero.tsx
-import styles from '@/styles/components/homes.module.scss';
+'use client';
+
+import styles from '@/styles/components/hero.module.scss';
+import Lottie from 'lottie-react'; // For Lottie animations
+import animationData from '../../public/animations/ai-assistant.json'; 
 
 const Hero: React.FC = () => {
   return (
@@ -24,15 +27,10 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Right Section: Animation */}
+      {/* Right Section: Lottie Animation */}
       <div className={styles.rightSection}>
         <div className={styles.animationContainer}>
-          {/* AI Assistant Animation */}
-          <div className={styles.aiAssistant}>
-            <div className={styles.aiHead}></div>
-            <div className={styles.aiBody}></div>
-            <div className={styles.aiPulse}></div>
-          </div>
+          <Lottie animationData={animationData} loop={true} />
         </div>
       </div>
     </section>
