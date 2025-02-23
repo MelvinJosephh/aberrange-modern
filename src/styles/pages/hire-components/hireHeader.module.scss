@@ -1,0 +1,20 @@
+// src/styles/components/hireHeader.module.scss
+@import '@/styles/variables';
+
+.hireHeader {
+  padding: $spacing-xl $spacing-lg;
+  background: linear-gradient(135deg, $secondary-color 0%, $primary-color-light 100%);
+  text-align: center;
+  color: $neutral-color-dark;
+
+  .headerTitle {
+    font-size: clamp(2rem, 4vw, $font-size-xlarge);
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-md;
+  }
+
+  .headerSubtitle {
+    font-size: clamp(1rem, 2vw, $font-size-medium);
+    color: darken($neutral-color-dark, 10%);
+  }
+}

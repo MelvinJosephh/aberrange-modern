@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import styles from '@/styles/components/hero.module.scss';
 import Lottie from 'lottie-react'; // For Lottie animations
 import animationData from '../../public/animations/ai-assistant.json'; 
@@ -18,9 +19,9 @@ const Hero: React.FC = () => {
           Whether you&apos;re a startup, small business, or enterprise, we&apos;ve got you covered.
         </p>
         <div className={styles.ctaButtons}>
-          <button className={styles.ctaButtonPrimary}>
-            Hire a Virtual Assistant →
-          </button>
+        <Link href="/hire" className={styles.ctaButtonPrimary}>
+            Hire a Virtual Assistant <span className={styles.ctaArrow}>→</span>
+          </Link>
           <button className={styles.ctaButtonSecondary}>
             Call Us Now
           </button>

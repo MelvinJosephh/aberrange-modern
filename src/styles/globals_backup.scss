@@ -1,0 +1,145 @@
+// Tailwind directives (required for shadcn-ui)
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import
+ 'variables';
+@import
+ 'mixins';
+@import
+ "tailwindcss";
+
+// Define variables directly if not in separate files
+:root {
+  --secondary-color: #F5F5F5;
+  --primary-color: #6A0DAD;
+  --neutral-color: #333333;
+  --interactive-color: #6A0DAD; // Default interactive color
+  --interactive-hover: #4D0A7A;
+  --interactive-active: #3A077A;
+  --background-color: #FFFFFF;
+  --text-primary: #333333;
+  --text-light: #FFFFFF;
+  --border-color-light: #D1D5DB;
+  --border-width-thin: 1px;
+  --border-radius-sm: 4px;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --font-primary: 'Inter', sans-serif; // Adjust as needed
+  --font-size-base: 16px;
+  --font-size-small: 14px;
+  --font-size-medium: 20px;
+  --font-size-large: 24px;
+  --font-size-xlarge: 32px;
+  --font-weight-medium: 500;
+  --line-height-base: 1.5;
+  --transition-duration-medium: 0.2s;
+  --transition-timing-function: ease-in-out;
+  --breakpoint-sm: 640px;
+}
+
+// Custom component layer for Tailwind utility classes
+@layer components {
+  .text-neutral {
+    @apply text-[var(--neutral-color)];
+  }
+  .bg-primary {
+    @apply bg-[var(--primary-color)];
+  }
+  .hover\:bg-primary-dark:hover {
+    @apply bg-[var(--interactive-hover)];
+  }
+}
+
+// Reset/Normalize styles
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+}
+
+// Link styles
+a {
+  color: var(--interactive-color);
+  text-decoration: none;
+  transition: color var(--transition-duration-medium) var(--transition-timing-function);
+
+  &:hover, &:focus {
+    color: var(--interactive-hover);
+    text-decoration: underline;
+  }
+  &:active {
+    color: var(--interactive-active);
+  }
+}
+
+
+
+// Form inputs
+input, textarea, select {
+  background-color: var(--secondary-color);
+  border: var(--border-width-thin) solid var(--border-color-light);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  padding: var(--spacing-sm);
+
+  &:focus {
+    border-color: var(--interactive-color);
+    outline: none;
+    box-shadow: 0 0 0 var(--border-width-thin) var(--interactive-color);
+  }
+}
+
+// Utility classes
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-md);
+}
+
+h1 { font-size: var(--font-size-xlarge); }
+h2 { font-size: var(--font-size-large); }
+h3 { font-size: var(--font-size-medium); }
+h4 { font-size: var(--font-size-base); }
+h5 { font-size: var(--font-size-small); }
+h6 { font-size: calc(var(--font-size-small) * 0.875); }
+
+// Responsive design
+@media (max-width: 640px) {
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+  h1 { font-size: var(--font-size-large); }
+  h2 { font-size: var(--font-size-medium); }
+}
+
+// Image styles
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// Clearfix
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}

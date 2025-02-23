@@ -1,139 +1,26 @@
-// Import variables and mixins if they are in separate files
-@import 'variables';
-@import 'mixins';
-@import "tailwindcss";
+@use "tailwindcss";
+@tailwind base;
 
-:root {
-  --secondary-color: #F5F5F5;
-  --primary-color: #6A0DAD;
-  --neutral-color: #333333;
+@custom-variant dark (&:is(.dark *));
+@tailwind components;
+@tailwind utilities;
+
+
+
+/* Custom global styles */
+body {
+  @apply bg-gray-100 text-gray-900;
 }
 
-@layer components {
+@layer base {
+
   .text-neutral {
-    @apply text-[#333333];
+    @apply text-[var(--neutral-color)];
   }
   .bg-primary {
-    @apply bg-[#6A0DAD];
+    @apply bg-[var(--primary-color)];
   }
   .hover\:bg-primary-dark:hover {
-    @apply bg-[#4D0A7A];
+    @apply bg-[var(--interactive-hover)];
   }
-}
-
-
-// Reset/Normalize styles to ensure consistent rendering across browsers
-body, h1, h2, h3, h4, h5, h6, p, ol, ul {
-  margin: 0;
-  padding: 0;
-}
-
-// Base styles for the body
-body {
-  background-color: $background-color;
-  color: $text-primary;
-  font-family: $font-primary;
-  font-size: $font-size-base;
-  line-height: $line-height-base;
-}
-
-// Link styles
-a {
-  color: $interactive-color;
-  text-decoration: none;
-  transition: color $transition-duration-medium $transition-timing-function;
-
-  &:hover, &:focus {
-    color: $interactive-hover;
-    text-decoration: underline;
-  }
-  &:active {
-    color: $interactive-active;
-  }
-}
-
-// Button styles
-button, .btn {
-  background-color: $interactive-color;
-  border: $border-width-thin solid $interactive-color;
-  border-radius: $border-radius-sm;
-  color: $text-light;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: $font-size-base;
-  padding: $spacing-sm $spacing-md;
-  transition: all $transition-duration-medium $transition-timing-function;
-
-  &:hover, &:focus {
-    background-color: $interactive-hover;
-    border-color: $interactive-hover;
-    outline: none;
-  }
-  &:active {
-    background-color: $interactive-active;
-    border-color: $interactive-active;
-  }
-}
-
-// Form inputs
-input, textarea, select {
-  background-color: $secondary-color;
-  border: $border-width-thin solid $border-color-light;
-  border-radius: $border-radius-sm;
-  color: $text-primary;
-  font-family: inherit;
-  font-size: $font-size-base;
-  padding: $spacing-sm;
-
-  &:focus {
-    border-color: $interactive-color;
-    outline: none;
-    box-shadow: 0 0 0 $border-width-thin $interactive-color;
-  }
-}
-
-// Utility classes for layout
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 $spacing-md;
-}
-
-// Typography styles
-h1, h2, h3, h4, h5, h6 {
-  color: $primary-color;
-  font-weight: $font-weight-medium;
-  margin-bottom: $spacing-md;
-}
-
-h1 { font-size: $font-size-xlarge; }
-h2 { font-size: $font-size-large; }
-h3 { font-size: $font-size-medium; }
-h4 { font-size: $font-size-base; }
-h5 { font-size: $font-size-small; }
-h6 { font-size: $font-size-small * 0.875; }
-
-// Responsive design
-@media (max-width: $breakpoint-sm) {
-  .container {
-    padding: 0 $spacing-sm;
-  }
-  h1 { font-size: $font-size-large; }
-  h2 { font-size: $font-size-medium; }
-  // Adjust other elements as needed
-}
-
-// Additional global styles
-// For example, if you want to apply a style to all images:
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-// Any other global styles you might need, like clearfix, hidden visibility, etc.
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
 }
