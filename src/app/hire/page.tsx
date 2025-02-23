@@ -21,7 +21,7 @@ const HirePage: React.FC = () => {
       <HireHeader />
       <div className={styles.contentWrapper}>
         <HireForm onSubmit={handleFormSubmit} />
-        {!isSubmitted && <NextSteps />}
+        {isSubmitted && <NextSteps />}
       </div>
     </div>
   );

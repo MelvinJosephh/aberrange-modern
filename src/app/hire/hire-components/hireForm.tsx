@@ -35,7 +35,7 @@ const HireForm: React.FC<HireFormProps> = ({ onSubmit }) => {
   });
 
   const submitHandler = async (data: FormData) => {
-    const response = await fetch('/api/hire', {
+    const response = await fetch('http://localhost:5000/api/submit-hiring-form', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

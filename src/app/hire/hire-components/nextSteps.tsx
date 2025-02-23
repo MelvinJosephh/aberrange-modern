@@ -92,7 +92,7 @@ const NextSteps: React.FC = () => {
 
   const handleSchedule = async () => {
     if (selectedDate) {
-      const response = await fetch('/api/schedule', {
+      const response = await fetch('http://localhost:5000/api/schedule-consultation', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ date: selectedDate.toISOString() }),
