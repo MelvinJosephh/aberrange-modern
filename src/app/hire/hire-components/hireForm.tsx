@@ -3,7 +3,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import styles from '@/styles/pages/hire-components/hireForm.module.scss';
 
-type FormData = {
+export type HireFormData  = {
   service: string; // Changed to single string
   industry: string; // Changed to single string
   hub: string; // Changed to single string
@@ -16,11 +16,11 @@ type FormData = {
 };
 
 interface HireFormProps {
-  onSubmit: () => void;
+  onSubmit: (data: HireFormData ) => void;
 }
 
 const HireForm: React.FC<HireFormProps> = ({ onSubmit }) => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, formState: { errors } } = useForm<HireFormData >({
     defaultValues: {
       service: '',
       industry: '',
@@ -34,15 +34,15 @@ const HireForm: React.FC<HireFormProps> = ({ onSubmit }) => {
     },
   });
 
-  const submitHandler = async (data: FormData) => {
-    const response = await fetch('http://localhost:5000/api/submit-hiring-form', {
+  const submitHandler = async (data: HireFormData ) => {
+    const response = await fetch('http://localhost:5000/api/hiring/submit-hiring-form', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
 
     if (response.ok) {
-      onSubmit();
+      onSubmit(data);
     } else {
       console.error('Submission failed');
     }

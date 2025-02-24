@@ -20,8 +20,12 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import styles from '@/styles/pages/hire-components/nextSteps.module.scss';
+import { HireFormData } from './hireForm'; // Import HireFormData
 
-// DatePickerWithPresets component adapted from shadcn example
+export interface NextStepsProps {
+  formData: HireFormData; // Use full HireFormData
+}
+
 function DatePickerWithPresets({ value, onChange }: { value: Date | null; onChange: (date: Date | null) => void }) {
   const [date, setDate] = useState<Date | null>(value);
 
@@ -32,7 +36,6 @@ function DatePickerWithPresets({ value, onChange }: { value: Date | null; onChan
       return;
     }
     const selectedDate = new Date(newDate);
-    // Prevent past dates
     if (selectedDate < new Date(new Date().setHours(0, 0, 0, 0))) {
       selectedDate.setTime(new Date().setHours(0, 0, 0, 0));
     }
@@ -43,28 +46,18 @@ function DatePickerWithPresets({ value, onChange }: { value: Date | null; onChan
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          className={cn(
-            'w-full justify-start text-left font-normal',
-            !date && 'text-muted-foreground'
-          )}
-        >
+        <Button variant="outline" className={cn('w-full justify-start text-left font-normal', !date && 'text-muted-foreground')}>
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? format(date, 'PPP') : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="flex w-auto flex-col space-y-2 p-2">
-        <Select
-          onValueChange={(value) => {
-            const newDate = addDays(new Date(), parseInt(value));
-            setDate(newDate);
-            onChange(newDate);
-          }}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Select" />
-          </SelectTrigger>
+        <Select onValueChange={(value) => {
+          const newDate = addDays(new Date(), parseInt(value));
+          setDate(newDate);
+          onChange(newDate);
+        }}>
+          <SelectTrigger><SelectValue placeholder="Select" /></SelectTrigger>
           <SelectContent position="popper">
             <SelectItem value="0">Today</SelectItem>
             <SelectItem value="1">Tomorrow</SelectItem>
@@ -73,36 +66,44 @@ function DatePickerWithPresets({ value, onChange }: { value: Date | null; onChan
           </SelectContent>
         </Select>
         <div className="rounded-md border">
-          <Calendar
-            mode="single"
-            selected={date || undefined}
-            onSelect={handleSelect}
-            disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
-            initialFocus
-          />
+          <Calendar mode="single" selected={date || undefined} onSelect={handleSelect} disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))} initialFocus />
         </div>
       </PopoverContent>
     </Popover>
   );
 }
 
-const NextSteps: React.FC = () => {
+const NextSteps: React.FC<NextStepsProps> = ({ formData }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [isScheduled, setIsScheduled] = useState(false);
 
   const handleSchedule = async () => {
-    if (selectedDate) {
-      const response = await fetch('http://localhost:5000/api/schedule-consultation', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ date: selectedDate.toISOString() }),
-      });
-
-      if (response.ok) {
-        setIsScheduled(true);
-      } else {
-        console.error('Scheduling failed');
+    console.log('Form data in NextSteps:', formData); // Debug log
+    if (selectedDate && formData.email) {
+      const payload = { ...formData, date: selectedDate.toISOString() }; // Include all form data plus date
+      console.log('Sending payload to backend:', payload); // Debug log
+      try {
+        const response = await fetch('http://localhost:5000/api/hiring/schedule-consultation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const responseBody = await response.json();
+        if (response.ok) {
+          console.log('Scheduling successful:', responseBody);
+          setIsScheduled(true);
+        } else {
+          console.error('Scheduling failed:', { status: response.status, body: responseBody });
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error('Network error:', error.message);
+        } else {
+          console.error('Network error:', 'An unknown error occurred');
+        }
       }
+    } else {
+      console.error('Email or date missing:', { email: formData.email, date: selectedDate });
     }
   };
 
@@ -115,11 +116,7 @@ const NextSteps: React.FC = () => {
           {!isScheduled ? (
             <div className="space-y-4">
               <DatePickerWithPresets value={selectedDate} onChange={setSelectedDate} />
-              <Button
-                onClick={handleSchedule}
-                disabled={!selectedDate}
-                className={styles.scheduleButton}
-              >
+              <Button onClick={handleSchedule} disabled={!selectedDate} className={styles.scheduleButton}>
                 Confirm Schedule
               </Button>
             </div>

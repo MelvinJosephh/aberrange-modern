@@ -1,19 +1,26 @@
-// pages/hire.tsx
-
+// app/hiring/page.tsx
 'use client';
 
 import React, { useState } from 'react';
 import HireHeader from '@/app/hire/hire-components/hireHeader';
-import HireForm from '@/app/hire/hire-components/hireForm';
+import HireForm, { HireFormData } from '@/app/hire/hire-components/hireForm';
 import NextSteps from '@/app/hire/hire-components/nextSteps';
 import styles from '@/styles/pages/hire.module.scss';
 
 const HirePage: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formData, setFormData] = useState<HireFormData | null>(null); // Store full HireFormData
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = (data: HireFormData) => {
+    console.log('Form data from HireForm:', data); // Debug log
+    setFormData(data); // Store all form data
     setIsSubmitted(true);
-    window.scrollTo({ top: document.getElementById('next-steps')?.offsetTop, behavior: 'smooth' });
+    setTimeout(() => {
+      const nextStepsElement = document.getElementById('next-steps');
+      if (nextStepsElement) {
+        nextStepsElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100); // Small delay to ensure DOM updates
   };
 
   return (
@@ -21,7 +28,7 @@ const HirePage: React.FC = () => {
       <HireHeader />
       <div className={styles.contentWrapper}>
         <HireForm onSubmit={handleFormSubmit} />
-        {isSubmitted && <NextSteps />}
+        {isSubmitted && formData && <NextSteps formData={formData} />}
       </div>
     </div>
   );
