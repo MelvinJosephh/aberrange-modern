@@ -1,3 +1,4 @@
+@use 'variables.scss' as *;
 @use "tailwindcss";
 @tailwind base;
 
@@ -6,6 +7,35 @@
 @tailwind utilities;
 
 
+
+// Define CSS custom properties in :root using SCSS variables
+:root {
+  --secondary-color: #{$secondary-color};
+  --primary-color: #{$primary-color};
+  --neutral-color: #{$neutral-color};
+  --interactive-color: #{$interactive-color};
+  --interactive-hover: #{$interactive-hover};
+  --interactive-active: #{$interactive-active};
+  --background-color: #{$background-color};
+  --text-primary: #{$text-primary};
+  --text-light: #{$text-light};
+  --border-color-light: #{$border-color-light};
+  --border-width-thin: #{$border-width-thin};
+  --border-radius-sm: #{$border-radius-sm};
+  --spacing-sm: #{$spacing-sm};
+  --spacing-md: #{$spacing-md};
+  --font-primary: #{$font-primary};
+  --font-size-base: #{$font-size-base};
+  --font-size-small: #{$font-size-small};
+  --font-size-medium: #{$font-size-medium};
+  --font-size-large: #{$font-size-large};
+  --font-size-xlarge: #{$font-size-xlarge};
+  --font-weight-medium: #{$font-weight-medium};
+  --line-height-base: #{$line-height-base};
+  --transition-duration-medium: #{$transition-duration-medium};
+  --transition-timing-function: #{$transition-timing-function};
+  --breakpoint-sm: #{$breakpoint-sm};
+}
 
 /* Custom global styles */
 body {
@@ -23,4 +53,58 @@ body {
   .hover\:bg-primary-dark:hover {
     @apply bg-[var(--interactive-hover)];
   }
+}
+
+// Utility classes
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+
+// Link styles
+a {
+  color: var(--neutral-color);
+  text-decoration: none;
+  transition: color var(--transition-duration-medium) var(--transition-timing-function);
+
+  &:hover, &:focus {
+    color: var(--interactive-hover);
+  }
+  &:active {
+    color: var(--interactive-active);
+  }
+}
+
+
+// Form inputs
+input, textarea, select {
+  background-color: var(--secondary-color);
+  border: var(--border-width-thin) solid var(--border-color-light);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  padding: var(--spacing-sm);
+
+  &:focus {
+    border-color: var(--interactive-color);
+    outline: none;
+    box-shadow: 0 0 0 var(--border-width-thin) var(--interactive-color);
+  }
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-md);
+}
+
+// Clearfix
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
 }

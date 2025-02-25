@@ -1,0 +1,121 @@
+.getQuotePage {
+    min-height: 100vh;
+    background-color: #f7fafc;
+    color: #1a202c;
+  }
+  
+  .heroSection {
+    background: linear-gradient(to right, #4a5568, #2d3748);
+    color: white;
+    padding: 5rem 1rem;
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .description {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .ctaButton {
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .formSection {
+    padding: 4rem 1rem;
+    text-align: center;
+  }
+  
+  .subtitle {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+  }
+  
+  .quoteForm {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .formGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .formItem {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+  
+  .formLabel {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  
+  .formInput,
+  .formSelect,
+  .formTextarea {
+    border-radius: 0.5rem;
+  }
+  
+  .submitButton {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    @media (min-width: 768px) {
+      width: auto;
+      padding: 0.75rem 2rem;
+    }
+  }
+  
+  .reassuranceSection {
+    padding: 4rem 1rem;
+    background-color: #edf2f7;
+    text-align: center;
+  }
+  
+  .reassuranceGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .reassuranceItem {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .itemTitle {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }

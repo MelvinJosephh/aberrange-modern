@@ -71,84 +71,90 @@ const Header: React.FC = () => {
           <NavigationMenu>
             <NavigationMenuList
               className={cn(
-                "flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-6",
+                "flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6",
                 "lg:items-center"
               )}
             >
-              {/* Services */}
-              <NavigationMenuItem>
-                <NavigationMenuTrigger
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                    "text-[var(--neutral-color)] bg-[var(--secondary-color)] hover:font-bold"
-                  )}
-                >
-                  Services
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="w-[600px] p-6 bg-[var(--secondary-color)]">
-                    <div className="grid grid-cols-3 gap-6">
-                      <div className="space-y-3">
-                        <h3 className="text-sm font-semibold text-[var(--neutral-color)]">
-                          Main Services
-                        </h3>
-                        <ul className="space-y-2">
-                          {mainServices.map((item) => (
-                            <li key={item.title}>
-                              <NavigationMenuLink
-                                href={item.href}
-                                className="block text-[var(--neutral-color)] hover:font-bold px-2 py-1 rounded-md transition-all text-sm"
-                              >
-                                {item.title}
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="space-y-3">
-                        <h3 className="text-sm font-semibold text-[var(--neutral-color)]">
-                          Industries
-                        </h3>
-                        <ul className="space-y-2">
-                          {industries.map((item) => (
-                            <li key={item.title}>
-                              <NavigationMenuLink
-                                href={item.href}
-                                className="block text-[var(--neutral-color)] hover:font-bold px-2 py-1 rounded-md transition-all text-sm"
-                              >
-                                {item.title}
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="space-y-3">
-                        <h3 className="text-sm font-semibold text-[var(--neutral-color)]">
-                          Business Hubs
-                        </h3>
-                        <ul className="space-y-2">
-                          {businessHubs.map((item) => (
-                            <li key={item.title}>
-                              <NavigationMenuLink
-                                href={item.href}
-                                className="block text-[var(--neutral-color)] hover:font-bold px-2 py-1 rounded-md transition-all text-sm"
-                              >
-                                {item.title}
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
+              {/* Services - Only visible on desktop */}
+              {!isMenuOpen && (
+                <NavigationMenuItem className="hidden lg:block">
+                  <NavigationMenuTrigger
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "text-[var(--neutral-color)] bg-[var(--secondary-color)] hover:font-bold"
+                    )}
+                    style={{ fontSize: "16px" }}
+                  >
+                    Services
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="w-[600px] p-6 bg-[var(--secondary-color)]">
+                      <div className="grid grid-cols-3 gap-6">
+                        <div className="space-y-3">
+                          <h3 className="font-semibold text-[var(--neutral-color)]">
+                            Main Services
+                          </h3>
+                          <ul className="space-y-2">
+                            {mainServices.map((item) => (
+                              <li key={item.title}>
+                                <NavigationMenuLink
+                                  href={item.href}
+                                  className="block text-[var(--neutral-color)] hover:font-bold px-2 py-1 rounded-md transition-all"
+                                >
+                                  {item.title}
+                                </NavigationMenuLink>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="space-y-3">
+                          <h3 className="font-semibold text-[var(--neutral-color)]">
+                            Industries
+                          </h3>
+                          <ul className="space-y-2">
+                            {industries.map((item) => (
+                              <li key={item.title}>
+                                <NavigationMenuLink
+                                  href={item.href}
+                                  className="block text-[var(--neutral-color)] hover:font-bold px-2 py-1 rounded-md transition-all"
+                                >
+                                  {item.title}
+                                </NavigationMenuLink>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="space-y-3">
+                          <h3 className="font-semibold text-[var(--neutral-color)]">
+                            Business Hubs
+                          </h3>
+                          <ul className="space-y-2">
+                            {businessHubs.map((item) => (
+                              <li key={item.title}>
+                                <NavigationMenuLink
+                                  href={item.href}
+                                  className="block text-[var(--neutral-color)] hover:font-bold px-2 py-1 rounded-md transition-all"
+                                >
+                                  {item.title}
+                                </NavigationMenuLink>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              )}
 
-              {/* Other Navigation Links */}
+              {/* Other Navigation Links - Background in responsive mode */}
               <NavigationMenuItem>
                 <Link
                   href="/how-it-works"
-                  className="text-[var(--neutral-color)] hover:font-bold text-sm font-medium"
+                  className={cn(
+                    "block text-[var(--neutral-color)] hover:font-bold font-medium text-base",
+                    isMenuOpen && "bg-[var(--secondary-color)] px-4 py-2 rounded-md"
+                  )}
                 >
                   How It Works
                 </Link>
@@ -156,7 +162,10 @@ const Header: React.FC = () => {
               <NavigationMenuItem>
                 <Link
                   href="/pricing"
-                  className="text-[var(--neutral-color)] hover:font-bold text-sm font-medium"
+                  className={cn(
+                    "block text-[var(--neutral-color)] hover:font-bold font-medium text-base",
+                    isMenuOpen && "bg-[var(--secondary-color)] px-4 py-2 rounded-md"
+                  )}
                 >
                   Pricing
                 </Link>
@@ -164,7 +173,10 @@ const Header: React.FC = () => {
               <NavigationMenuItem>
                 <Link
                   href="/resources"
-                  className="text-[var(--neutral-color)] hover:font-bold text-sm font-medium"
+                  className={cn(
+                    "block text-[var(--neutral-color)] hover:font-bold font-medium text-base",
+                    isMenuOpen && "bg-[var(--secondary-color)] px-4 py-2 rounded-md"
+                  )}
                 >
                   Resources
                 </Link>
@@ -172,17 +184,22 @@ const Header: React.FC = () => {
               <NavigationMenuItem>
                 <Link
                   href="/about"
-                  className="text-[var(--neutral-color)] hover:font-bold text-sm font-medium"
+                  className={cn(
+                    "block text-[var(--neutral-color)] hover:font-bold font-medium text-base",
+                    isMenuOpen && "bg-[var(--secondary-color)] px-4 py-2 rounded-md"
+                  )}
                 >
                   About Us
                 </Link>
               </NavigationMenuItem>
 
-              {/* Buttons */}
+              {/* Buttons - Full width with background */}
               <NavigationMenuItem>
                 <Link
-                  href="/hire-va"
-                  className="bg-[var(--secondary-color)] text-[var(--neutral-color)] px-4 py-2 rounded-md hover:font-bold transition-all text-sm font-medium border border-[var(--neutral-color)]"
+                  href="/hire"
+                  className={cn(
+                    "block w-full lg:w-auto bg-[var(--secondary-color)] text-[var(--neutral-color)] px-4 py-2 rounded-md hover:font-bold transition-all font-medium border border-[var(--neutral-color)] text-base text-center"
+                  )}
                 >
                   Hire a VA
                 </Link>
@@ -190,7 +207,9 @@ const Header: React.FC = () => {
               <NavigationMenuItem>
                 <Link
                   href="/get-quote"
-                  className="bg-[var(--secondary-color)] text-[var(--neutral-color)] px-4 py-2 rounded-md hover:font-bold transition-all text-sm font-medium border border-[var(--neutral-color)]"
+                  className={cn(
+                    "block w-full lg:w-auto bg-[var(--secondary-color)] text-[var(--neutral-color)] px-4 py-2 rounded-md hover:font-bold transition-all font-medium border border-[var(--neutral-color)] text-base text-center"
+                  )}
                 >
                   Get a Quote
                 </Link>

@@ -1,5 +1,4 @@
-// src/styles/components/homes.module.scss
-@import '@/styles/variables';
+@use '@/styles/variables' as *;
 
 .hero {
   display: flex;

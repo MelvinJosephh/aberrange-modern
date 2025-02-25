@@ -1,25 +1,27 @@
+@use 'sass:color';
+
 // ====================
 // Color Palette
 // ====================
 
 // Primary Colors
 $primary-color: #6A0DAD; // Deep Purple
-$primary-color-light: lighten($primary-color, 10%);
-$primary-color-dark: darken($primary-color, 10%);
+$primary-color-light: color.adjust($primary-color, $lightness: 10%);
+$primary-color-dark: color.adjust($primary-color, $lightness: -10%);
 
 // Secondary Colors
 $secondary-color: #F5F5F5; // Soft Gray
-$secondary-color-light: lighten($secondary-color, 10%);
-$secondary-color-dark: darken($secondary-color, 10%);
+$secondary-color-light: color.adjust($secondary-color, $lightness: 10%);
+$secondary-color-dark: color.adjust($secondary-color, $lightness: -10%);
 
 // Accent Colors
 $accent-color: #00BFFF; // Electric Blue (for potential future use or special elements)
-$accent-color-light: lighten($accent-color, 10%);
+$accent-color-light: color.adjust($accent-color, $lightness: 10%);
 
 // Neutral Colors
 $neutral-color: #333333; // Charcoal Black
-$neutral-color-light: lighten($neutral-color, 10%);
-$neutral-color-dark: darken($neutral-color, 10%);
+$neutral-color-light: color.adjust($neutral-color, $lightness: 10%);
+$neutral-color-dark: color.adjust($neutral-color, $lightness: -10%);
 
 // Background Colors
 $background-color: $secondary-color; // Soft Gray for main page background

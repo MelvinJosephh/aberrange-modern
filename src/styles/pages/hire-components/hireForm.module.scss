@@ -1,5 +1,6 @@
 // src/styles/pages/hire-components/hireForm.module.scss
-@import '@/styles/variables';
+@use '@/styles/variables' as *;
+
 
 .hireForm {
   padding: $spacing-lg;

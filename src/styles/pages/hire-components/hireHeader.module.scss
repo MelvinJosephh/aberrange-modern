@@ -1,5 +1,6 @@
 // src/styles/components/hireHeader.module.scss
-@import '@/styles/variables';
+@use '@/styles/variables' as *;
+
 
 .hireHeader {
   padding: $spacing-xl $spacing-lg;
