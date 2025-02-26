@@ -6,7 +6,7 @@ import {
   servicesData as initialServicesData,
   Item,
 } from "@/lib/models/services-model";
-import ItemDetail from "../modal-pages/item-details";
+import ItemDetail from "../../modal-pages/item-details";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 

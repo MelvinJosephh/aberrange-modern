@@ -150,7 +150,7 @@ const Header: React.FC = () => {
               {/* Other Navigation Links - Background in responsive mode */}
               <NavigationMenuItem>
                 <Link
-                  href="/how-it-works"
+                  href="/public/how-it-works"
                   className={cn(
                     "block text-[var(--neutral-color)] hover:font-bold font-medium text-base",
                     isMenuOpen && "bg-[var(--secondary-color)] px-4 py-2 rounded-md"
@@ -161,7 +161,7 @@ const Header: React.FC = () => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link
-                  href="/pricing"
+                  href="/public/pricing"
                   className={cn(
                     "block text-[var(--neutral-color)] hover:font-bold font-medium text-base",
                     isMenuOpen && "bg-[var(--secondary-color)] px-4 py-2 rounded-md"
@@ -172,7 +172,7 @@ const Header: React.FC = () => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link
-                  href="/resources"
+                  href="/public/resources"
                   className={cn(
                     "block text-[var(--neutral-color)] hover:font-bold font-medium text-base",
                     isMenuOpen && "bg-[var(--secondary-color)] px-4 py-2 rounded-md"
@@ -183,7 +183,7 @@ const Header: React.FC = () => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link
-                  href="/about"
+                  href="/public/about"
                   className={cn(
                     "block text-[var(--neutral-color)] hover:font-bold font-medium text-base",
                     isMenuOpen && "bg-[var(--secondary-color)] px-4 py-2 rounded-md"
@@ -196,7 +196,7 @@ const Header: React.FC = () => {
               {/* Buttons - Full width with background */}
               <NavigationMenuItem>
                 <Link
-                  href="/hire"
+                  href="/public/hire"
                   className={cn(
                     "block w-full lg:w-auto bg-[var(--secondary-color)] text-[var(--neutral-color)] px-4 py-2 rounded-md hover:font-bold transition-all font-medium border border-[var(--neutral-color)] text-base text-center"
                   )}
@@ -206,7 +206,7 @@ const Header: React.FC = () => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link
-                  href="/get-quote"
+                  href="/public/get-quote"
                   className={cn(
                     "block w-full lg:w-auto bg-[var(--secondary-color)] text-[var(--neutral-color)] px-4 py-2 rounded-md hover:font-bold transition-all font-medium border border-[var(--neutral-color)] text-base text-center"
                   )}
@@ -228,22 +228,16 @@ const Header: React.FC = () => {
             {isProfileOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-[var(--secondary-color)] shadow-lg rounded-md p-2 z-20">
                 <Link
-                  href="/login"
+                  href="/auth/login"
                   className="block px-4 py-2 text-[var(--neutral-color)] hover:font-bold rounded-md"
                 >
                   Login
                 </Link>
                 <Link
-                  href="/signup"
+                  href="/auth/signup"
                   className="block px-4 py-2 text-[var(--neutral-color)] hover:font-bold rounded-md"
                 >
                   Sign Up
-                </Link>
-                <Link
-                  href="/dashboard"
-                  className="block px-4 py-2 text-[var(--neutral-color)] hover:font-bold rounded-md"
-                >
-                  Dashboard
                 </Link>
               </div>
             )}
