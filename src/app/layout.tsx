@@ -1,24 +1,23 @@
-// src/app/layout.tsx
-import Header from '@/components/header';   // Import the Header component
-import Footer from '@/components/footer';   // Import the Footer component
-import '@/styles/globals.scss'; 
-import 'font-awesome/css/font-awesome.min.css';
-
-
+'use client';
+import Header from "@/components/header";  
+import Footer from "@/components/footer";  
+import { usePathname } from "next/navigation"; 
+import "@/styles/globals.scss";
+import "font-awesome/css/font-awesome.min.css";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname(); 
+  const isDashboard = pathname.startsWith("/dashboard"); 
+
   return (
     <html lang="en">
       <head>
         <title>Aberrange</title>
-        {/* Other head elements like metadata, fonts, etc. */}
       </head>
       <body>
-        <Header />   {/* Always show Header */}
-        <main>
-          {children}  
-        </main>
-        <Footer />   {/* Always show Footer */}
+        {!isDashboard && <Header />} 
+        <main>{children}</main>
+        {!isDashboard && <Footer />} 
       </body>
     </html>
   );
