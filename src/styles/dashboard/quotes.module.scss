@@ -1,0 +1,30 @@
+.container {
+    padding: 20px;
+    background-color: #f4f6f8;
+    border-radius: 8px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #1b263b;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+}
+
+.item {
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s;
+}
+
+.item:hover {
+    background-color: #dfe6e9;
+}
