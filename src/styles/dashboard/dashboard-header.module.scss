@@ -1,0 +1,81 @@
+// src/styles/dashboard/dashboard-header.module.scss
+@use '@/styles/variables' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  height: 3rem; // Fixed height
+  background-color: $background-color;
+  border-bottom: 1px solid $border-color-light;
+  box-shadow: $shadow-sm;
+  z-index: 50; 
+  margin: 0;
+  padding: 0;
+
+  // Mobile: Full width
+  left: 0;
+  right: 0;
+
+  // Desktop: Start after sidebar
+  @media (min-width: $breakpoint-sm) {
+    left: 280px; // Matches sidebar width
+    right: 0;
+  }
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%; // Fill header height
+  padding: 0 1rem; // Horizontal padding only
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: $neutral-color;
+
+  &:hover {
+    color: $primary-color;
+  }
+
+  &:focus {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+  }
+
+  @media (min-width: $breakpoint-sm) {
+    display: none; // Hide on desktop
+  }
+}
+
+.title {
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+  color: $neutral-color;
+  flex-grow: 1;
+  text-align: center;
+
+  @media (min-width: $breakpoint-sm) {
+    text-align: left;
+  }
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.userName {
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  color: $neutral-color;
+}
