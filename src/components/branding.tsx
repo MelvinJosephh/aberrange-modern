@@ -1,6 +1,9 @@
 // src/components/Branding.tsx
-import React from 'react';
+'use client';
+
+import React, { useRef, useState } from 'react';
 import styles from '@/styles/components/branding.module.scss';
+import { motion, useDragControls } from 'framer-motion';
 
 // Material Icons
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh'; // For AI Automation
@@ -10,69 +13,95 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance'; // For Fina
 import BarChartIcon from '@mui/icons-material/BarChart'; // For Research
 
 const Branding: React.FC = () => {
+  const [isDragging, setIsDragging] = useState(false);
+  const [showDragHandle, setShowDragHandle] = useState(false);
+  const dragControls = useDragControls();
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  // Function to handle drag start
+  const handleDragStart = () => {
+    setIsDragging(true);
+  };
+
+  // Function to handle drag end
+  const handleDragEnd = () => {
+    setIsDragging(false);
+  };
+
+  // Service data
+  const services = [
+    {
+      title: 'AI-Powered Business Automation',
+      description: 'Automate workflows with cutting-edge AI and RPA to boost efficiency.',
+      icon: <AutoFixHighIcon className={styles.serviceIcon} />,
+    },
+    {
+      title: 'Tech & IT Virtual Assistance',
+      description: 'Expert support for your tech stack and infrastructure.',
+      icon: <ComputerIcon className={styles.serviceIcon} />,
+    },
+    {
+      title: 'Admin & Executive Assistance',
+      description: 'Seamless solutions to free up your time for strategic focus.',
+      icon: <AssignmentIndIcon className={styles.serviceIcon} />,
+    },
+    {
+      title: 'Finance & Bookkeeping',
+      description: 'Precision financial management for your business.',
+      icon: <AccountBalanceIcon className={styles.serviceIcon} />,
+    },
+    {
+      title: 'Research & Analysis',
+      description: 'Data-driven insights and expert writing for smarter decisions.',
+      icon: <BarChartIcon className={styles.serviceIcon} />,
+    },
+  ];
+
   return (
-    <section className={styles.services}>
+    <section
+      className={styles.services}
+      onMouseEnter={() => setShowDragHandle(true)}
+      onMouseLeave={() => setShowDragHandle(false)}
+    >
       <div className={styles.container}>
         <h2 className={styles.sectionTitle}>Our Core Services</h2>
         <p className={styles.sectionSubtitle}>
           Discover how Aberrange empowers your business with innovative solutions.
         </p>
-        <div className={styles.servicesGrid}>
-          {/* Service 1: AI-Powered Business Automation */}
-          <div className={styles.serviceCard}>
-            <div className={styles.iconWrapper}>
-              <AutoFixHighIcon className={styles.serviceIcon} />
-            </div>
-            <h3 className={styles.serviceTitle}>AI-Powered Business Automation</h3>
-            <p className={styles.serviceDescription}>
-              Automate workflows with cutting-edge AI and RPA to boost efficiency.
-            </p>
-          </div>
 
-          {/* Service 2: Tech & IT Virtual Assistance */}
-          <div className={styles.serviceCard}>
-            <div className={styles.iconWrapper}>
-              <ComputerIcon className={styles.serviceIcon} />
-            </div>
-            <h3 className={styles.serviceTitle}>Tech & IT Virtual Assistance</h3>
-            <p className={styles.serviceDescription}>
-              Expert support for your tech stack and infrastructure.
-            </p>
-          </div>
+        {/* Drag Handle (Visible on Hover) */}
+        {showDragHandle && (
+          <motion.div
+            className={styles.dragHandle}
+            onPointerDown={(e) => dragControls.start(e)}
+            whileHover={{ scale: 1.1 }}
+            style={{ opacity: isDragging ? 1 : 0.8 }}
+          >
+            Drag Me
+          </motion.div>
+        )}
 
-          {/* Service 3: Admin & Executive Assistance */}
-          <div className={styles.serviceCard}>
-            <div className={styles.iconWrapper}>
-              <AssignmentIndIcon className={styles.serviceIcon} />
-            </div>
-            <h3 className={styles.serviceTitle}>Admin & Executive Assistance</h3>
-            <p className={styles.serviceDescription}>
-              Seamless solutions to free up your time for strategic focus.
-            </p>
-          </div>
+        {/* Carousel */}
+        <motion.div
+          className={styles.carousel}
+          ref={carouselRef}
+          drag="x"
+          dragControls={dragControls}
+          dragConstraints={{ left: -1000, right: 1000 }} // Adjust based on content width
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          whileTap={{ cursor: 'grabbing' }}
+        >
+          {/* Service Cards */}
+          {services.map((service, index) => (
+            <motion.div key={index} className={styles.serviceCard}>
+              <div className={styles.iconWrapper}>{service.icon}</div>
+              <h3 className={styles.serviceTitle}>{service.title}</h3>
+              <p className={styles.serviceDescription}>{service.description}</p>
+            </motion.div>
+          ))}
+        </motion.div>
 
-          {/* Service 4: Finance & Bookkeeping */}
-          <div className={styles.serviceCard}>
-            <div className={styles.iconWrapper}>
-              <AccountBalanceIcon className={styles.serviceIcon} />
-            </div>
-            <h3 className={styles.serviceTitle}>Finance & Bookkeeping</h3>
-            <p className={styles.serviceDescription}>
-              Precision financial management for your business.
-            </p>
-          </div>
-
-          {/* Service 5: Research & Analysis */}
-          <div className={styles.serviceCard}>
-            <div className={styles.iconWrapper}>
-              <BarChartIcon className={styles.serviceIcon} />
-            </div>
-            <h3 className={styles.serviceTitle}>Research & Analysis</h3>
-            <p className={styles.serviceDescription}>
-              Data-driven insights and expert writing for smarter decisions.
-            </p>
-          </div>
-        </div>
         <a href="/services" className={styles.exploreLink}>
           Explore All Services →
         </a>

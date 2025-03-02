@@ -1,53 +1,27 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const code = searchParams.get("code");
+  const error = searchParams.get("error");
 
   useEffect(() => {
-    console.log("URL Code:", code);
-    if (code) {
-      handleCodeExchange(code);
+    if (error) {
+      console.error("Authentication failed:", error);
     }
-  }, [code]);
+  }, [error]);
 
   const handleSignIn = async () => {
     setLoading(true);
-    const result = await signIn("google", { redirect: false, callbackUrl: "/dashboard" });
-    console.log("Sign-in Result:", result);
-    if (result?.error) {
-      console.error("Sign-in Error:", result.error);
-      setLoading(false);
-    }
-  };
-
-  const handleCodeExchange = async (code: string) => {
-    console.log("Exchanging code:", code);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/google`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code }),
-      });
-
-      if (!response.ok) {
-        throw new Error(await response.text());
-      }
-
-      const { token } = await response.json();
-      console.log("JWT Received:", token);
-      localStorage.setItem("token", token);
-      router.push("/dashboard");
+      const response = await fetch("http://localhost:5000/api/auth/google/start");
+      const { authUrl } = await response.json();
+      window.location.href = authUrl; // Redirect to Google
     } catch (error) {
-      console.error("Exchange error:", error);
-      router.push("/login?error=auth_failed");
-    } finally {
+      console.error("Error starting OAuth:", error);
       setLoading(false);
     }
   };
@@ -62,6 +36,7 @@ export default function Login() {
       >
         {loading ? "Loading..." : "Sign in with Google"}
       </button>
+      {error && <p className="text-red-500 mt-2">Authentication failed. Please try again.</p>}
     </div>
   );
 }

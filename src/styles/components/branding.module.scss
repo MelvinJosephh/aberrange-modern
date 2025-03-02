@@ -3,10 +3,12 @@
   padding: 4rem 2rem;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   text-align: center;
+  position: relative; // For positioning the drag handle
 
   .container {
     max-width: 1200px;
     margin: 0 auto;
+    overflow: hidden; // Ensure the container doesn't overflow
   }
 
   .sectionTitle {
@@ -22,11 +24,12 @@
     margin-bottom: 3rem;
   }
 
-  .servicesGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  .carousel {
+    display: flex;
     gap: 2rem;
     margin-bottom: 2rem;
+    cursor: grab;
+    user-select: none; // Prevent text selection while dragging
   }
 
   .serviceCard {
@@ -35,6 +38,8 @@
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 0 0 auto; // Ensure cards don't shrink
+    width: 220px; // Set a fixed width for each card
 
     &:hover {
       transform: translateY(-5px);
@@ -52,46 +57,6 @@
       background: #e0e7ff;
     }
 
-    .iconAutomation {
-      display: block;
-      width: 30px;
-      height: 30px;
-      background: url('/icons/automation.svg') no-repeat center;
-      background-size: contain;
-    }
-
-    .iconTech {
-      display: block;
-      width: 30px;
-      height: 30px;
-      background: url('/icons/tech.svg') no-repeat center;
-      background-size: contain;
-    }
-
-    .iconAdmin {
-      display: block;
-      width: 30px;
-      height: 30px;
-      background: url('/icons/admin.svg') no-repeat center;
-      background-size: contain;
-    }
-
-    .iconFinance {
-      display: block;
-      width: 30px;
-      height: 30px;
-      background: url('/icons/finance.svg') no-repeat center;
-      background-size: contain;
-    }
-
-    .iconResearch {
-      display: block;
-      width: 30px;
-      height: 30px;
-      background: url('/icons/research.svg') no-repeat center;
-      background-size: contain;
-    }
-
     .serviceTitle {
       font-size: 1.5rem;
       font-weight: 600;
@@ -104,6 +69,20 @@
       color: #555;
       line-height: 1.5;
     }
+  }
+
+  .dragHandle {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem 1rem;
+    background: #007bff;
+    color: #fff;
+    border-radius: 25px;
+    cursor: grab;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10; // Ensure it's above the carousel
   }
 
   .exploreLink {
@@ -130,13 +109,8 @@
       font-size: 1rem;
     }
 
-    .servicesGrid {
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.5rem;
-    }
-
     .serviceCard {
-      padding: 1.5rem;
+      width: 180px; // Adjust card width for smaller screens
     }
   }
 
@@ -147,8 +121,8 @@
       font-size: 1.75rem;
     }
 
-    .servicesGrid {
-      grid-template-columns: 1fr;
+    .serviceCard {
+      width: 160px; // Adjust card width for mobile screens
     }
   }
 }
