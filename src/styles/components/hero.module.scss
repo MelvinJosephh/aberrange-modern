@@ -3,13 +3,14 @@
 @use '@/styles/mixins' as m;
 
 .hero {
-  padding: v.$spacing-xxl v.$spacing-lg v.$spacing-xl v.$spacing-lg; // Extra top padding to account for header
+  padding: v.$spacing-xxl v.$spacing-lg v.$spacing-xl v.$spacing-lg;
   background: v.$background-color;
-  @include m.gradient-background(v.$secondary-color, v.$primary-color-light, 135deg);
+  // @include m.gradient-background(v.$secondary-color, v.$primary-color-light, 135deg);
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-height: 70vh;
+  margin-top: 64px; // Adjust this value to match the height of your header
 
   .leftSection {
     flex: 1;
@@ -93,10 +94,8 @@
 
     .animationContainer {
       width: 100%;
-      max-width: v.$breakpoint-md / 2; // Half of medium breakpoint (512px) as a reasonable default
+      max-width: v.$breakpoint-md / 2; 
       height: auto;
-      border-radius: v.$border-radius-lg;
-      @include m.box-shadow(2);
     }
   }
 

@@ -43,15 +43,17 @@ $interactive-active: $primary-color-dark; // Active state for interactive elemen
 // ====================
 
 // Font Families
-$font-primary: 'Inter', sans-serif; // Modern, clean font
-$font-secondary: 'Roboto', sans-serif; // Fallback font
+$font-primary: 'ABCFavorit', sans-serif; // Modern, clean font
+$font-secondary: 'Lora', sans-serif; // Fallback font
 
 // Font Sizes
 $font-size-base: 16px;
-$font-size-small: $font-size-base * 0.875; // 14px
-$font-size-medium: $font-size-base * 1.25; // 20px
-$font-size-large: $font-size-base * 1.5; // 24px
-$font-size-xlarge: $font-size-base * 3; // 48px
+$font-size-small: 14px;  // Suitable for captions, metadata, or small UI text
+$font-size-medium: 18px; // Good for body text in modern apps
+$font-size-large: 22px;  // Ideal for subtitles or emphasized text
+$font-size-xlarge: 40px; // Suitable for section headings
+$font-size-xxlarge: 48px; // For large headlines or hero sections
+
 
 // Font Weights
 $font-weight-light: 300;
