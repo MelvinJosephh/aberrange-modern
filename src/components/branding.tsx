@@ -77,7 +77,7 @@ const Branding: React.FC = () => {
             whileHover={{ scale: 1.1 }}
             style={{ opacity: isDragging ? 1 : 0.8 }}
           >
-            Drag Me
+            Drag me
           </motion.div>
         )}
 
@@ -102,9 +102,7 @@ const Branding: React.FC = () => {
           ))}
         </motion.div>
 
-        <a href="/services" className={styles.exploreLink}>
-          Explore All Services →
-        </a>
+  
       </div>
     </section>
   );

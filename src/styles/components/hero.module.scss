@@ -1,159 +1,216 @@
-@use '@/styles/variables' as *;
+// src/styles/components/hero.module.scss
+@use '@/styles/variables' as v;
+@use '@/styles/mixins' as m;
 
 .hero {
+  padding: v.$spacing-xxl v.$spacing-lg v.$spacing-xl v.$spacing-lg; // Extra top padding to account for header
+  background: v.$background-color;
+  @include m.gradient-background(v.$secondary-color, v.$primary-color-light, 135deg);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: $breakpoint-xl;
-  margin: 0 auto;
-  height: 90vh; // Reasonable height
-  padding: 0 $spacing-xxl;
-  background: $secondary-color;
-  color: $neutral-color-dark;
+  min-height: 70vh;
 
   .leftSection {
-    max-width: 60%;
+    flex: 1;
+    max-width: 60%; // Balanced split with right section
 
     .heroTitle {
-      font-size: $font-size-xlarge;
-      font-weight: $font-weight-medium;
-      margin-bottom: $spacing-md;
-      line-height: $line-height-tight;
-      color: $neutral-color-dark;
+      font-family: v.$font-primary;
+      font-size: v.$font-size-xlarge;
+      font-weight: v.$font-weight-bold;
+      color: v.$text-primary;
+      line-height: v.$line-height-tight;
+      margin-bottom: v.$spacing-md;
     }
 
     .heroSubtitle {
-      font-size: $font-size-medium;
-      margin-bottom: $spacing-lg;
-      line-height: $line-height-base;
-      color: $neutral-color-dark;
+      font-family: v.$font-primary;
+      font-size: v.$font-size-large;
+      color: v.$text-secondary;
+      line-height: v.$line-height-base;
+      margin-bottom: v.$spacing-xl;
     }
 
     .ctaButtons {
       display: flex;
-      gap: $spacing-md;
+      gap: v.$spacing-lg;
+      align-items: center;
 
       .ctaButtonPrimary {
-        background-color: $primary-color-light;
-        color: $secondary-color;
-        padding: $spacing-md $spacing-lg;
-        border-radius: $border-radius-lg;
-        font-weight: $font-weight-bold;
-        transition: background-color $transition-duration-fast $transition-timing-function;
+        @include m.button-styles(v.$interactive-color, v.$text-light);
+        font-family: v.$font-primary;
+        font-size: v.$font-size-medium;
+        font-weight: v.$font-weight-medium;
+        padding: v.$spacing-md v.$spacing-lg;
+        border-radius: v.$border-radius-md;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: v.$spacing-sm;
+        @include m.box-shadow(2);
+        transition: all v.$transition-duration-medium v.$transition-timing-function;
 
         &:hover {
-          background-color: $secondary-color;
-          color: $primary-color;
+          background-color: v.$interactive-hover;
+          border-color: v.$interactive-hover;
+          @include m.box-shadow(3);
+        }
+
+        .ctaArrow {
+          font-size: v.$font-size-medium;
+          transition: transform v.$transition-duration-fast v.$transition-timing-function;
+          .ctaButtonPrimary:hover & {
+            transform: translateX(#{v.$spacing-xs});
+          }
         }
       }
 
       .ctaButtonSecondary {
-        background-color: transparent;
-        border: $border-width-thick solid $primary-color;
-        color: $neutral-color;
-        padding: $spacing-md $spacing-lg;
-        border-radius: $border-radius-lg;
-        font-weight: $font-weight-bold;
-        transition: background-color $transition-duration-fast $transition-timing-function;
+        @include m.button-styles(v.$secondary-color, v.$text-dark);
+        font-family: v.$font-primary;
+        font-size: v.$font-size-medium;
+        font-weight: v.$font-weight-medium;
+        padding: v.$spacing-md v.$spacing-lg;
+        border-radius: v.$border-radius-md;
+        text-decoration: none;
+        @include m.box-shadow(2);
+        transition: all v.$transition-duration-medium v.$transition-timing-function;
 
         &:hover {
-          background-color: $secondary-color;
-          color: $primary-color;
+          background-color: v.$secondary-color-light;
+          border-color: v.$secondary-color-light;
+          @include m.box-shadow(3);
         }
       }
     }
   }
 
   .rightSection {
-    max-width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    flex: 1;
+    max-width: 40%;
+    @include m.flex-center;
 
     .animationContainer {
-      position: relative;
-      width: 400px;
-      height: 400px;
+      width: 100%;
+      max-width: v.$breakpoint-md / 2; // Half of medium breakpoint (512px) as a reasonable default
+      height: auto;
+      border-radius: v.$border-radius-lg;
+      @include m.box-shadow(2);
+    }
+  }
 
-      .aiAssistant {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+  // Responsive adjustments
+  @include m.media(v.$breakpoint-md, max) {
+    flex-direction: column;
+    padding: v.$spacing-xl v.$spacing-md v.$spacing-lg v.$spacing-md;
+    text-align: center;
+    min-height: auto;
 
-        .aiHead {
-          width: 120px;
-          height: 120px;
-          background-color: $primary-color;
-          border-radius: 50%;
-          position: relative;
-          z-index: 2;
-          animation: float 4s infinite;
+    .leftSection {
+      max-width: 100%;
+      margin-bottom: v.$spacing-xl;
 
-          &::before {
-            content: '';
-            position: absolute;
-            top: 30%;
-            left: 30%;
-            width: 20px;
-            height: 20px;
-            background-color: $primary-color;
-            border-radius: 50%;
-          }
+      .heroTitle {
+        font-size: v.$font-size-large;
+      }
+
+      .heroSubtitle {
+        font-size: v.$font-size-medium;
+      }
+
+      .ctaButtons {
+        flex-direction: column;
+        gap: v.$spacing-md;
+
+        .ctaButtonPrimary,
+        .ctaButtonSecondary {
+          padding: v.$spacing-sm v.$spacing-md;
+          font-size: v.$font-size-base;
         }
 
-        .aiBody {
-          width: 80px;
-          height: 120px;
-          background-color: $primary-color;
-          border-radius: 20px;
-          position: absolute;
-          top: 60%;
-          z-index: 1;
-          animation: float 4s infinite;
-        }
-
-        .aiPulse {
-          width: 100%;
-          height: 100%;
-          border: 4px solid rgba($primary-color, 0.2);
-          border-radius: 50%;
-          position: absolute;
-          top: 0;
-          left: 0;
-          animation: pulse 3s infinite;
+        .ctaArrow {
+          font-size: v.$font-size-base;
         }
       }
     }
-  }
-}
 
-// Keyframes for animations
-@keyframes pulse {
-  0% {
-    transform: scale(0.8);
-    opacity: 0.7;
-  }
-  50% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-  100% {
-    transform: scale(0.8);
-    opacity: 0.7;
-  }
-}
+    .rightSection {
+      max-width: 70%;
 
-@keyframes float {
-  0% {
-    transform: translateY(0);
+      .animationContainer {
+        max-width: v.$breakpoint-sm / 2; // Half of small breakpoint (384px)
+      }
+    }
   }
-  50% {
-    transform: translateY(-20px);
+
+  @include m.media(v.$breakpoint-sm, max) {
+    padding: v.$spacing-lg v.$spacing-md;
+
+    .leftSection {
+      .heroTitle {
+        font-size: v.$font-size-medium;
+      }
+
+      .heroSubtitle {
+        font-size: v.$font-size-base;
+      }
+
+      .ctaButtons {
+        .ctaButtonPrimary,
+        .ctaButtonSecondary {
+          padding: v.$spacing-sm v.$spacing-md;
+          font-size: v.$font-size-small;
+        }
+
+        .ctaArrow {
+          font-size: v.$font-size-small;
+        }
+      }
+    }
+
+    .rightSection {
+      max-width: 60%;
+
+      .animationContainer {
+        max-width: v.$breakpoint-xs; // 480px
+      }
+    }
   }
-  100% {
-    transform: translateY(0);
+
+  @include m.media(v.$breakpoint-xs, max) {
+    padding: v.$spacing-md v.$spacing-sm;
+
+    .leftSection {
+      .heroTitle {
+        font-size: v.$font-size-medium;
+      }
+
+      .heroSubtitle {
+        font-size: v.$font-size-small;
+      }
+
+      .ctaButtons {
+        gap: v.$spacing-sm;
+
+        .ctaButtonPrimary,
+        .ctaButtonSecondary {
+          padding: v.$spacing-xs v.$spacing-sm;
+          font-size: v.$font-size-small;
+        }
+
+        .ctaArrow {
+          font-size: v.$font-size-base;
+        }
+      }
+    }
+
+    .rightSection {
+      max-width: 100%;
+
+      .animationContainer {
+        max-width: v.$breakpoint-xs / 2; // 240px
+      }
+    }
   }
 }

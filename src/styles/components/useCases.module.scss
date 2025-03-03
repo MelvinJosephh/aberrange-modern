@@ -1,60 +1,64 @@
 // src/styles/components/useCases.module.scss
+@use '@/styles/variables' as v;
+@use '@/styles/mixins' as m;
+
 .useCases {
-  padding: 4rem 2rem;
-  background: #fff;
+  padding: v.$spacing-xl v.$spacing-lg;
+  background: v.$background-color;
   text-align: center;
 
   .container {
-    max-width: 1200px;
+    max-width: v.$breakpoint-lg;
     margin: 0 auto;
   }
 
   .sectionTitle {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 1rem;
+    font-family: v.$font-primary;
+    font-size: v.$font-size-xlarge;
+    font-weight: v.$font-weight-bold;
+    color: v.$text-primary;
+    margin-bottom: v.$spacing-md;
   }
 
   .sectionSubtitle {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 3rem;
+    font-family: v.$font-primary;
+    font-size: v.$font-size-medium;
+    color: v.$text-secondary;
+    margin-bottom: v.$spacing-lg;
   }
 
   .casesGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-bottom: 2rem;
+    gap: v.$spacing-lg;
+    margin-bottom: v.$spacing-xl;
 
     .caseCard {
-      background: #f9fafb;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: v.$secondary-color;
+      padding: v.$spacing-md;
+      border-radius: v.$border-radius-md;
+      @include m.box-shadow(2);
+      transition: transform v.$transition-duration-medium v.$transition-timing-function,
+                  box-shadow v.$transition-duration-medium v.$transition-timing-function;
 
       &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-#{v.$spacing-xs});
+        @include m.box-shadow(3);
       }
 
       .iconWrapper {
+        @include m.flex-center;
         width: 60px;
         height: 60px;
-        margin: 0 auto 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        margin: 0 auto v.$spacing-sm;
         border-radius: 50%;
-        background: #e0e7ff;
+        background: v.$primary-color-light;
       }
 
       .caseIcon {
-        font-size: 2rem;
-        color: #3f51b5;
-        transition: transform 0.3s ease;
+        font-size: v.$font-size-large;
+        color: v.$interactive-color;
+        transition: transform v.$transition-duration-medium v.$transition-timing-function;
 
         .caseCard:hover & {
           transform: scale(1.1);
@@ -62,83 +66,97 @@
       }
 
       .caseTitle {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #1a1a1a;
-        margin-bottom: 0.75rem;
+        font-family: v.$font-primary;
+        font-size: v.$font-size-large;
+        font-weight: v.$font-weight-medium;
+        color: v.$text-primary;
+        margin-bottom: v.$spacing-sm;
       }
 
       .caseDescription {
-        font-size: 1rem;
-        color: #555;
-        line-height: 1.5;
-        margin-bottom: 1rem;
+        font-family: v.$font-primary;
+        font-size: v.$font-size-base;
+        color: v.$text-secondary;
+        line-height: v.$line-height-base;
+        margin-bottom: v.$spacing-md;
       }
 
       .caseMetric {
-        display: inline-block;
-        font-size: 1rem;
-        font-weight: 500;
-        color: #3f51b5;
-        background: #e0e7ff;
-        padding: 0.25rem 0.75rem;
-        border-radius: 16px;
+        display: block;
+        font-family: v.$font-primary;
+        font-size: v.$font-size-medium;
+        font-weight: v.$font-weight-bold;
+        color: v.$interactive-color;
       }
     }
   }
 
   .ctaLink {
     display: inline-block;
-    font-size: 1.1rem;
-    color: #007bff;
+    font-family: v.$font-primary;
+    font-size: v.$font-size-medium;
+    color: v.$interactive-color;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
+    font-weight: v.$font-weight-medium;
+    transition: color v.$transition-duration-fast v.$transition-timing-function;
 
     &:hover {
-      color: #0056b3;
+      color: v.$interactive-hover;
       text-decoration: underline;
     }
   }
 
   // Responsive adjustments
-  @media (max-width: 768px) {
+  @include m.media(v.$breakpoint-md, max) {
+    .casesGrid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @include m.media(v.$breakpoint-sm, max) {
     .sectionTitle {
-      font-size: 2rem;
+      font-size: v.$font-size-large;
     }
 
     .sectionSubtitle {
-      font-size: 1rem;
+      font-size: v.$font-size-base;
     }
 
     .casesGrid {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
-
-      .caseCard {
-        padding: 1.5rem;
-      }
+      gap: v.$spacing-md;
     }
   }
 
-  @media (max-width: 480px) {
-    padding: 2rem 1rem;
+  @include m.media(v.$breakpoint-xs, max) {
+    padding: v.$spacing-lg v.$spacing-md;
 
     .sectionTitle {
-      font-size: 1.75rem;
+      font-size: v.$font-size-medium;
     }
 
     .caseCard {
+      padding: v.$spacing-sm;
+
+      .iconWrapper {
+        width: 48px;
+        height: 48px;
+      }
+
+      .caseIcon {
+        font-size: v.$font-size-medium;
+      }
+
       .caseTitle {
-        font-size: 1.25rem;
+        font-size: v.$font-size-medium;
       }
 
       .caseDescription {
-        font-size: 0.9rem;
+        font-size: v.$font-size-small;
       }
 
       .caseMetric {
-        font-size: 0.9rem;
+        font-size: v.$font-size-base;
       }
     }
   }

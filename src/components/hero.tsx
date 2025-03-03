@@ -22,7 +22,7 @@ const Hero: React.FC = () => {
         <Link href="/hire" className={styles.ctaButtonPrimary}>
             Hire a Virtual Assistant <span className={styles.ctaArrow}>→</span>
           </Link>
-          <Link href="/call-us" className={styles.ctaButtonSecondary}>
+          <Link href="/public/call-us" className={styles.ctaButtonSecondary}>
           Call Us Now
           </Link>
 

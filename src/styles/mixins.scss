@@ -1,4 +1,5 @@
 // mixins.scss
+@use '@/styles/variables' as v;
 
 // Mixin for flexbox centering
 @mixin flex-center {
@@ -32,16 +33,16 @@
 }
 
 // Mixin for button styles
-@mixin button-styles($bg-color: $interactive-color, $text-color: $text-light) {
+@mixin button-styles($bg-color: v.$interactive-color, $text-color: v.$text-light) {
   background-color: $bg-color;
   color: $text-color;
-  border: $border-width-thin solid $bg-color;
-  border-radius: $border-radius-sm;
-  padding: $spacing-sm $spacing-md;
+  border: v.$border-width-thin solid $bg-color;
+  border-radius: v.$border-radius-sm;
+  padding: v.$spacing-sm v.$spacing-md;
   font-family: inherit;
-  font-size: $font-size-base;
+  font-size: v.$font-size-base;
   cursor: pointer;
-  transition: all $transition-duration-medium $transition-timing-function;
+  transition: all v.$transition-duration-medium v.$transition-timing-function;
 
   &:hover, &:focus {
     background-color: lighten($bg-color, 10%);
@@ -57,11 +58,11 @@
 // Mixin for box shadow
 @mixin box-shadow($level: 1) {
   @if $level == 1 {
-    box-shadow: $shadow-sm;
+    box-shadow: v.$shadow-sm;
   } @else if $level == 2 {
-    box-shadow: $shadow-md;
+    box-shadow: v.$shadow-md;
   } @else if $level == 3 {
-    box-shadow: $shadow-lg;
+    box-shadow: v.$shadow-lg;
   }
 }
 

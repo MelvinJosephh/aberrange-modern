@@ -1,128 +1,135 @@
 // src/styles/components/branding.module.scss
+@use '@/styles/variables' as v;
+@use '@/styles/mixins' as m;
+
 .services {
-  padding: 4rem 2rem;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: v.$spacing-xl v.$spacing-lg;
+  @include m.gradient-background(v.$secondary-color, v.$secondary-color-dark, 135deg);
   text-align: center;
-  position: relative; // For positioning the drag handle
+  position: relative;
 
   .container {
-    max-width: 1200px;
+    max-width: v.$breakpoint-lg;
     margin: 0 auto;
-    overflow: hidden; // Ensure the container doesn't overflow
+    overflow: hidden;
   }
 
   .sectionTitle {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 1rem;
+    font-family: v.$font-primary;
+    font-size: v.$font-size-xlarge;
+    font-weight: v.$font-weight-bold;
+    color: v.$text-primary;
+    margin-bottom: v.$spacing-md;
   }
 
   .sectionSubtitle {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 3rem;
+    font-family: v.$font-primary;
+    font-size: v.$font-size-medium;
+    color: v.$text-secondary;
+    margin-bottom: v.$spacing-lg;
   }
 
   .carousel {
     display: flex;
-    gap: 2rem;
-    margin-bottom: 2rem;
+    gap: v.$spacing-lg;
+    margin-bottom: v.$spacing-lg;
     cursor: grab;
-    user-select: none; // Prevent text selection while dragging
+    user-select: none;
   }
 
   .serviceCard {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    flex: 0 0 auto; // Ensure cards don't shrink
-    width: 220px; // Set a fixed width for each card
+    background: v.$secondary-color;
+    padding: v.$spacing-md;
+    border-radius: v.$border-radius-md;
+    @include m.box-shadow(2);
+    transition: transform v.$transition-duration-medium v.$transition-timing-function,
+                box-shadow v.$transition-duration-medium v.$transition-timing-function;
+    flex: 0 0 auto;
+    width: 220px;
 
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(-#{v.$spacing-xs});
+      @include m.box-shadow(3);
     }
 
     .iconWrapper {
+      @include m.flex-center;
       width: 60px;
       height: 60px;
-      margin: 0 auto 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin: 0 auto v.$spacing-sm;
       border-radius: 50%;
-      background: #e0e7ff;
+      background: v.$primary-color-light;
+    }
+
+    .serviceIcon {
+      color: v.$primary-color;
+      font-size: v.$font-size-large;
     }
 
     .serviceTitle {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #1a1a1a;
-      margin-bottom: 0.75rem;
+      font-family: v.$font-primary;
+      font-size: v.$font-size-large;
+      font-weight: v.$font-weight-medium;
+      color: v.$text-primary;
+      margin-bottom: v.$spacing-sm;
     }
 
     .serviceDescription {
-      font-size: 1rem;
-      color: #555;
-      line-height: 1.5;
+      font-family: v.$font-primary;
+      font-size: v.$font-size-base;
+      color: v.$text-secondary;
+      line-height: v.$line-height-base;
     }
   }
 
   .dragHandle {
     position: absolute;
-    bottom: 1rem;
+    bottom: v.$spacing-md;
     left: 50%;
     transform: translateX(-50%);
-    padding: 0.5rem 1rem;
-    background: #007bff;
-    color: #fff;
-    border-radius: 25px;
-    cursor: grab;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    z-index: 10; // Ensure it's above the carousel
+    @include m.button-styles(v.$interactive-color, v.$text-light);
+    opacity: 0.8;
+    z-index: v.$z-index-base;
   }
 
   .exploreLink {
     display: inline-block;
-    font-size: 1.1rem;
-    color: #007bff;
+    font-family: v.$font-primary;
+    font-size: v.$font-size-medium;
+    color: v.$interactive-color;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
+    font-weight: v.$font-weight-medium;
+    transition: color v.$transition-duration-fast v.$transition-timing-function;
 
     &:hover {
-      color: #0056b3;
-      text-decoration: underline;
+      color: v.$interactive-hover;
     }
   }
 
   // Responsive adjustments
-  @media (max-width: 768px) {
+  @include m.media(v.$breakpoint-sm, max) {
     .sectionTitle {
-      font-size: 2rem;
+      font-size: v.$font-size-large;
     }
 
     .sectionSubtitle {
-      font-size: 1rem;
+      font-size: v.$font-size-base;
     }
 
     .serviceCard {
-      width: 180px; // Adjust card width for smaller screens
+      width: 180px;
     }
   }
 
-  @media (max-width: 480px) {
-    padding: 2rem 1rem;
+  @include m.media(v.$breakpoint-xs, max) {
+    padding: v.$spacing-lg v.$spacing-md;
 
     .sectionTitle {
-      font-size: 1.75rem;
+      font-size: v.$font-size-medium;
     }
 
     .serviceCard {
-      width: 160px; // Adjust card width for mobile screens
+      width: 160px;
     }
   }
 }

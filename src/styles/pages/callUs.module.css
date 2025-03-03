@@ -1,0 +1,248 @@
+.callUsPage {
+  min-height: 100vh;
+  background-color: #f7fafc;
+  color: #1a202c;
+}
+
+.heroSection {
+  background: linear-gradient(to right, #4a5568, #2d3748);
+  color: white;
+  padding: 5rem 1rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.description {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaButton {
+  background-color: white;
+  color: #4a5568;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.ctaButton:hover {
+  background-color: #edf2f7;
+}
+
+.whySection {
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+}
+
+.whyGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .whyGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.whyItem {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.itemTitle {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.secondaryButton {
+  display: inline-block;
+  color: #4a5568;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border: 1px solid #4a5568;
+  border-radius: 9999px;
+  text-decoration: none;
+  margin-top: 2rem;
+  transition: background-color 0.3s;
+}
+.secondaryButton:hover {
+  background-color: #edf2f7;
+}
+
+.contactSection {
+  padding: 4rem 1rem;
+  background-color: #edf2f7;
+  text-align: center;
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .contactGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.contactItem {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contactDetail {
+  color: #4a5568;
+  margin: 0.5rem 0;
+}
+
+.contactNote {
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+.chatButton {
+  color: #4a5568;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.formSection {
+  margin-top: 3rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.formTitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formInput,
+.formSelect,
+.formTextarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+}
+.formInput:focus,
+.formSelect:focus,
+.formTextarea:focus {
+  outline: none;
+  border-color: #4a5568;
+  box-shadow: 0 0 0 2px rgba(74, 85, 104, 0.2);
+}
+
+.submitButton {
+  background-color: #4a5568;
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.submitButton:hover {
+  background-color: #2d3748;
+}
+
+.socialProof {
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.testimonial {
+  font-size: 1.25rem;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.stat {
+  color: #718096;
+  margin-bottom: 2rem;
+}
+
+.footer {
+  background-color: #1a202c;
+  color: white;
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+
+.footerText {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.footerButton {
+  background-color: white;
+  color: #1a202c;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.footerButton:hover {
+  background-color: #e2e8f0;
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.socialIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}/*# sourceMappingURL=callUs.module.css.map */

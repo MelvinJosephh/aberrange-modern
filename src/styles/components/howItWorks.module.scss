@@ -1,149 +1,170 @@
-// app/how-it-works/HowItWorks.module.scss
+// src/styles/components/howItWorks.module.scss
+@use '@/styles/variables' as v;
+@use '@/styles/mixins' as m;
+
 .howItWorks {
-  padding: 2rem 1rem;
-  min-height: 100vh;
-  background: #f9fafb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.container {
-  max-width: 800px;
-  margin: 0 auto;
+  padding: v.$spacing-xl v.$spacing-lg;
+  background: v.$background-color;
   text-align: center;
-}
 
-/* Header */
-.header {
-  margin-bottom: 2rem;
-}
-
-.title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #1e3a8a; // Blue for reliability
-  margin-bottom: 0.5rem;
-}
-
-.subtitle {
-  font-size: 1rem;
-  color: #6b7280;
-}
-
-/* VA Blocks */
-.blocks {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.block {
-  background: #fff;
-  padding: 1.25rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-}
-
-.blockTitle {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #1e3a8a;
-  margin-bottom: 0.5rem;
-}
-
-.blockDetail {
-  font-size: 0.9rem;
-  color: #6b7280;
-  line-height: 1.4;
-}
-
-.blockHighlight {
-  display: block;
-  font-size: 0.85rem;
-  color: #6A0DAD; // Purple for subtle AI/tech flair
-  font-weight: 500;
-  margin-top: 0.25rem;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-
-  .block:hover & {
-    opacity: 1;
-  }
-}
-
-/* Footer */
-.footer {
-  padding: 1rem 0;
-}
-
-.ctaButton {
-  padding: 0.5rem 1.5rem;
-  font-size: 1rem;
-  background-color: #6A0DAD;
-  color: #fff;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: #4D0A7A;
-  }
-}
-
-.trust {
-  font-size: 0.8rem;
-  color: #6b7280;
-  margin-top: 0.5rem;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .title {
-    font-size: 1.75rem;
+  .container {
+    max-width: v.$breakpoint-lg;
+    margin: 0 auto;
   }
 
-  .blocks {
-    gap: 0.75rem;
+  .sectionTitle {
+    font-family: v.$font-primary;
+    font-size: v.$font-size-xlarge;
+    font-weight: v.$font-weight-bold;
+    color: v.$text-primary;
+    margin-bottom: v.$spacing-md;
   }
 
-  .block {
-    padding: 1rem;
+  .sectionSubtitle {
+    font-family: v.$font-primary;
+    font-size: v.$font-size-medium;
+    color: v.$text-secondary;
+    margin-bottom: v.$spacing-lg;
   }
 
-  .blockTitle {
-    font-size: 1.125rem;
-  }
-}
+  .stepsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: v.$spacing-lg;
+    margin-bottom: v.$spacing-xl;
 
-@media (max-width: 480px) {
-  .howItWorks {
-    padding: 1rem;
+    .stepCard {
+      background: v.$secondary-color;
+      padding: v.$spacing-md;
+      border-radius: v.$border-radius-md;
+      @include m.box-shadow(2);
+      transition: transform v.$transition-duration-medium v.$transition-timing-function,
+                  box-shadow v.$transition-duration-medium v.$transition-timing-function;
+
+      &:hover {
+        transform: translateY(-#{v.$spacing-xs});
+        @include m.box-shadow(3);
+      }
+
+      .stepNumber {
+        font-family: v.$font-primary;
+        font-size: v.$font-size-large;
+        font-weight: v.$font-weight-bold;
+        color: v.$interactive-color;
+        background: v.$primary-color-light;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 50%;
+        margin: 0 auto v.$spacing-sm;
+      }
+
+      .iconWrapper {
+        @include m.flex-center;
+        width: 60px;
+        height: 60px;
+        margin: 0 auto v.$spacing-sm;
+        border-radius: 50%;
+        background: v.$primary-color-light;
+      }
+
+      .stepIcon {
+        font-size: v.$font-size-large;
+        color: v.$interactive-color;
+        transition: transform v.$transition-duration-medium v.$transition-timing-function;
+
+        .stepCard:hover & {
+          transform: scale(1.1);
+        }
+      }
+
+      .stepTitle {
+        font-family: v.$font-primary;
+        font-size: v.$font-size-large;
+        font-weight: v.$font-weight-medium;
+        color: v.$text-primary;
+        margin-bottom: v.$spacing-sm;
+      }
+
+      .stepDescription {
+        font-family: v.$font-primary;
+        font-size: v.$font-size-base;
+        color: v.$text-secondary;
+        line-height: v.$line-height-base;
+      }
+    }
   }
 
-  .title {
-    font-size: 1.5rem;
+  .ctaLink {
+    display: inline-block;
+    font-family: v.$font-primary;
+    font-size: v.$font-size-medium;
+    color: v.$interactive-color;
+    text-decoration: none;
+    font-weight: v.$font-weight-medium;
+    transition: color v.$transition-duration-fast v.$transition-timing-function;
+
+    &:hover {
+      color: v.$interactive-hover;
+      text-decoration: underline;
+    }
   }
 
-  .subtitle {
-    font-size: 0.9rem;
+  // Responsive adjustments
+  @include m.media(v.$breakpoint-md, max) {
+    .stepsGrid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
-  .blockTitle {
-    font-size: 1rem;
+  @include m.media(v.$breakpoint-sm, max) {
+    .sectionTitle {
+      font-size: v.$font-size-large;
+    }
+
+    .sectionSubtitle {
+      font-size: v.$font-size-base;
+    }
+
+    .stepsGrid {
+      grid-template-columns: 1fr;
+      gap: v.$spacing-md;
+    }
   }
 
-  .blockDetail {
-    font-size: 0.85rem;
-  }
+  @include m.media(v.$breakpoint-xs, max) {
+    padding: v.$spacing-lg v.$spacing-md;
 
-  .blockHighlight {
-    font-size: 0.75rem;
+    .sectionTitle {
+      font-size: v.$font-size-medium;
+    }
+
+    .stepCard {
+      padding: v.$spacing-sm;
+
+      .stepNumber {
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        font-size: v.$font-size-medium;
+      }
+
+      .iconWrapper {
+        width: 48px;
+        height: 48px;
+      }
+
+      .stepIcon {
+        font-size: v.$font-size-medium;
+      }
+
+      .stepTitle {
+        font-size: v.$font-size-medium;
+      }
+
+      .stepDescription {
+        font-size: v.$font-size-small;
+      }
+    }
   }
 }

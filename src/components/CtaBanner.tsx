@@ -13,7 +13,7 @@ const CtaBanner: React.FC = () => {
         <p className={styles.ctaSubtitle}>
           Get started with Aberrange’s AI-powered solutions and expert support today.
         </p>
-        <a href="/get-started" className={styles.ctaButton}>
+        <a href="/public/get-started" className={styles.ctaButton}>
           Book a Free Consultation
           <ArrowForwardIcon className={styles.ctaIcon} />
         </a>

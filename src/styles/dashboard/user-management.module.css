@@ -1,0 +1,39 @@
+.container {
+  padding: 20px;
+  background-color: #ecf0f3;
+  border-radius: 8px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  padding: 14px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.item:hover {
+  transform: scale(1.02);
+  background-color: #e3e6e8;
+}
+
+.role {
+  font-weight: bold;
+  color: #3498db;
+}/*# sourceMappingURL=user-management.module.css.map */

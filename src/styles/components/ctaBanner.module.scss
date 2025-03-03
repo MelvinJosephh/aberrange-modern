@@ -1,95 +1,104 @@
 // src/styles/components/ctaBanner.module.scss
+@use '@/styles/variables' as v;
+@use '@/styles/mixins' as m;
+
 .ctaBanner {
-    padding: 4rem 2rem;
-    background: linear-gradient(135deg, #3f51b5 0%, #1e88e5 100%);
-    text-align: center;
-    color: #fff;
-  
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
+  padding: v.$spacing-xl v.$spacing-lg;
+  @include m.gradient-background(v.$primary-color, v.$primary-color-dark, 135deg);
+  text-align: center;
+  color: v.$text-light;
+
+  .container {
+    max-width: v.$breakpoint-lg;
+    margin: 0 auto;
+  }
+
+  .ctaTitle {
+    font-family: v.$font-primary;
+    font-size: v.$font-size-xlarge;
+    font-weight: v.$font-weight-bold;
+    color: v.$text-light;
+    margin-bottom: v.$spacing-md;
+  }
+
+  .ctaSubtitle {
+    font-family: v.$font-primary;
+    font-size: v.$font-size-medium;
+    color: v.$text-light;
+    margin-bottom: v.$spacing-lg;
+    opacity: 0.9;
+  }
+
+  .ctaButton {
+    @include m.button-styles(v.$secondary-color, v.$text-dark);
+    display: inline-flex;
+    align-items: center;
+    gap: v.$spacing-xs;
+    font-family: v.$font-primary;
+    font-size: v.$font-size-medium;
+    font-weight: v.$font-weight-medium;
+    text-decoration: none;
+    border-radius: v.$border-radius-md;
+    padding: v.$spacing-md v.$spacing-lg;
+    @include m.box-shadow(2);
+    transition: all v.$transition-duration-medium v.$transition-timing-function;
+
+    &:hover {
+      background-color: v.$secondary-color-light;
+      border-color: v.$secondary-color-light;
+      transform: translateY(-#{v.$spacing-xxs});
+      @include m.box-shadow(3);
     }
-  
-    .ctaTitle {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
+
+    &:active {
+      background-color: v.$secondary-color-dark;
+      border-color: v.$secondary-color-dark;
+      transform: translateY(0);
     }
-  
-    .ctaSubtitle {
-      font-size: 1.2rem;
-      opacity: 0.9;
-      margin-bottom: 2rem;
-    }
-  
-    .ctaButton {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: #3f51b5;
-      background: #fff;
-      padding: 0.75rem 1.5rem;
-      border-radius: 25px;
-      text-decoration: none;
-      transition: background 0.3s ease, transform 0.3s ease;
-  
-      .ctaIcon {
-        font-size: 1.5rem;
-        transition: transform 0.3s ease;
-      }
-  
-      &:hover {
-        background: #e0e7ff;
-        transform: translateY(-2px);
-  
-        .ctaIcon {
-          transform: translateX(5px);
-        }
-      }
-    }
-  
-    // Responsive adjustments
-    @media (max-width: 768px) {
-      padding: 3rem 1.5rem;
-  
-      .ctaTitle {
-        font-size: 2rem;
-      }
-  
-      .ctaSubtitle {
-        font-size: 1rem;
-      }
-  
-      .ctaButton {
-        font-size: 1.1rem;
-        padding: 0.65rem 1.25rem;
-  
-        .ctaIcon {
-          font-size: 1.3rem;
-        }
-      }
-    }
-  
-    @media (max-width: 480px) {
-      padding: 2rem 1rem;
-  
-      .ctaTitle {
-        font-size: 1.75rem;
-      }
-  
-      .ctaSubtitle {
-        font-size: 0.9rem;
-      }
-  
-      .ctaButton {
-        font-size: 1rem;
-        padding: 0.5rem 1rem;
-  
-        .ctaIcon {
-          font-size: 1.2rem;
-        }
+
+    .ctaIcon {
+      font-size: v.$font-size-medium;
+      transition: transform v.$transition-duration-fast v.$transition-timing-function;
+
+      .ctaButton:hover & {
+        transform: translateX(#{v.$spacing-xxs});
       }
     }
   }
+
+  // Responsive adjustments
+  @include m.media(v.$breakpoint-sm, max) {
+    .ctaTitle {
+      font-size: v.$font-size-large;
+    }
+
+    .ctaSubtitle {
+      font-size: v.$font-size-base;
+    }
+
+    .ctaButton {
+      padding: v.$spacing-sm v.$spacing-md;
+      font-size: v.$font-size-base;
+    }
+  }
+
+  @include m.media(v.$breakpoint-xs, max) {
+    padding: v.$spacing-lg v.$spacing-md;
+
+    .ctaTitle {
+      font-size: v.$font-size-medium;
+    }
+
+    .ctaSubtitle {
+      font-size: v.$font-size-small;
+    }
+
+    .ctaButton {
+      padding: v.$spacing-sm v.$spacing-md;
+
+      .ctaIcon {
+        font-size: v.$font-size-base;
+      }
+    }
+  }
+}
