@@ -48,7 +48,7 @@ const Step8Success: React.FC<Step8SuccessProps> = ({ onBack }) => {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/submit-hiring-form",
+          `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/submit-hiring-form`,
           hiringData,
           {
             headers: {
@@ -73,11 +73,11 @@ const Step8Success: React.FC<Step8SuccessProps> = ({ onBack }) => {
     <StepTemplate
       options={[]} // Empty options as no selection is needed for this step
       selectedOption={""} // Empty as no selected option needed
-      onSelect={() => {}} // No-op for the select handler
+      onSelect={() => { } } // No-op for the select handler
       onBack={onBack} // onBack logic stays
       onNext={handleSubmit} // Link the handleSubmit to onNext here
       isFinalStep={true} // Mark this as the final step
-    >
+      title={""}    >
       <div className="form-container">
         <p className="form-description">
           Please provide your contact details below to connect with the best talent.

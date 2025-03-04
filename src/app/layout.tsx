@@ -4,6 +4,7 @@ import Footer from "@/components/footer";
 import { usePathname } from "next/navigation"; 
 import "@/styles/globals.scss";
 import "font-awesome/css/font-awesome.min.css";
+import { Toaster } from "@/components/ui/sonner"
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname(); 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {!isDashboard && <Header />} 
         <main>{children}</main>
+        <Toaster />
         {!isDashboard && <Footer />} 
       </body>
     </html>

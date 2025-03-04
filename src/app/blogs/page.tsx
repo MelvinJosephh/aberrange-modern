@@ -25,7 +25,7 @@ const Blogs = () => {
   const fetchBlogs = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:5000/api/blogs");
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/blogs`);
       const blogsData: Blog[] = response.data.map((blog: Blog) => ({
         _id: blog._id,
         title: blog.title,

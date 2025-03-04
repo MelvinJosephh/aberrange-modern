@@ -1,15 +1,31 @@
-// src/components/shared-ui/Header.tsx
 "use client";
-import { HTMLAttributes } from "react";
+
+import { HTMLAttributes, useState } from "react";
 import styles from "@/styles/dashboard/dashboard-header.module.scss";
 import { cn } from "@/lib/utils";
-import { Menu } from "lucide-react";
+import { Menu, LogOut, User as UserIcon } from "lucide-react";
 import { useSidebar } from "@/components/ui/sidebar";
+import Link from "next/link";
+
 
 type HeaderProps = HTMLAttributes<HTMLDivElement>;
 
 export default function Header({ className, ...props }: HeaderProps) {
   const { toggleSidebar } = useSidebar();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+ 
+  const handleLogout = async () => {
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/auth/logout`, {
+        method: "POST",
+        credentials: "include", // Include cookies
+      });
+      window.location.href = "/auth/login";
+    } catch (error) {
+      console.error("Logout error:", error);
+      alert("Failed to log out. Please try again.");
+    }
+  };
 
   return (
     <div className={cn(styles.header, className)} {...props}>
@@ -24,9 +40,27 @@ export default function Header({ className, ...props }: HeaderProps) {
         >
           <Menu className="w-6 h-6" />
         </button>
-        {/* <h1 className={styles.title}>Aberrange</h1> */}
         <div className={styles.userSection}>
-          <span className={styles.userName}>John Doe</span>
+          <button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className={styles.userButton}
+            aria-label="User menu"
+          >
+            <span className={styles.userName}>John Doe</span>
+            <UserIcon className={styles.userIcon} />
+          </button>
+          {isDropdownOpen && (
+            <div className={styles.dropdown}>
+              <Link href="/dashboard/profile" className={styles.dropdownItem}>
+                <UserIcon className={styles.dropdownIcon} />
+                Profile
+              </Link>
+              <button onClick={handleLogout} className={styles.dropdownItem}>
+                <LogOut className={styles.dropdownIcon} />
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

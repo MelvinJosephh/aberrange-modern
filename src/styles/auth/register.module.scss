@@ -1,0 +1,132 @@
+@use '@/styles/variables' as v;
+@use '@/styles/mixins' as m;
+
+.container {
+  @include m.flex-center;
+  min-height: 100vh;
+  background-color: v.$background-color;
+  color: v.$text-primary;
+}
+
+.card {
+  width: 100%;
+  max-width: 28rem; // 448px
+  padding: v.$spacing-lg;
+  border-radius: v.$border-radius-md;
+  background-color: white;
+  box-shadow: v.$shadow-md;
+}
+
+.title {
+  font-size: v.$font-size-xlarge;
+  font-weight: v.$font-weight-bold;
+  text-align: center;
+  margin-bottom: v.$spacing-lg;
+}
+
+.subtitle {
+  font-size: v.$font-size-medium;
+  text-align: center;
+  margin-bottom: v.$spacing-xl;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-md;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: v.$font-size-small;
+  font-weight: v.$font-weight-medium;
+  margin-bottom: v.$spacing-xs;
+}
+
+.input {
+  width: 100%;
+  padding: v.$spacing-sm;
+  border: v.$border-width-thin solid v.$border-color-light;
+  border-radius: v.$border-radius-sm;
+  font-size: v.$font-size-base;
+  &:focus {
+    outline: none;
+    border-color: v.$interactive-color;
+  }
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.primaryButton {
+  @include m.button-styles;
+  width: 100%;
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: v.$spacing-lg 0;
+}
+
+.hr {
+  flex-grow: 1;
+  border: none;
+  border-top: v.$border-width-thin solid v.$border-color-light;
+}
+
+.dividerText {
+  padding: 0 v.$spacing-md;
+  color: v.$text-secondary;
+}
+
+.googleButton {
+  @include m.button-styles(v.$secondary-color, v.$text-primary);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$spacing-sm;
+  border: v.$border-width-thin solid v.$border-color-light;
+  &:hover {
+    background-color: v.$secondary-color-light;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.googleIcon {
+  width: 1.25rem; // 20px
+  height: 1.25rem;
+}
+
+.error {
+  color: #ef4444; // Tailwind red-500 equivalent
+  font-size: v.$font-size-small;
+  text-align: center;
+  margin-top: v.$spacing-md;
+}
+
+.linkText {
+  font-size: v.$font-size-small;
+  text-align: center;
+  margin-top: v.$spacing-md;
+}
+
+.link {
+  color: v.$interactive-color;
+  &:hover {
+    text-decoration: underline;
+  }
+}
