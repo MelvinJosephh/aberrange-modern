@@ -2,15 +2,18 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import styles from '@/styles/pages/about.module.scss'; // Adjusted path
-import { Button } from '@/components/ui/button'; // Shadcn Button
+import styles from '@/styles/pages/about.module.scss';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import whatWeDoData from '@/lib/data/AboutData';
+import Link from 'next/link';
 
 const AboutPage: React.FC = () => {
   const router = useRouter();
 
   const handleGetStarted = () => {
-    router.push('/get-quote'); // Navigate to Get a Quote page
+    router.push('/get-quote');
   };
 
   return (
@@ -30,6 +33,7 @@ const AboutPage: React.FC = () => {
           <h2 className={styles.subtitle}>{whatWeDoData.solutionsSection.title}</h2>
           <p className={styles.text}>{whatWeDoData.solutionsSection.description.trim()}</p>
         </div>
+        <Separator className={styles.separator} />
       </section>
 
       {/* Innovation & Sustainability */}
@@ -44,6 +48,7 @@ const AboutPage: React.FC = () => {
             <p className={styles.text}>{whatWeDoData.sustainabilitySection.description.trim()}</p>
           </div>
         </div>
+        <Separator className={styles.separator} />
       </section>
 
       {/* Relationships & Transformation */}
@@ -56,16 +61,22 @@ const AboutPage: React.FC = () => {
           <h2 className={styles.subtitle}>{whatWeDoData.transformationSection.title}</h2>
           <p className={styles.text}>{whatWeDoData.transformationSection.description.trim()}</p>
         </div>
+        <Separator className={styles.separator} />
       </section>
 
       {/* The Aberrange Difference */}
       <section className={styles.differenceSection}>
         <h2 className={styles.subtitle}>{whatWeDoData.differenceSection.title}</h2>
-        <ul className={styles.differenceList}>
+        <div className={styles.differenceGrid}>
           {whatWeDoData.differenceSection.bulletPoints.map((point, index) => (
-            <li key={index} className={styles.differenceItem}>{point}</li>
+            <Card key={index} className={styles.differenceCard}>
+              <CardContent className={styles.differenceContent}>
+                <p className={styles.text}>{point}</p>
+              </CardContent>
+            </Card>
           ))}
-        </ul>
+        </div>
+        <Separator className={styles.separator} />
       </section>
 
       {/* Why Choose Us */}
@@ -78,14 +89,15 @@ const AboutPage: React.FC = () => {
             </div>
           ))}
         </div>
+        <Separator className={styles.separator} />
       </section>
 
       {/* Call to Action */}
       <section className={styles.ctaSection}>
         <h2 className={styles.ctaTitle}>{whatWeDoData.callToAction.title}</h2>
         <p className={styles.ctaDescription}>{whatWeDoData.callToAction.description}</p>
-        <Button className={styles.ctaButton} onClick={handleGetStarted}>
-          Contact Us Today
+        <Button asChild className={styles.ctaButton}>
+          <Link href="/call-us">Contact Us Today</Link>
         </Button>
       </section>
     </div>

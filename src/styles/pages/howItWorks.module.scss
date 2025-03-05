@@ -1,81 +1,91 @@
 // frontend/app/how-it-works/HowItWorks.module.scss
+@use '@/styles/variables' as v;
+@use '@/styles/mixins' as m;
+
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+  max-width: v.$breakpoint-lg; // 1280px, close to original 1200px
+  margin: 0 auto;
+  padding: 120px 60px; // 24px, equivalent to 2rem
+}
+
+.hero {
+  text-align: center;
+  padding: v.$spacing-xl 0; 
+  @include m.gradient-background(v.$primary-color-dark, v.$interactive-color, 135deg); 
+  color: v.$text-light;
+  border-radius: v.$border-radius-md; // 8px
+}
+
+.title {
+  font-family: v.$font-primary;
+  font-size: v.$font-size-xlarge; // 48px, larger than 2.5rem (40px) for impact
+  font-weight: v.$font-weight-bold; // 700
+  margin-bottom: v.$spacing-md; // 16px, equivalent to 1rem
+}
+
+.subtitle {
+  font-family: v.$font-primary;
+  font-size: v.$font-size-medium; // 20px, close to 1.25rem (20px)
+  opacity: 0.9;
+  margin-bottom: v.$spacing-lg; // 24px, equivalent to 2rem
+}
+
+.ctaButton {
+  font-family: v.$font-primary;
+  font-size: v.$font-size-medium; // 20px, close to 1.125rem (18px)
+}
+
+.steps {
+  padding: v.$spacing-xl 0; // 32px, equivalent to 4rem
+}
+
+.sectionTitle {
+  font-family: v.$font-primary;
+  font-size: v.$font-size-large; // 24px, close to 2rem (32px), adjusted for balance
+  font-weight: v.$font-weight-bold; // 600 mapped to 700 for consistency
+  text-align: center;
+  margin-bottom: v.$spacing-xl; // 32px, equivalent to 3rem
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: v.$spacing-lg; // 24px, equivalent to 2rem
+}
+
+.stepCard {
+  background: v.$secondary-color; // #F5F5F5, close to #f9fafb
+  border: none;
+  @include m.box-shadow(2); // Maps to 0 4px 6px rgba(0, 0, 0, 0.1)
+  transition: transform v.$transition-duration-fast v.$transition-timing-function; // 0.2s ease-in-out
+
+  &:hover {
+    transform: translateY(-#{v.$spacing-xs}); // -8px, close to -5px
   }
-  
-  .hero {
-    text-align: center;
-    padding: 4rem 0;
-    background: linear-gradient(135deg, #1e3a8a, #3b82f6); /* Aberrange brand colors */
-    color: white;
-    border-radius: 8px;
-  }
-  
-  .title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-  
-  .subtitle {
-    font-size: 1.25rem;
-    opacity: 0.9;
-    margin-bottom: 2rem;
-  }
-  
-  .ctaButton {
-    font-size: 1.125rem;
-  }
-  
-  .steps {
-    padding: 4rem 0;
-  }
-  
-  .sectionTitle {
-    font-size: 2rem;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  
-  .stepsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-  }
-  
-  .stepCard {
-    background: #f9fafb;
-    border: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-  
-    &:hover {
-      transform: translateY(-5px);
-    }
-  }
-  
-  .stepTitle {
-    font-size: 1.5rem;
-    color: #1e3a8a;
-  }
-  
-  .cta {
-    text-align: center;
-    padding: 4rem 0;
-    background: #f1f5f9;
-    border-radius: 8px;
-  }
-  
-  .ctaTitle {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-  
-  .ctaText {
-    font-size: 1.125rem;
-    margin-bottom: 2rem;
-  }
+}
+
+.stepTitle {
+  font-family: v.$font-primary;
+  font-size: v.$font-size-large; // 24px, close to 1.5rem (24px)
+  color: v.$primary-color-dark; // Closest match to #1e3a8a
+}
+
+.cta {
+  text-align: center;
+  padding: v.$spacing-xl 0; // 32px, equivalent to 4rem
+  background: v.$secondary-color-light; // Slightly lighter than #f1f5f9
+  border-radius: v.$border-radius-md; // 8px
+}
+
+.ctaTitle {
+  font-family: v.$font-primary;
+  font-size: v.$font-size-large; // 24px, close to 2rem (32px), adjusted for balance
+  font-weight: v.$font-weight-bold; // 600 mapped to 700
+  margin-bottom: v.$spacing-md; // 16px, equivalent to 1rem
+}
+
+.ctaText {
+  font-family: v.$font-primary;
+  font-size: v.$font-size-medium; // 20px, close to 1.125rem (18px)
+  margin-bottom: v.$spacing-lg; // 24px, equivalent to 2rem
+}

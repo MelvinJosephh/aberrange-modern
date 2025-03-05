@@ -52,7 +52,7 @@ const HowItWorks: React.FC = () => {
             </p>
           </div>
         </div>
-        <a href="/get-started" className={styles.ctaLink}>
+        <a href="/public/get-started" className={styles.ctaLink}>
           Start Your Journey →
         </a>
       </div>

@@ -1,9 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import styles from '@/styles/pages/callUs.module.scss';
+import { format } from 'date-fns';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -14,27 +19,79 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar'; 
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { toast } from 'sonner';
+import styles from '@/styles/pages/callUs.module.scss';
+
+// Form schema with Zod
+const formSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().email('Invalid email address'),
+  helpWith: z.string().min(1, 'Please select what you need help with'),
+  message: z.string().optional(),
+  date: z.date({ required_error: 'A consultation date is required' }),
+});
 
 const CallUs: React.FC = () => {
   const router = useRouter();
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.push('/contact-success');
-  };
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      helpWith: '',
+      message: '',
+      date: undefined,
+    },
+  });
 
-  const handleScheduleCall = (date: Date | undefined) => {
-    setSelectedDate(date);
-    // Handle the selected date here (e.g., log it, integrate with form, etc.)
-    if (date) {
-      console.log('Selected date:', date); // Placeholder for your logic
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
+
+    const contactData = {
+      name: data.name,
+      email: data.email,
+      helpWith: data.helpWith,
+      message: data.message || '',
+      consultationDate: data.date.toISOString(),
+    };
+
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(contactData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit contact request');
+      }
+
+      const result = await response.json();
+      toast.success('Contact Request Submitted!', {
+        description: `Your consultation is scheduled for ${format(
+          new Date(result.contact.consultationDate),
+          'PPP'
+        )}. We’ll confirm soon.`,
+      });
+      setIsSubmitted(true);
+      form.reset();
+      router.push('/contact-success');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+      toast.error('Submission Failed', {
+        description: message,
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -46,73 +103,145 @@ const CallUs: React.FC = () => {
         <p className={styles.description}>
           From AI-driven automation to expert tech and admin support, Aberrange delivers premium solutions tailored to your business. Let’s talk about your goals.
         </p>
-        <Button className={styles.ctaButton} onClick={() => handleScheduleCall(selectedDate)}>
-          Schedule a Free Consultation
-        </Button>
       </header>
 
-      {/* Contact Options */}
-      <section className={styles.contactSection}>
-        <h2 className={styles.subtitle}>How Would You Like to Connect?</h2>
-        <div className={styles.contactGrid}>
-          <div className={styles.contactItem}>
-            <h3 className={styles.itemTitle}>Phone</h3>
-            <p className={styles.contactDetail}>1-800-ABERRANGE</p>
-            <p className={styles.contactNote}>Speak to an expert today—available 24/7.</p>
+      {/* Contact Form */}
+      <section id="contact-form" className={styles.formSection}>
+        <h2 className={styles.subtitle}>Contact Us & Schedule a Call</h2>
+        {isSubmitted ? (
+          <div className={styles.successMessage}>
+            <h3 className={styles.successTitle}>Thank You!</h3>
+            <p>Your request has been submitted. We’ll reach out soon to confirm your consultation.</p>
+            <Link href="/" className={styles.backLink}>
+              Back to Home
+            </Link>
           </div>
-          <div className={styles.contactItem}>
-            <h3 className={styles.itemTitle}>Email</h3>
-            <p className={styles.contactDetail}>connect@aberrange.com</p>
-            <p className={styles.contactNote}>Expect a response within 1 business hour.</p>
-          </div>
-          <div className={styles.contactItem}>
-            <h3 className={styles.itemTitle}>Live Chat</h3>
-            <Button variant="link" className={styles.chatButton}>
-              Start Chat Now
-            </Button>
-            <p className={styles.contactNote}>Instant support from our team.</p>
-          </div>
-          <div className={styles.contactItem}>
-            <h3 className={styles.itemTitle}>Book a Call</h3>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="link" className={styles.chatButton}>
-                  {selectedDate ? selectedDate.toLocaleDateString() : 'Pick a Date'}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={handleScheduleCall}
-                  initialFocus
-                />
-              </PopoverContent>
-            </Popover>
-            <p className={styles.contactNote}>No commitment, just clarity.</p>
-          </div>
-        </div>
-
-        {/* Contact Form */}
-        <div className={styles.formSection}>
-          <h3 className={styles.formTitle}>Send Us a Message</h3>
-          <form className={styles.contactForm} onSubmit={handleContactSubmit}>
-            <Input type="text" placeholder="Name" className={styles.formInput} required />
-            <Input type="email" placeholder="Email" className={styles.formInput} required />
-            <Select required>
-              <SelectTrigger className={styles.formSelect}>
-                <SelectValue placeholder="What do you need help with?" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="ai-automation">AI Automation</SelectItem>
-                <SelectItem value="tech-support">Tech Support</SelectItem>
-                <SelectItem value="admin">Admin Assistance</SelectItem>
-                <SelectItem value="finance">Finance & Bookkeeping</SelectItem>
-              </SelectContent>
-            </Select>
-            <Textarea placeholder="Your Message" className={styles.formTextarea} rows={4} />
-            <Button type="submit" className={styles.submitButton}>Send Message</Button>
-          </form>
+        ) : (
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className={styles.contactForm}>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className={styles.formLabel}>Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Your Name" {...field} disabled={isLoading} className={styles.formInput} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className={styles.formLabel}>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="Your Email"
+                        {...field}
+                        disabled={isLoading}
+                        className={styles.formInput}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="helpWith"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className={styles.formLabel}>What do you need help with?</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading}>
+                      <FormControl>
+                        <SelectTrigger className={styles.formSelect}>
+                          <SelectValue placeholder="Select an option" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="ai-automation">AI Automation</SelectItem>
+                        <SelectItem value="tech-support">Tech Support</SelectItem>
+                        <SelectItem value="admin">Admin Assistance</SelectItem>
+                        <SelectItem value="finance">Finance & Bookkeeping</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className={styles.formLabel}>Message (Optional)</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Tell us about your needs"
+                        {...field}
+                        disabled={isLoading}
+                        className={styles.formTextarea}
+                        rows={4}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="date"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className={styles.formLabel}>Schedule Your Call</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            className={cn(
+                              styles.datePickerButton,
+                              !field.value && styles.mutedForeground
+                            )}
+                            disabled={isLoading}
+                          >
+                            {field.value ? format(field.value, 'PPP') : <span>Pick a Date</span>}
+                            <CalendarIcon className={styles.calendarIcon} />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className={styles.datePickerContent} align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) => date < new Date() || isLoading}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className={styles.submitButton} disabled={isLoading}>
+                {isLoading ? 'Submitting...' : 'Send & Schedule'}
+              </Button>
+            </form>
+          </Form>
+        )}
+        <div className={styles.contactOptions}>
+          <p>Or reach us directly:</p>
+          <p className={styles.contactDetail}>Phone: 1-800-ABERRANGE</p>
+          <p className={styles.contactDetail}>Email: connect@aberrange.com</p>
+          <Button variant="link" className={styles.chatButton}>
+            Start Live Chat
+          </Button>
         </div>
       </section>
 
@@ -123,29 +252,11 @@ const CallUs: React.FC = () => {
           “Aberrange automated our workflows and saved us 20 hours a week!” — Tech Startup Founder
         </p>
         <p className={styles.stat}>100+ businesses scaled with Aberrange’s solutions.</p>
-        <Button className={styles.ctaButton} onClick={() => handleScheduleCall(selectedDate)}>
-          Ready to Be Next? Contact Us Now
-        </Button>
       </section>
 
       {/* Footer */}
       <footer className={styles.footer}>
         <p className={styles.footerText}>Let’s take your business to the next level—together.</p>
-        <Button className={styles.footerButton} onClick={() => handleScheduleCall(selectedDate)}>
-          Schedule a Call
-        </Button>
-        <div className={styles.socialLinks}>
-          <Link href="https://linkedin.com" target="_blank">
-            <svg className={styles.socialIcon} fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zm-1 2H6v14h12V5zM8 7h3v2H8V7zm0 4h8v2H8v-2zm0 4h8v2H8v-2z" />
-            </svg>
-          </Link>
-          <Link href="https://twitter.com" target="_blank">
-            <svg className={styles.socialIcon} fill="currentColor" viewBox="0 0 24 24">
-              <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
-            </svg>
-          </Link>
-        </div>
       </footer>
     </div>
   );

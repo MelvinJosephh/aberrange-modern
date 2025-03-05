@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
           Whether you&apos;re a startup, small business, or enterprise, we&apos;ve got you covered.
         </p>
         <div className={styles.ctaButtons}>
-          <Link href="/hire" className={styles.ctaButtonPrimary}>
+          <Link href="/public/hire-va" className={styles.ctaButtonPrimary}>
             Hire a Virtual Assistant <span className={styles.ctaArrow}>→</span>
           </Link>
           <Link href="/public/call-us" className={styles.ctaButtonSecondary}>

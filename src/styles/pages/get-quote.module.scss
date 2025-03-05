@@ -1,121 +1,368 @@
+// src/styles/pages/get-quote.module.scss
+@use '@/styles/variables' as v;
+@use '@/styles/mixins' as m;
+
 .getQuotePage {
-    min-height: 100vh;
-    background-color: #f7fafc;
-    color: #1a202c;
-  }
-  
+  padding: v.$spacing-xl v.$spacing-lg;
+  background: v.$background-color;
+  min-height: 100vh;
+
   .heroSection {
-    background: linear-gradient(to right, #4a5568, #2d3748);
-    color: white;
-    padding: 5rem 1rem;
     text-align: center;
+    padding: v.$spacing-xl 0;
+    margin-bottom: v.$spacing-xl;
+
+    .title {
+      font-family: v.$font-primary;
+      font-size: v.$font-size-xlarge;
+      font-weight: v.$font-weight-bold;
+      color: v.$text-primary;
+      margin-bottom: v.$spacing-md;
+    }
+
+    .description {
+      font-family: v.$font-primary;
+      font-size: v.$font-size-medium;
+      color: v.$text-secondary;
+      margin-bottom: v.$spacing-lg;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ctaButton {
+      background-color: v.$interactive-color;
+      color: v.$text-light;
+      border: v.$border-width-thin solid v.$interactive-color;
+      border-radius: v.$border-radius-md;
+      padding: v.$spacing-md v.$spacing-lg;
+      font-family: v.$font-primary;
+      font-size: v.$font-size-medium;
+      font-weight: v.$font-weight-medium;
+      @include m.box-shadow(2);
+      transition: all v.$transition-duration-medium v.$transition-timing-function;
+
+      &:hover {
+        background-color: v.$interactive-hover;
+        border-color: v.$interactive-hover;
+        @include m.box-shadow(3);
+      }
+    }
   }
-  
-  .title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-  
-  .description {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .ctaButton {
-    padding: 0.75rem 1.5rem;
-    border-radius: 9999px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
+
   .formSection {
-    padding: 4rem 1rem;
-    text-align: center;
-  }
-  
-  .subtitle {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 3rem;
-  }
-  
-  .quoteForm {
-    max-width: 800px;
-    margin: 0 auto;
-    background: white;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .formGrid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    @media (min-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
+    padding: v.$spacing-xl 0;
+
+    .subtitle {
+      font-family: v.$font-primary;
+      font-size: v.$font-size-large;
+      font-weight: v.$font-weight-bold;
+      color: v.$text-primary;
+      text-align: center;
+      margin-bottom: v.$spacing-lg;
+    }
+
+    .quoteForm {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: v.$spacing-lg;
+
+      .formGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: v.$spacing-md;
+      }
+
+      .formItem {
+        display: flex;
+        flex-direction: column;
+        gap: v.$spacing-xs;
+
+        .formLabel {
+          font-family: v.$font-primary;
+          font-size: v.$font-size-base;
+          font-weight: v.$font-weight-medium;
+          color: v.$text-primary;
+        }
+
+        .formInput,
+        .formSelect,
+        .datePickerButton {
+          font-family: v.$font-primary;
+          font-size: v.$font-size-base;
+          padding: v.$spacing-sm v.$spacing-md;
+          border: v.$border-width-thin solid v.$border-color-light;
+          border-radius: v.$border-radius-md;
+          background: v.$secondary-color;
+          color: v.$text-dark;
+          transition: border-color v.$transition-duration-fast v.$transition-timing-function;
+
+          &:focus {
+            border-color: v.$interactive-color;
+            @include m.box-shadow(1);
+          }
+        }
+
+        .formSelect {
+          background: v.$secondary-color;
+          border: v.$border-width-thin solid v.$border-color-light;
+
+          &[data-state="open"] {
+            border-color: v.$interactive-color;
+          }
+        }
+
+        .formTextarea {
+          font-family: v.$font-primary;
+          font-size: v.$font-size-base;
+          padding: v.$spacing-sm v.$spacing-md;
+          border: v.$border-width-thin solid v.$border-color-light;
+          border-radius: v.$border-radius-md;
+          background: v.$secondary-color;
+          color: v.$text-dark;
+          resize: vertical;
+          min-height: 120px;
+          transition: border-color v.$transition-duration-fast v.$transition-timing-function;
+
+          &:focus {
+            border-color: v.$interactive-color;
+            @include m.box-shadow(1);
+          }
+        }
+
+        .datePickerButton {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 240px; // Matches CalendarForm’s width
+          padding-left: v.$spacing-sm; // Matches pl-3 from cn utility
+          font-weight: v.$font-weight-regular; // Matches font-normal from cn utility
+
+          &.mutedForeground {
+            color: v.$text-secondary; // Fallback for when no date is selected
+          }
+
+          .calendarIcon {
+            width: 16px; // Matches h-4 w-4 from CalendarForm
+            height: 16px;
+            opacity: 0.5;
+            color: v.$text-secondary;
+          }
+        }
+
+        .datePickerContent {
+          border: v.$border-width-thin solid v.$border-color-light;
+          border-radius: v.$border-radius-md;
+          background: v.$secondary-color;
+          padding: v.$spacing-sm;
+
+          .rdp-day {
+            font-family: v.$font-primary;
+            font-size: v.$font-size-base;
+            color: v.$text-primary;
+            border-radius: v.$border-radius-sm;
+
+            &:hover:not(.rdp-day_disabled) {
+              background-color: v.$primary-color-light;
+            }
+
+            &.rdp-day_selected {
+              background-color: v.$interactive-color;
+              color: v.$text-light;
+            }
+
+            &.rdp-day_today {
+              border: v.$border-width-thin solid v.$interactive-color;
+            }
+          }
+        }
+      }
+
+      .submitButton {
+        background-color: v.$interactive-color;
+        color: v.$text-light;
+        border: v.$border-width-thin solid v.$interactive-color;
+        border-radius: v.$border-radius-md;
+        padding: v.$spacing-md v.$spacing-lg;
+        font-family: v.$font-primary;
+        font-size: v.$font-size-medium;
+        font-weight: v.$font-weight-medium;
+        @include m.box-shadow(2);
+        transition: all v.$transition-duration-medium v.$transition-timing-function;
+
+        &:hover {
+          background-color: v.$interactive-hover;
+          border-color: v.$interactive-hover;
+          @include m.box-shadow(3);
+        }
+      }
     }
   }
-  
-  .formItem {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-  }
-  
-  .formLabel {
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-  }
-  
-  .formInput,
-  .formSelect,
-  .formTextarea {
-    border-radius: 0.5rem;
-  }
-  
-  .submitButton {
-    width: 100%;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-    @media (min-width: 768px) {
-      width: auto;
-      padding: 0.75rem 2rem;
-    }
-  }
-  
+
   .reassuranceSection {
-    padding: 4rem 1rem;
-    background-color: #edf2f7;
-    text-align: center;
-  }
-  
-  .reassuranceGrid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    @media (min-width: 768px) {
+    padding: v.$spacing-xl 0;
+    background: v.$secondary-color;
+
+    .subtitle {
+      font-family: v.$font-primary;
+      font-size: v.$font-size-large;
+      font-weight: v.$font-weight-bold;
+      color: v.$text-primary;
+      text-align: center;
+      margin-bottom: v.$spacing-lg;
+    }
+
+    .reassuranceGrid {
+      display: grid;
       grid-template-columns: repeat(3, 1fr);
+      gap: v.$spacing-lg;
+      max-width: v.$breakpoint-lg;
+      margin: 0 auto;
+
+      .reassuranceItem {
+        text-align: center;
+
+        .itemTitle {
+          font-family: v.$font-primary;
+          font-size: v.$font-size-medium;
+          font-weight: v.$font-weight-medium;
+          color: v.$text-primary;
+          margin-bottom: v.$spacing-sm;
+        }
+
+        p {
+          font-family: v.$font-primary;
+          font-size: v.$font-size-base;
+          color: v.$text-secondary;
+          line-height: v.$line-height-base;
+        }
+      }
     }
   }
-  
-  .reassuranceItem {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  // Responsive adjustments
+  @include m.media(v.$breakpoint-md, max) {
+    .formSection {
+      .quoteForm {
+        .formGrid {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+
+    .reassuranceSection {
+      .reassuranceGrid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
   }
-  
-  .itemTitle {
-    font-size: 1.25rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
+
+  @include m.media(v.$breakpoint-sm, max) {
+    padding: v.$spacing-lg v.$spacing-md;
+
+    .heroSection {
+      padding: v.$spacing-lg 0;
+
+      .title {
+        font-size: v.$font-size-large;
+      }
+
+      .description {
+        font-size: v.$font-size-base;
+      }
+
+      .ctaButton {
+        padding: v.$spacing-sm v.$spacing-md;
+        font-size: v.$font-size-base;
+      }
+    }
+
+    .formSection {
+      padding: v.$spacing-lg 0;
+
+      .subtitle {
+        font-size: v.$font-size-medium;
+      }
+
+      .quoteForm {
+        .formGrid,
+        .formItem {
+          .formInput,
+          .formSelect,
+          .datePickerButton,
+          .formTextarea {
+            padding: v.$spacing-xs v.$spacing-sm;
+          }
+
+          .datePickerButton {
+            width: 200px; // Slightly smaller for smaller screens
+            font-size: v.$font-size-small;
+          }
+        }
+
+        .submitButton {
+          padding: v.$spacing-sm v.$spacing-md;
+          font-size: v.$font-size-base;
+        }
+      }
+    }
+
+    .reassuranceSection {
+      padding: v.$spacing-lg 0;
+
+      .subtitle {
+        font-size: v.$font-size-medium;
+      }
+
+      .reassuranceGrid {
+        grid-template-columns: 1fr;
+      }
+    }
   }
+
+  @include m.media(v.$breakpoint-xs, max) {
+    padding: v.$spacing-md v.$spacing-sm;
+
+    .heroSection {
+      .title {
+        font-size: v.$font-size-medium;
+      }
+
+      .description {
+        font-size: v.$font-size-small;
+      }
+    }
+
+    .formSection {
+      .subtitle {
+        font-size: v.$font-size-base;
+      }
+
+      .quoteForm {
+        .formItem {
+          .datePickerButton {
+            width: 180px; // Even smaller for tiny screens
+          }
+        }
+      }
+    }
+
+    .reassuranceSection {
+      .subtitle {
+        font-size: v.$font-size-base;
+      }
+
+      .reassuranceItem {
+        .itemTitle {
+          font-size: v.$font-size-base;
+        }
+
+        p {
+          font-size: v.$font-size-small;
+        }
+      }
+    }
+  }
+}

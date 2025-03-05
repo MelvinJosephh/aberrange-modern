@@ -1,184 +1,347 @@
+// src/styles/pages/about.module.scss
+@use '@/styles/variables' as v;
+@use '@/styles/mixins' as m;
+
 .aboutPage {
+  padding: v.$spacing-xl v.$spacing-lg;
+  background: v.$background-color;
   min-height: 100vh;
-  background-color: #f7fafc;
-  color: #1a202c;
-  font-family: 'Inter', sans-serif; /* Modern font */
-}
 
-.heroSection {
-  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
-  color: white;
-  padding: 6rem 1rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.2) 100%);
-    pointer-events: none;
+  .heroSection {
+    text-align: center;
+    padding: v.$spacing-xl 0;
+    margin-bottom: v.$spacing-xl;
+
+    .title {
+      font-family: v.$font-primary;
+      font-size: v.$font-size-xlarge;
+      font-weight: v.$font-weight-bold;
+      color: v.$text-primary;
+      margin-bottom: v.$spacing-md;
+    }
+
+    .description {
+      font-family: v.$font-primary;
+      font-size: v.$font-size-large;
+      color: v.$text-secondary;
+      max-width: 800px;
+      margin: 0 auto v.$spacing-lg auto;
+    }
+
+    .ctaButton {
+      background-color: v.$interactive-color;
+      color: v.$text-light;
+      border: v.$border-width-thin solid v.$interactive-color;
+      border-radius: v.$border-radius-md;
+      padding: v.$spacing-md v.$spacing-lg;
+      font-family: v.$font-primary;
+      font-size: v.$font-size-medium;
+      font-weight: v.$font-weight-medium;
+      @include m.box-shadow(2);
+      transition: all v.$transition-duration-medium v.$transition-timing-function;
+
+      &:hover {
+        background-color: v.$interactive-hover;
+        border-color: v.$interactive-hover;
+        @include m.box-shadow(3);
+      }
+    }
   }
-}
 
-.title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
-  @media (min-width: 768px) {
-    font-size: 3.5rem;
+  .section {
+    padding: v.$spacing-xl 0;
+
+    .contentBlock {
+      max-width: v.$breakpoint-lg;
+      margin: 0 auto v.$spacing-lg auto;
+
+      .subtitle {
+        font-family: v.$font-primary;
+        font-size: v.$font-size-large;
+        font-weight: v.$font-weight-bold;
+        color: v.$text-primary;
+        margin-bottom: v.$spacing-md;
+        text-align: center;
+      }
+
+      .text {
+        font-family: v.$font-primary;
+        font-size: v.$font-size-base;
+        color: v.$text-secondary;
+        line-height: v.$line-height-base;
+        text-align: center;
+      }
+    }
+
+    .separator {
+      background-color: v.$border-color-light;
+      margin: v.$spacing-lg auto;
+      max-width: v.$breakpoint-lg;
+    }
   }
-}
 
-.description {
-  font-size: 1.125rem;
-  max-width: 800px;
-  margin: 0 auto 2rem;
-  line-height: 1.6;
-}
+  .sectionAlternate {
+    padding: v.$spacing-xl 0;
+    background: v.$secondary-color;
 
-.ctaButton {
-  padding: 0.75rem 2rem;
-  border-radius: 9999px;
-  font-weight: 600;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, background-color 0.3s;
-  &:hover {
-    transform: translateY(-2px);
+    .subtitle {
+      font-family: v.$font-primary;
+      font-size: v.$font-size-large;
+      font-weight: v.$font-weight-bold;
+      color: v.$text-primary;
+      margin-bottom: v.$spacing-lg;
+      text-align: center;
+    }
+
+    .contentGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: v.$spacing-lg;
+      max-width: v.$breakpoint-lg;
+      margin: 0 auto v.$spacing-lg auto;
+
+      .gridItem {
+        .itemTitle {
+          font-family: v.$font-primary;
+          font-size: v.$font-size-medium;
+          font-weight: v.$font-weight-medium;
+          color: v.$text-primary;
+          margin-bottom: v.$spacing-sm;
+          text-align: center;
+        }
+
+        .text {
+          font-family: v.$font-primary;
+          font-size: v.$font-size-base;
+          color: v.$text-secondary;
+          line-height: v.$line-height-base;
+          text-align: center;
+        }
+      }
+    }
+
+    .whyGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: v.$spacing-lg;
+      max-width: v.$breakpoint-lg;
+      margin: 0 auto;
+
+      .whyItem {
+        .text {
+          font-family: v.$font-primary;
+          font-size: v.$font-size-base;
+          color: v.$text-secondary;
+          line-height: v.$line-height-base;
+          text-align: center;
+        }
+      }
+    }
+
+    .separator {
+      background-color: v.$border-color-light;
+      margin: v.$spacing-lg auto;
+      max-width: v.$breakpoint-lg;
+    }
   }
-}
 
-.section {
-  padding: 4rem 1rem;
-  text-align: center;
-}
+  .differenceSection {
+    padding: v.$spacing-xl 0;
 
-.sectionAlternate {
-  padding: 4rem 1rem;
-  background-color: #edf2f7;
-  text-align: center;
-}
+    .subtitle {
+      font-family: v.$font-primary;
+      font-size: v.$font-size-large;
+      font-weight: v.$font-weight-bold;
+      color: v.$text-primary;
+      margin-bottom: v.$spacing-lg;
+      text-align: center;
+    }
 
-.contentBlock {
-  max-width: 900px;
-  margin: 0 auto 3rem;
-}
+    .differenceGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: v.$spacing-md;
+      max-width: v.$breakpoint-lg;
+      margin: 0 auto;
 
-.subtitle {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: #2d3748;
-}
+      .differenceCard {
+        background: v.$background-color;
+        border: v.$border-width-thin solid v.$border-color-light;
+        border-radius: v.$border-radius-md;
+        @include m.box-shadow(2);
+        transition: transform v.$transition-duration-fast v.$transition-timing-function;
 
-.text {
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: #4a5568;
-  max-width: 700px;
-  margin: 0 auto;
-}
+        &:hover {
+          transform: translateY(-#{v.$spacing-xs});
+          @include m.box-shadow(3);
+        }
 
-.contentGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+        .differenceContent {
+          padding: v.$spacing-md;
+
+          .text {
+            font-family: v.$font-primary;
+            font-size: v.$font-size-base;
+            color: v.$text-secondary;
+            line-height: v.$line-height-base;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    .separator {
+      background-color: v.$border-color-light;
+      margin: v.$spacing-lg auto;
+      max-width: v.$breakpoint-lg;
+    }
   }
-}
 
-.gridItem {
-  padding: 1.5rem;
-  background: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
-  &:hover {
-    transform: translateY(-5px);
+  .ctaSection {
+    text-align: center;
+    padding: v.$spacing-xl 0;
+    // background: v.$primary-color-light;
+
+    .ctaTitle {
+      font-family: v.$font-primary;
+      font-size: v.$font-size-large;
+      font-weight: v.$font-weight-bold;
+      color: v.$text-primary;
+      margin-bottom: v.$spacing-md;
+    }
+
+    .ctaDescription {
+      font-family: v.$font-primary;
+      font-size: v.$font-size-medium;
+      color: v.$text-secondary;
+      margin-bottom: v.$spacing-lg;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ctaButton {
+      background-color: v.$interactive-color;
+      color: v.$text-light;
+      border: v.$border-width-thin solid v.$interactive-color;
+      border-radius: v.$border-radius-md;
+      padding: v.$spacing-md v.$spacing-lg;
+      font-family: v.$font-primary;
+      font-size: v.$font-size-medium;
+      font-weight: v.$font-weight-medium;
+      @include m.box-shadow(2);
+      transition: all v.$transition-duration-medium v.$transition-timing-function;
+
+      &:hover {
+        background-color: v.$interactive-hover;
+        border-color: v.$interactive-hover;
+        @include m.box-shadow(3);
+      }
+    }
   }
-}
 
-.itemTitle {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #2d3748;
-}
+  // Responsive adjustments
+  @include m.media(v.$breakpoint-md, max) {
+    .sectionAlternate {
+      .contentGrid,
+      .whyGrid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-.differenceSection {
-  padding: 4rem 1rem;
-  background: linear-gradient(to bottom, #ffffff 0%, #f7fafc 100%);
-}
-
-.differenceList {
-  list-style: none;
-  padding: 0;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.differenceItem {
-  font-size: 1.125rem;
-  line-height: 1.8;
-  padding: 1rem;
-  background: white;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  position: relative;
-  &::before {
-    content: '✓';
-    color: #4a5568;
-    margin-right: 0.75rem;
-    font-weight: bold;
+    .differenceSection {
+      .differenceGrid {
+        grid-template-columns: 1fr;
+      }
+    }
   }
-}
 
-.whyGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
+  @include m.media(v.$breakpoint-sm, max) {
+    padding: v.$spacing-lg v.$spacing-md;
+
+    .heroSection {
+      padding: v.$spacing-lg 0;
+
+      .title {
+        font-size: v.$font-size-large;
+      }
+
+      .description {
+        font-size: v.$font-size-medium;
+      }
+
+      .ctaButton {
+        padding: v.$spacing-sm v.$spacing-md;
+        font-size: v.$font-size-base;
+      }
+    }
+
+    .section,
+    .sectionAlternate,
+    .differenceSection {
+      padding: v.$spacing-lg 0;
+
+      .subtitle {
+        font-size: v.$font-size-medium;
+      }
+
+      .contentBlock,
+      .gridItem,
+      .whyItem,
+      .differenceCard {
+        .text {
+          font-size: v.$font-size-small;
+        }
+      }
+
+      .contentGrid,
+      .whyGrid,
+      .differenceGrid {
+        gap: v.$spacing-md;
+      }
+
+      .separator {
+        margin: v.$spacing-md auto;
+      }
+    }
+
+    .ctaSection {
+      padding: v.$spacing-lg 0;
+
+      .ctaTitle {
+        font-size: v.$font-size-medium;
+      }
+
+      .ctaDescription {
+        font-size: v.$font-size-base;
+      }
+
+      .ctaButton {
+        padding: v.$spacing-sm v.$spacing-md;
+        font-size: v.$font-size-base;
+      }
+    }
   }
-}
 
-.whyItem {
-  padding: 1.5rem;
-  background: white;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
-  &:hover {
-    transform: translateY(-5px);
+  @include m.media(v.$breakpoint-xs, max) {
+    padding: v.$spacing-md v.$spacing-sm;
+
+    .heroSection {
+      .title {
+        font-size: v.$font-size-medium;
+      }
+
+      .description {
+        font-size: v.$font-size-base;
+      }
+    }
+
+    .section,
+    .sectionAlternate,
+    .differenceSection {
+      .subtitle {
+        font-size: v.$font-size-base;
+      }
+    }
   }
-}
-
-.ctaSection {
-  padding: 5rem 1rem;
-  background: linear-gradient(to right, #4a5568, #2d3748);
-  color: white;
-  text-align: center;
-}
-
-.ctaTitle {
-  font-size: 2.25rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-}
-
-.ctaDescription {
-  font-size: 1.125rem;
-  max-width: 700px;
-  margin: 0 auto 2rem;
-  line-height: 1.6;
 }

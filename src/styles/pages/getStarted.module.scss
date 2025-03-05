@@ -1,4 +1,4 @@
-// src/styles/components/getStarted.module.scss
+// src/styles/pages/getStarted.module.scss
 @use '@/styles/variables' as v;
 @use '@/styles/mixins' as m;
 
@@ -67,29 +67,26 @@
 
   .formWrapper {
     display: flex;
-    gap: v.$spacing-lg;
-    justify-content: space-between;
+    justify-content: center;
 
     .form {
-      flex: 1;
+      max-width: 600px;
+      width: 100%;
       display: flex;
       flex-direction: column;
       gap: v.$spacing-md;
 
-      .inputGroup {
-        display: flex;
-        flex-direction: column;
-
-        .label {
+      .formItem {
+        .formLabel {
           font-family: v.$font-primary;
           font-size: v.$font-size-base;
           font-weight: v.$font-weight-medium;
           color: v.$text-primary;
-          margin-bottom: v.$spacing-xs;
         }
 
-        .input,
-        .textarea {
+        .formInput,
+        .formTextarea,
+        .datePickerButton {
           font-family: v.$font-primary;
           font-size: v.$font-size-base;
           padding: v.$spacing-sm v.$spacing-md;
@@ -99,90 +96,92 @@
           color: v.$text-dark;
           transition: border-color v.$transition-duration-fast v.$transition-timing-function;
 
-          &::placeholder {
-            color: v.$text-secondary;
-            opacity: 0.7;
-          }
-
           &:focus {
-            outline: none;
             border-color: v.$interactive-color;
             @include m.box-shadow(1);
           }
+
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
         }
 
-        .textarea {
+        .formTextarea {
           resize: vertical;
           min-height: 100px;
+        }
+
+        .datePickerButton {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 240px; // Matches CalendarForm’s width
+          padding-left: v.$spacing-sm;
+          font-weight: v.$font-weight-regular;
+
+          &.mutedForeground {
+            color: v.$text-secondary; // Placeholder color when no date is selected
+          }
+
+          .calendarIcon {
+            width: 16px; // Matches h-4 w-4
+            height: 16px;
+            opacity: 0.5;
+            color: v.$text-secondary;
+          }
+        }
+
+        .datePickerContent {
+          border: v.$border-width-thin solid v.$border-color-light;
+          border-radius: v.$border-radius-md;
+          background: v.$secondary-color;
+          padding: v.$spacing-sm;
+
+          .rdp-day {
+            font-family: v.$font-primary;
+            font-size: v.$font-size-base;
+            color: v.$text-primary;
+            border-radius: v.$border-radius-sm;
+
+            &:hover:not(.rdp-day_disabled) {
+              background-color: v.$primary-color-light;
+            }
+
+            &.rdp-day_selected {
+              background-color: v.$interactive-color;
+              color: v.$text-light;
+            }
+
+            &.rdp-day_today {
+              border: v.$border-width-thin solid v.$interactive-color;
+            }
+          }
         }
       }
 
       .submitButton {
-        @include m.button-styles(v.$interactive-color, v.$text-light);
+        background-color: v.$interactive-color;
+        color: v.$text-light;
+        border: v.$border-width-thin solid v.$interactive-color;
+        border-radius: v.$border-radius-md;
+        padding: v.$spacing-md v.$spacing-lg;
         font-family: v.$font-primary;
         font-size: v.$font-size-medium;
         font-weight: v.$font-weight-medium;
-        padding: v.$spacing-md v.$spacing-lg;
-        border-radius: v.$border-radius-md;
         @include m.box-shadow(2);
         transition: all v.$transition-duration-medium v.$transition-timing-function;
 
-        &:hover {
+        &:hover:not(:disabled) {
           background-color: v.$interactive-hover;
           border-color: v.$interactive-hover;
           @include m.box-shadow(3);
         }
-      }
-    }
 
-    .calendarWrapper {
-      flex: 1;
-      background: v.$secondary-color;
-      padding: v.$spacing-md;
-      border-radius: v.$border-radius-md;
-      @include m.box-shadow(2);
-
-      .calendarTitle {
-        font-family: v.$font-primary;
-        font-size: v.$font-size-large;
-        font-weight: v.$font-weight-medium;
-        color: v.$text-primary;
-        margin-bottom: v.$spacing-md;
-        text-align: center;
-      }
-
-      .calendar {
-        width: 100%;
-        font-family: v.$font-primary;
-        font-size: v.$font-size-base;
-        color: v.$text-primary;
-
-        .rdp-day {
-          padding: v.$spacing-xs;
-          border-radius: v.$border-radius-sm;
-          transition: background-color v.$transition-duration-fast v.$transition-timing-function;
-
-          &:hover:not(.rdp-day_disabled) {
-            background-color: v.$primary-color-light;
-          }
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
         }
-
-        .selectedDay {
-          background-color: v.$interactive-color;
-          color: v.$text-light;
-        }
-
-        .todayDay {
-          border: v.$border-width-thin solid v.$interactive-color;
-        }
-      }
-
-      .selectedDate {
-        font-family: v.$font-primary;
-        font-size: v.$font-size-base;
-        color: v.$text-primary;
-        text-align: center;
-        margin-top: v.$spacing-sm;
       }
     }
   }
@@ -191,11 +190,6 @@
   @include m.media(v.$breakpoint-md, max) {
     .formWrapper {
       flex-direction: column;
-
-      .form,
-      .calendarWrapper {
-        width: 100%;
-      }
     }
   }
 
@@ -212,10 +206,16 @@
 
     .formWrapper {
       .form {
-        .inputGroup {
-          .input,
-          .textarea {
+        .formItem {
+          .formInput,
+          .formTextarea,
+          .datePickerButton {
             padding: v.$spacing-xs v.$spacing-sm;
+          }
+
+          .datePickerButton {
+            width: 200px; // Adjusted for smaller screens
+            font-size: v.$font-size-small;
           }
         }
 
@@ -225,36 +225,20 @@
         }
       }
 
-      .calendarWrapper {
-        padding: v.$spacing-sm;
+      .successMessage {
+        padding: v.$spacing-md;
 
-        .calendarTitle {
+        .successTitle {
           font-size: v.$font-size-medium;
         }
 
-        .calendar {
+        p {
           font-size: v.$font-size-small;
         }
 
-        .selectedDate {
-          font-size: v.$font-size-small;
+        .backLink {
+          font-size: v.$font-size-base;
         }
-      }
-    }
-
-    .successMessage {
-      padding: v.$spacing-md;
-
-      .successTitle {
-        font-size: v.$font-size-medium;
-      }
-
-      p {
-        font-size: v.$font-size-small;
-      }
-
-      .backLink {
-        font-size: v.$font-size-base;
       }
     }
   }
@@ -268,6 +252,16 @@
 
     .subtitle {
       font-size: v.$font-size-small;
+    }
+
+    .formWrapper {
+      .form {
+        .formItem {
+          .datePickerButton {
+            width: 180px; // Further adjusted for tiny screens
+          }
+        }
+      }
     }
   }
 }

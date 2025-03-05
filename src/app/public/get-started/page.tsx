@@ -1,18 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Calendar } from '@/components/ui/calendar';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { toast } from 'sonner'; // Import toast directly from sonner
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { toast } from 'sonner';
 import styles from '@/styles/pages/getStarted.module.scss';
 
 // Form schema with Zod
@@ -21,12 +23,12 @@ const formSchema = z.object({
   email: z.string().email('Invalid email address'),
   company: z.string().optional(),
   message: z.string().optional(),
+  date: z.date({ required_error: 'A consultation date is required.' }),
 });
 
 const GetStarted: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,17 +37,11 @@ const GetStarted: React.FC = () => {
       email: '',
       company: '',
       message: '',
+      date: undefined,
     },
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    if (!selectedDate) {
-      toast.error('Please select a consultation date.', {
-        description: 'A date is required to book a consultation.',
-      });
-      return;
-    }
-
     setIsLoading(true);
 
     const consultationData = {
@@ -53,7 +49,7 @@ const GetStarted: React.FC = () => {
       email: data.email,
       company: data.company || '',
       message: data.message || '',
-      consultationDate: selectedDate.toISOString(),
+      consultationDate: data.date.toISOString(),
     };
 
     try {
@@ -79,13 +75,12 @@ const GetStarted: React.FC = () => {
       });
       setIsSubmitted(true);
       form.reset();
-      setSelectedDate(undefined);
     } catch (error) {
-  const message = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
-  toast.error('Submission Failed', {
-    description: message,
-  });
-} finally {
+      const message = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+      toast.error('Submission Failed', {
+        description: message,
+      });
+    } finally {
       setIsLoading(false);
     }
   };
@@ -108,90 +103,113 @@ const GetStarted: React.FC = () => {
           </div>
         ) : (
           <div className={styles.formWrapper}>
-            <Card className={styles.form}>
-              <CardHeader>
-                <CardTitle>Enter Your Details</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Name</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Your full name" {...field} disabled={isLoading} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input type="email" placeholder="Your email address" {...field} disabled={isLoading} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="company"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Company (Optional)</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Your company name" {...field} disabled={isLoading} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="message"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Message (Optional)</FormLabel>
-                          <FormControl>
-                            <Textarea placeholder="Tell us about your needs" rows={4} {...field} disabled={isLoading} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="submit" className={styles.submitButton} disabled={isLoading}>
-                      {isLoading ? 'Submitting...' : 'Schedule Consultation'}
-                    </Button>
-                  </form>
-                </Form>
-              </CardContent>
-            </Card>
-
-            <Card className={styles.calendarWrapper}>
-              <CardHeader>
-                <CardTitle className={styles.calendarTitle}>Select a Date</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Calendar
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={setSelectedDate}
-                  disabled={(date) => date < new Date() || isLoading}
-                  className={styles.calendar}
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={styles.formLabel}>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your full name" {...field} disabled={isLoading} className={styles.formInput} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-                {selectedDate && (
-                  <p className={styles.selectedDate}>Selected: {format(selectedDate, 'PPP')}</p>
-                )}
-              </CardContent>
-            </Card>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={styles.formLabel}>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="Your email address"
+                          {...field}
+                          disabled={isLoading}
+                          className={styles.formInput}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="company"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={styles.formLabel}>Company (Optional)</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your company name" {...field} disabled={isLoading} className={styles.formInput} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={styles.formLabel}>Details</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Tell us about your needs"
+                          rows={4}
+                          {...field}
+                          disabled={isLoading}
+                          className={styles.formTextarea}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="date"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={styles.formLabel}>Select a Date</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant="outline"
+                              className={cn(
+                                styles.datePickerButton,
+                                !field.value && styles.mutedForeground
+                              )}
+                              disabled={isLoading}
+                            >
+                              {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
+                              <CalendarIcon className={styles.calendarIcon} />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className={styles.datePickerContent} align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            disabled={(date) => date < new Date() || isLoading}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className={styles.submitButton} disabled={isLoading}>
+                  {isLoading ? 'Submitting...' : 'Schedule Consultation'}
+                </Button>
+              </form>
+            </Form>
           </div>
         )}
       </div>
