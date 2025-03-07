@@ -1,24 +1,23 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import styles from '@/styles/pages/get-quote.module.scss';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
-import { cn } from '@/lib/utils'; // Utility from Shadcn for className merging
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import React from "react";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 import {
   Form,
   FormControl,
@@ -26,18 +25,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
+} from "@/components/ui/form";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
 
 const FormSchema = z.object({
-  name: z.string().min(1, 'Name is required.'),
-  email: z.string().email('Invalid email address.'),
+  name: z.string().min(1, "Name is required."),
+  email: z.string().email("Invalid email address."),
   company: z.string().optional(),
-  services: z.string().min(1, 'Please select a service.'),
+  services: z.string().min(1, "Please select a service."),
   budget: z.string().optional(),
   details: z.string().optional(),
-  date: z.date().optional(), // Optional date field
+  date: z.date().optional(),
 });
 
 const GetQuote: React.FC = () => {
@@ -46,52 +45,57 @@ const GetQuote: React.FC = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      company: '',
-      services: '',
-      budget: '',
-      details: '',
+      name: "",
+      email: "",
+      company: "",
+      services: "",
+      budget: "",
+      details: "",
       date: undefined,
     },
   });
 
   const handleQuoteSubmit = (data: z.infer<typeof FormSchema>) => {
-    console.log('Quote request:', data); // Placeholder for API call
-    router.push('/quote-success');
+    console.log("Quote request:", data); // Replace with API call later
+    router.push("/quote-success");
   };
 
   return (
-    <div className={styles.getQuotePage}>
+    <div className="min-h-screen bg-[var(--background-color)] py-12 px-4 sm:px-6 lg:px-8">
       {/* Hero Section */}
-      <header className={styles.heroSection}>
-        <h1 className={styles.title}>Get Your Custom Quote Today</h1>
-        <p className={styles.description}>
+      <header className="text-center mb-12">
+        <h1 className="text-[var(--text-primary)] text-4xl md:text-5xl font-bold mb-4 pt-10">
+          Get Your Custom Quote Today
+        </h1>
+        <p className="text-[var(--neutral-color)] text-lg md:text-xl max-w-2xl mx-auto">
           Unlock the power of AI-driven virtual assistance tailored to your business. Tell us your needs, and we’ll deliver a personalized quote to streamline, automate, and scale your operations.
         </p>
-    
       </header>
 
       {/* Quote Form */}
-      <section id="quote-form" className={styles.formSection}>
-        <h2 className={styles.subtitle}>Tell Us About Your Needs</h2>
+      <section id="quote-form" className="max-w-3xl mx-auto bg-[var(--secondary-color)] p-6 rounded-[var(--border-radius-md)] shadow-[var(--shadow-md)]">
+        <h2 className="text-[var(--text-primary)] text-2xl md:text-3xl font-semibold mb-6">
+          Tell Us About Your Needs
+        </h2>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleQuoteSubmit)} className={styles.quoteForm}>
-            <div className={styles.formGrid}>
+          <form onSubmit={form.handleSubmit(handleQuoteSubmit)} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem className={styles.formItem}>
-                    <FormLabel className={styles.formLabel}>Name</FormLabel>
+                  <FormItem>
+                    <FormLabel className="text-[var(--neutral-color)] text-base font-medium">
+                      Name
+                    </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Your Name"
-                        className={styles.formInput}
+                        className="border-[var(--border-color-light)] bg-[var(--background-color)] text-[var(--neutral-color)] focus:border-[var(--interactive-color)] rounded-[var(--border-radius-sm)]"
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-[var(--error-color)]" />
                   </FormItem>
                 )}
               />
@@ -99,17 +103,19 @@ const GetQuote: React.FC = () => {
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem className={styles.formItem}>
-                    <FormLabel className={styles.formLabel}>Email</FormLabel>
+                  <FormItem>
+                    <FormLabel className="text-[var(--neutral-color)] text-base font-medium">
+                      Email
+                    </FormLabel>
                     <FormControl>
                       <Input
                         type="email"
                         placeholder="Your Email"
-                        className={styles.formInput}
+                        className="border-[var(--border-color-light)] bg-[var(--background-color)] text-[var(--neutral-color)] focus:border-[var(--interactive-color)] rounded-[var(--border-radius-sm)]"
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-[var(--error-color)]" />
                   </FormItem>
                 )}
               />
@@ -117,16 +123,18 @@ const GetQuote: React.FC = () => {
                 control={form.control}
                 name="company"
                 render={({ field }) => (
-                  <FormItem className={styles.formItem}>
-                    <FormLabel className={styles.formLabel}>Company (Optional)</FormLabel>
+                  <FormItem>
+                    <FormLabel className="text-[var(--neutral-color)] text-base font-medium">
+                      Company (Optional)
+                    </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Your Company Name"
-                        className={styles.formInput}
+                        className="border-[var(--border-color-light)] bg-[var(--background-color)] text-[var(--neutral-color)] focus:border-[var(--interactive-color)] rounded-[var(--border-radius-sm)]"
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-[var(--error-color)]" />
                   </FormItem>
                 )}
               />
@@ -134,15 +142,17 @@ const GetQuote: React.FC = () => {
                 control={form.control}
                 name="services"
                 render={({ field }) => (
-                  <FormItem className={styles.formItem}>
-                    <FormLabel className={styles.formLabel}>Services Needed</FormLabel>
+                  <FormItem>
+                    <FormLabel className="text-[var(--neutral-color)] text-base font-medium">
+                      Services Needed
+                    </FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <SelectTrigger className={styles.formSelect}>
+                        <SelectTrigger className="border-[var(--border-color-light)] bg-[var(--background-color)] text-[var(--neutral-color)] focus:border-[var(--interactive-color)] rounded-[var(--border-radius-sm)]">
                           <SelectValue placeholder="Select a Service" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
+                      <SelectContent className="bg-[var(--secondary-color)] border-[var(--border-color-light)] text-[var(--neutral-color)]">
                         <SelectItem value="ai-automation">AI-Powered Automation</SelectItem>
                         <SelectItem value="tech-support">Tech & IT Support</SelectItem>
                         <SelectItem value="admin">Admin & Executive Assistance</SelectItem>
@@ -150,7 +160,7 @@ const GetQuote: React.FC = () => {
                         <SelectItem value="multiple">Multiple Services</SelectItem>
                       </SelectContent>
                     </Select>
-                    <FormMessage />
+                    <FormMessage className="text-[var(--error-color)]" />
                   </FormItem>
                 )}
               />
@@ -158,15 +168,17 @@ const GetQuote: React.FC = () => {
                 control={form.control}
                 name="budget"
                 render={({ field }) => (
-                  <FormItem className={styles.formItem}>
-                    <FormLabel className={styles.formLabel}>Estimated Budget</FormLabel>
+                  <FormItem>
+                    <FormLabel className="text-[var(--neutral-color)] text-base font-medium">
+                      Estimated Budget
+                    </FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <SelectTrigger className={styles.formSelect}>
+                        <SelectTrigger className="border-[var(--border-color-light)] bg-[var(--background-color)] text-[var(--neutral-color)] focus:border-[var(--interactive-color)] rounded-[var(--border-radius-sm)]">
                           <SelectValue placeholder="Select Budget Range" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
+                      <SelectContent className="bg-[var(--secondary-color)] border-[var(--border-color-light)] text-[var(--neutral-color)]">
                         <SelectItem value="under-1k">Under $1,000</SelectItem>
                         <SelectItem value="1k-5k">$1,000 - $5,000</SelectItem>
                         <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
@@ -174,7 +186,7 @@ const GetQuote: React.FC = () => {
                         <SelectItem value="not-sure">Not Sure</SelectItem>
                       </SelectContent>
                     </Select>
-                    <FormMessage />
+                    <FormMessage className="text-[var(--error-color)]" />
                   </FormItem>
                 )}
               />
@@ -183,17 +195,18 @@ const GetQuote: React.FC = () => {
               control={form.control}
               name="details"
               render={({ field }) => (
-                <FormItem className={styles.formItem}>
-                  <FormLabel className={styles.formLabel}>Project Details</FormLabel>
+                <FormItem>
+                  <FormLabel className="text-[var(--neutral-color)] text-base font-medium">
+                    Project Details
+                  </FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Tell us more about your needs (e.g., specific tasks, timeline, goals)"
-                      className={styles.formTextarea}
-                      rows={4}
+                      className="border-[var(--border-color-light)] bg-[var(--background-color)] text-[var(--neutral-color)] focus:border-[var(--interactive-color)] rounded-[var(--border-radius-sm)] min-h-[100px]"
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-[var(--error-color)]" />
                 </FormItem>
               )}
             />
@@ -201,57 +214,81 @@ const GetQuote: React.FC = () => {
               control={form.control}
               name="date"
               render={({ field }) => (
-                <FormItem className={styles.formItem}>
-                  <FormLabel className={styles.formLabel}>Preferred Start Date (Optional)</FormLabel>
+                <FormItem>
+                  <FormLabel className="text-[var(--neutral-color)] text-base font-medium">
+                    Preferred Start Date (Optional)
+                  </FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
                           variant="outline"
                           className={cn(
-                            styles.datePickerButton,
-                            !field.value && styles.mutedForeground
+                            "w-full justify-start text-left border-[var(--border-color-light)] text-[var(--neutral-color)] hover:bg-[var(--secondary-color-dark)]",
+                            !field.value && "text-muted-foreground"
                           )}
                         >
-                          {field.value ? format(field.value, 'PPP') : <span>Pick a Date</span>}
-                          <CalendarIcon className={styles.calendarIcon} />
+                          {field.value ? format(field.value, "PPP") : <span>Pick a Date</span>}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className={styles.datePickerContent} align="start">
+                    <PopoverContent
+                      className="w-auto p-0 bg-[var(--secondary-color)] border-[var(--border-color-light)]"
+                      align="start"
+                    >
                       <Calendar
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
-                        disabled={{ before: new Date() }} // Disables past dates
+                        disabled={{ before: new Date() }}
                         initialFocus
                       />
                     </PopoverContent>
                   </Popover>
-                  <FormMessage />
+                  <FormMessage className="text-[var(--error-color)]" />
                 </FormItem>
               )}
             />
-            <Button type="submit" className={styles.submitButton}>Submit Quote Request</Button>
+            <Button
+              type="submit"
+              className="w-full bg-[var(--interactive-color)] text-[var(--text-light)] hover:bg-[var(--interactive-hover)] rounded-[var(--border-radius-md)] py-2 text-lg font-medium"
+            >
+              Submit Quote Request
+            </Button>
           </form>
         </Form>
       </section>
 
       {/* Reassurance Section */}
-      <section className={styles.reassuranceSection}>
-        <h2 className={styles.subtitle}>Why Choose Aberrange?</h2>
-        <div className={styles.reassuranceGrid}>
-          <div className={styles.reassuranceItem}>
-            <h3 className={styles.itemTitle}>Tailored Solutions</h3>
-            <p>Get a quote customized to your unique business challenges and goals.</p>
+      <section className="max-w-4xl mx-auto mt-12 text-center">
+        <h2 className="text-[var(--text-primary)] text-2xl md:text-3xl font-semibold mb-8">
+          Why Choose Aberrange?
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 bg-[var(--secondary-color)] rounded-[var(--border-radius-md)] shadow-[var(--shadow-md)]">
+            <h3 className="text-[var(--neutral-color)] text-xl font-semibold mb-2">
+              Tailored Solutions
+            </h3>
+            <p className="text-[var(--neutral-color)] text-base">
+              Get a quote customized to your unique business challenges and goals.
+            </p>
           </div>
-          <div className={styles.reassuranceItem}>
-            <h3 className={styles.itemTitle}>Fast Response</h3>
-            <p>Expect a detailed quote within 24-48 hours from our expert team.</p>
+          <div className="p-6 bg-[var(--secondary-color)] rounded-[var(--border-radius-md)] shadow-[var(--shadow-md)]">
+            <h3 className="text-[var(--neutral-color)] text-xl font-semibold mb-2">
+              Fast Response
+            </h3>
+            <p className="text-[var(--neutral-color)] text-base">
+              Expect a detailed quote within 24-48 hours from our expert team.
+            </p>
           </div>
-          <div className={styles.reassuranceItem}>
-            <h3 className={styles.itemTitle}>Proven Expertise</h3>
-            <p>Leverage our experience with 100+ businesses to drive your success.</p>
+          <div className="p-6 bg-[var(--secondary-color)] rounded-[var(--border-radius-md)] shadow-[var(--shadow-md)]">
+            <h3 className="text-[var(--neutral-color)] text-xl font-semibold mb-2">
+              Proven Expertise
+            </h3>
+            <p className="text-[var(--neutral-color)] text-base">
+              Leverage our experience with 100+ businesses to drive your success.
+            </p>
           </div>
         </div>
       </section>

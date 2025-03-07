@@ -6,6 +6,8 @@ import { useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,11 +15,9 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-// Define submenu data
 const mainServices = [
   { title: "Administrative VA", href: "/services/administrative-va" },
   { title: "Business Support VA", href: "/services/business-support-va" },
@@ -44,175 +44,209 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
   return (
-    <header className="bg-[var(--secondary-color)] shadow-sm fixed w-full top-0 z-50">
+    <header className="bg-[var(--secondary-color)] shadow-sm fixed w-full top-0 z-[var(--z-index-sticky)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-[var(--neutral-color)]">
-          Aberrange
-        </Link>
+        <Button
+  variant="ghost"
+  asChild
+  className="text-base font-bold text-[var(--neutral-color)] px-2 py-1 hover:text-[var(--interactive-hover)]"
+>
+  <Link href="/">Aberrange</Link>
+</Button>
 
         {/* Hamburger Menu */}
-        <button className="lg:hidden p-2 text-[var(--neutral-color)]" onClick={toggleMenu}>
-          {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
-        </button>
+        <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+          <SheetTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="lg:hidden text-[var(--neutral-color)]"
+            >
+              {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+            </Button>
+          </SheetTrigger>
+          <SheetContent
+            side="left"
+            className="bg-[var(--secondary-color)] border-[var(--border-color-light)] shadow-md w-[300px] sm:w-[400px]"
+          >
+            <nav className="flex flex-col space-y-4 mt-6">
+              <Link
+                href="/public/how-it-works"
+                className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] px-4 py-2 rounded-md font-medium text-base"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                How It Works
+              </Link>
+              <Link
+                href="/public/pricing"
+                className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] px-4 py-2 rounded-md font-medium text-base"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Pricing
+              </Link>
+              <Link
+                href="/public/resources"
+                className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] px-4 py-2 rounded-md font-medium text-base"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Resources
+              </Link>
+              <Link
+                href="/public/about"
+                className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] px-4 py-2 rounded-md font-medium text-base"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About Us
+              </Link>
+              <Link
+                href="/public/hire"
+                className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] px-4 py-2 rounded-md font-medium text-base"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Hire a VA
+              </Link>
+              <Link
+                href="/public/get-quote"
+                className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] px-4 py-2 rounded-md font-medium text-base"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Get a Quote
+              </Link>
+              <Link
+                href="/auth/login"
+                className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] px-4 py-2 rounded-md font-medium text-base"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Login
+              </Link>
+              <Link
+                href="/auth/signup"
+                className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] px-4 py-2 rounded-md font-medium text-base"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Sign Up
+              </Link>
+            </nav>
+          </SheetContent>
+        </Sheet>
 
         {/* Navigation */}
-        <nav
-          className={cn(
-            "lg:flex items-center",
-            isMenuOpen
-              ? "block absolute top-16 left-0 w-full bg-[var(--secondary-color)] p-4 shadow-md z-10"
-              : "hidden lg:block"
-          )}
-        >
+        <nav className="hidden lg:block">
           <NavigationMenu>
-            <NavigationMenuList
-              className={cn(
-                "flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6",
-                "lg:items-center"
-              )}
-            >
-              {/* Services - Only visible on desktop */}
-              {!isMenuOpen && (
-                <NavigationMenuItem className="hidden lg:block">
-                  <NavigationMenuTrigger
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      "text-[var(--neutral-color)] bg-[var(--secondary-color)] hover:font-bold"
-                    )}
-                    style={{ fontSize: "16px" }}
-                  >
-                    Services
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="w-[600px] p-6 bg-[var(--secondary-color)]">
-                      <div className="grid grid-cols-3 gap-6">
-                        <div className="space-y-3">
-                          <h3 className="font-semibold text-[var(--neutral-color)]">
-                            Main Services
-                          </h3>
-                          <ul className="space-y-2">
-                            {mainServices.map((item) => (
-                              <li key={item.title}>
-                                <NavigationMenuLink
-                                  href={item.href}
-                                  className="block text-[var(--neutral-color)] hover:font-bold px-2 py-1 rounded-md transition-all"
-                                >
-                                  {item.title}
-                                </NavigationMenuLink>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div className="space-y-3">
-                          <h3 className="font-semibold text-[var(--neutral-color)]">
-                            Industries
-                          </h3>
-                          <ul className="space-y-2">
-                            {industries.map((item) => (
-                              <li key={item.title}>
-                                <NavigationMenuLink
-                                  href={item.href}
-                                  className="block text-[var(--neutral-color)] hover:font-bold px-2 py-1 rounded-md transition-all"
-                                >
-                                  {item.title}
-                                </NavigationMenuLink>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div className="space-y-3">
-                          <h3 className="font-semibold text-[var(--neutral-color)]">
-                            Business Hubs
-                          </h3>
-                          <ul className="space-y-2">
-                            {businessHubs.map((item) => (
-                              <li key={item.title}>
-                                <NavigationMenuLink
-                                  href={item.href}
-                                  className="block text-[var(--neutral-color)] hover:font-bold px-2 py-1 rounded-md transition-all"
-                                >
-                                  {item.title}
-                                </NavigationMenuLink>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+            <NavigationMenuList className="flex items-center space-x-6">
+              <NavigationMenuItem>
+                <NavigationMenuTrigger
+                  className="text-[var(--neutral-color)] hover:bg-[var(--secondary-color-dark)] hover:text-[var(--interactive-hover)] bg-transparent font-medium text-base px-3 py-2 rounded-md"
+                >
+                  Services
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <div className="w-[600px] p-6 bg-[var(--secondary-color)] rounded-[var(--border-radius-md)] shadow-[var(--shadow-md)]">
+                    <div className="grid grid-cols-3 gap-6">
+                      <div className="space-y-3">
+                        <h3 className="font-semibold text-[var(--neutral-color)] border-b border-[var(--border-color-light)] pb-1">
+                          Main Services
+                        </h3>
+                        <ul className="space-y-2">
+                          {mainServices.map((item) => (
+                            <li key={item.title}>
+                              <NavigationMenuLink
+                                href={item.href}
+                                className="block text-[var(--neutral-color)] hover:bg-[var(--secondary-color-dark)] hover:text-[var(--interactive-hover)] px-2 py-1 rounded-md transition-all"
+                              >
+                                {item.title}
+                              </NavigationMenuLink>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="space-y-3">
+                        <h3 className="font-semibold text-[var(--neutral-color)] border-b border-[var(--border-color-light)] pb-1">
+                          Industries
+                        </h3>
+                        <ul className="space-y-2">
+                          {industries.map((item) => (
+                            <li key={item.title}>
+                              <NavigationMenuLink
+                                href={item.href}
+                                className="block text-[var(--neutral-color)] hover:bg-[var(--secondary-color-dark)] hover:text-[var(--interactive-hover)] px-2 py-1 rounded-md transition-all"
+                              >
+                                {item.title}
+                              </NavigationMenuLink>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="space-y-3">
+                        <h3 className="font-semibold text-[var(--neutral-color)] border-b border-[var(--border-color-light)] pb-1">
+                          Business Hubs
+                        </h3>
+                        <ul className="space-y-2">
+                          {businessHubs.map((item) => (
+                            <li key={item.title}>
+                              <NavigationMenuLink
+                                href={item.href}
+                                className="block text-[var(--neutral-color)] hover:bg-[var(--secondary-color-dark)] hover:text-[var(--interactive-hover)] px-2 py-1 rounded-md transition-all"
+                              >
+                                {item.title}
+                              </NavigationMenuLink>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              )}
-
-              {/* Other Navigation Links - Background in responsive mode */}
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link
+                <NavigationMenuLink
                   href="/public/how-it-works"
-                  className={cn(
-                    "block text-[var(--neutral-color)] hover:font-bold font-medium text-base",
-                    isMenuOpen && "bg-[var(--secondary-color)] px-4 py-2 rounded-md"
-                  )}
+                  className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] font-medium text-base px-3 py-2 rounded-md"
                 >
                   How It Works
-                </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link
+                <NavigationMenuLink
                   href="/public/pricing"
-                  className={cn(
-                    "block text-[var(--neutral-color)] hover:font-bold font-medium text-base",
-                    isMenuOpen && "bg-[var(--secondary-color)] px-4 py-2 rounded-md"
-                  )}
+                  className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] font-medium text-base px-3 py-2 rounded-md"
                 >
                   Pricing
-                </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link
+                <NavigationMenuLink
                   href="/public/resources"
-                  className={cn(
-                    "block text-[var(--neutral-color)] hover:font-bold font-medium text-base",
-                    isMenuOpen && "bg-[var(--secondary-color)] px-4 py-2 rounded-md"
-                  )}
+                  className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] font-medium text-base px-3 py-2 rounded-md"
                 >
                   Resources
-                </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link
+                <NavigationMenuLink
                   href="/public/about"
-                  className={cn(
-                    "block text-[var(--neutral-color)] hover:font-bold font-medium text-base",
-                    isMenuOpen && "bg-[var(--secondary-color)] px-4 py-2 rounded-md"
-                  )}
+                  className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] font-medium text-base px-3 py-2 rounded-md"
                 >
                   About Us
-                </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
-
-              {/* Buttons - Full width with background */}
               <NavigationMenuItem>
-                <Link
+                <NavigationMenuLink
                   href="/public/hire"
-                  className={cn(
-                    "block w-full lg:w-auto bg-[var(--secondary-color)] text-[var(--neutral-color)] px-4 py-2 rounded-md hover:font-bold transition-all font-medium border border-[var(--neutral-color)] text-base text-center"
-                  )}
+                  className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] font-medium text-base px-3 py-2 rounded-md"
                 >
                   Hire a VA
-                </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link
+                <NavigationMenuLink
                   href="/public/get-quote"
-                  className={cn(
-                    "block w-full lg:w-auto bg-[var(--secondary-color)] text-[var(--neutral-color)] px-4 py-2 rounded-md hover:font-bold transition-all font-medium border border-[var(--neutral-color)] text-base text-center"
-                  )}
+                  className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] font-medium text-base px-3 py-2 rounded-md"
                 >
                   Get a Quote
-                </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
@@ -220,28 +254,38 @@ const Header: React.FC = () => {
 
         {/* Profile Actions */}
         <div className="hidden lg:flex items-center space-x-4">
-          <div className="relative">
-            <AccountCircleIcon
-              className="text-[var(--neutral-color)] cursor-pointer"
-              onClick={() => setIsProfileOpen(!isProfileOpen)}
-            />
-            {isProfileOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-[var(--secondary-color)] shadow-lg rounded-md p-2 z-20">
+          <Popover open={isProfileOpen} onOpenChange={setIsProfileOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-[var(--neutral-color)] hover:bg-[var(--secondary-color)]"
+              >
+                <AccountCircleIcon />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent
+              align="end"
+              className="w-48 bg-[var(--secondary-color)] border-[var(--border-color-light)] shadow-[var(--shadow-lg)] rounded-[var(--border-radius-md)] p-2"
+            >
+              <div className="space-y-1">
                 <Link
                   href="/auth/login"
-                  className="block px-4 py-2 text-[var(--neutral-color)] hover:font-bold rounded-md"
+                  className="block px-4 py-2 text-[var(--neutral-color)] hover:bg-[var(--secondary-color-dark)] hover:text-[var(--interactive-hover)] rounded-[var(--border-radius-sm)]"
+                  onClick={() => setIsProfileOpen(false)}
                 >
                   Login
                 </Link>
                 <Link
                   href="/auth/signup"
-                  className="block px-4 py-2 text-[var(--neutral-color)] hover:font-bold rounded-md"
+                  className="block px-4 py-2 text-[var(--neutral-color)] hover:bg-[var(--secondary-color-dark)] hover:text-[var(--interactive-hover)] rounded-[var(--border-radius-sm)]"
+                  onClick={() => setIsProfileOpen(false)}
                 >
                   Sign Up
                 </Link>
               </div>
-            )}
-          </div>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
     </header>
