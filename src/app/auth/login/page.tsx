@@ -1,18 +1,21 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useAuth } from "@/app/dashboard/hooks/useAuth";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const { fetchAuth, userId, loading: authLoading } = useAuth();
   const oauthError = searchParams.get("error");
 
   useEffect(() => {
@@ -21,6 +24,12 @@ export default function Login() {
       console.error("OAuth error:", oauthError);
     }
   }, [oauthError]);
+
+  useEffect(() => {
+    if (!authLoading && userId) {
+      router.push(`/dashboard/${userId}`);
+    }
+  }, [authLoading, userId, router]);
 
   const handleCustomLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,14 +40,14 @@ export default function Login() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Invalid credentials");
+      if (!response.ok) throw new Error(data.error || "Invalid credentials");
 
-      localStorage.setItem("token", data.token);
-      window.location.href = "/dashboard/[id]";
+      await fetchAuth();
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message || "Login failed. Please try again.");
@@ -56,7 +65,7 @@ export default function Login() {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/google/start`);
       const { authUrl } = await response.json();
-      window.location.href = authUrl;
+      window.location.href = authUrl; // Redirect to Google OAuth
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message || "Error starting Google OAuth. Please try again.");
@@ -70,7 +79,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[var(--background-color)]  pt-18 pb-10">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--background-color)] pt-18 pb-10">
       <Card className="w-full max-w-md border-[var(--border-color-light)]">
         <CardHeader>
           <CardTitle className="text-[var(--text-primary)] text-2xl font-bold">

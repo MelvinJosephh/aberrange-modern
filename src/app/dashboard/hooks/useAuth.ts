@@ -3,10 +3,9 @@
 import { create } from 'zustand';
 import ky from 'ky';
 import { useEffect } from 'react';
-import { UserData } from '../types/auth'; // Import the type
-import { useRouter} from 'next/navigation'; // Corrected import for NextRouter
+import { UserData } from '../types/auth';
+import { useRouter } from 'next/navigation';
 
-// Define the auth state interface
 interface AuthState {
   role: string | null;
   userId: string | null;
@@ -21,7 +20,6 @@ interface AuthState {
   fetchAuth: () => Promise<void>;
 }
 
-// Create the store with Zustand
 export const useAuth = create<AuthState>((set, get) => ({
   role: null,
   userId: null,
@@ -32,7 +30,6 @@ export const useAuth = create<AuthState>((set, get) => ({
   loading: false,
   error: null,
 
-  // Set authentication state with optional parameters
   setAuth: (role, userId, email, status, name) =>
     set({
       role,
@@ -45,7 +42,6 @@ export const useAuth = create<AuthState>((set, get) => ({
       error: null,
     }),
 
-  // Clear authentication state
   clearAuth: () =>
     set({
       role: null,
@@ -58,71 +54,50 @@ export const useAuth = create<AuthState>((set, get) => ({
       error: null,
     }),
 
-  // Fetch authentication data from backend using ky
   fetchAuth: async () => {
-    const state = get();
-    if (state.loading) return;
+
+    const { loading, isAuthenticated } = get();
+    if (loading || isAuthenticated) return; 
 
     set({ loading: true, error: null });
-
     try {
-      const token = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('token='))
-        ?.split('=')[1];
-
-      if (!token) {
-        set({ loading: false, isAuthenticated: false, error: 'No token found' });
-        return;
-      }
-
       const api = ky.create({
         prefixUrl: process.env.NEXT_PUBLIC_BACKEND_API_URL,
-        credentials: 'include',
-        hooks: {
-          beforeRequest: [request => {
-            request.headers.set('Authorization', `Bearer ${token}`);
-          }],
-        },
+        credentials: "include",
       });
-
-      const response = await api.get('user');
+      const response = await api.get("auth/user");
       const data: UserData = await response.json();
       const { id, role, email, status, name } = data;
       set({ role, userId: id, email, status, name, isAuthenticated: true, loading: false });
     } catch (error) {
-      console.error('Auth fetch error:', error);
       set({
         loading: false,
         isAuthenticated: false,
-        error: error instanceof Error ? error.message : 'Authentication failed',
+        error: error instanceof Error ? error.message : "Authentication failed",
       });
     }
   },
 }));
 
-// Custom hook to use useAuth with automatic fetch on mount
+
+
 export const useAuthWithFetch = () => {
-  const auth = useAuth(); // Get the full auth state
-
+  const auth = useAuth();
   useEffect(() => {
-    auth.fetchAuth();
-  }, [auth.fetchAuth]); // Dependency on fetchAuth to prevent unnecessary re-renders
-
-  return auth; // Return the full auth object, including loading and error
+    if (!auth.isAuthenticated) auth.fetchAuth();
+  }, [auth]);
+  return auth;
 };
 
-// Custom hook to handle authentication redirects
 export const useAuthRedirect = () => {
   const router = useRouter();
+  const { isAuthenticated, status } = useAuth();
 
-  const handleAuthRedirect = (isAuthenticated: boolean) => {
-    if (!router) {
-      console.warn('Router is undefined, redirect cannot be performed');
-      return;
-    }
+  const handleAuthRedirect = () => {
     if (!isAuthenticated) {
-      router.push('/auth/login');
+      router.push("/auth/login");
+    } else if (status === "inactive") {
+      router.push("/auth/inactive");
     }
   };
 
