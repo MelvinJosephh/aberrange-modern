@@ -38,7 +38,7 @@ export default function Login() {
       if (!response.ok) throw new Error(data.message || "Invalid credentials");
 
       localStorage.setItem("token", data.token);
-      window.location.href = "/dashboard";
+      window.location.href = "/dashboard/[id]";
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message || "Login failed. Please try again.");

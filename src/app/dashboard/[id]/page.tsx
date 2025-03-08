@@ -1,20 +1,28 @@
-// src/app/dashboard/[id]/page.tsx
-import { Metadata } from "next";
+'use client'; // Required for client-side hooks
 
-export const metadata: Metadata = {
-  title: "Dashboard Section",
-  description: "Dashboard section for a specific ID",
-};
 
-// Make the component async to handle params correctly
-export default async function DashboardSection({ params }: { params: Promise<{ id: string }> }) {
-  // Await the params object to resolve the id
-  const { id } = await params;
+import ClientView from "@/app/dashboard/[id]/components/ClientView";
+import VAView from "@/app/dashboard/[id]/components/VAView";
+import AdminView from "@/app/dashboard/[id]/components/AdminView";
+import SuperAdminView from "@/app/dashboard/[id]/components/SuperAdminView";
+import { LoadingSpinner } from "./components/Shared/LoadingSpinner";
+import { useAuth } from "../hooks/useAuth";
+
+
+export default function Dashboard() {
+  const { role, name, loading, error } = useAuth();
+
+  if (loading) return <LoadingSpinner />;
+  if (error) return <p>Error: {error}</p>;
+  if (!role) return <LoadingSpinner />;
 
   return (
-    <div>
-      <h1>Dashboard Section: {id}</h1>
-      <p>Content for {id} section</p>
+    <div className="dashboard-container p-6">
+      <h1 className="text-2xl font-bold mb-4">Welcome to Your Dashboard, {name || 'User'}!</h1>
+      {role === "client" && <ClientView />}
+      {role === "va" && <VAView />}
+      {role === "admin" && <AdminView />}
+      {role === "superadmin" && <SuperAdminView />}
     </div>
   );
 }
