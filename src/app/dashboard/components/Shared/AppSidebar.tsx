@@ -5,6 +5,7 @@ import { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/app/dashboard/hooks/useAuth";
 import { SidebarMenuItems } from "./sidebar-menu-items";
+import { Role } from "../../types/auth";
 
 type AppSidebarProps = HTMLAttributes<HTMLDivElement>;
 
@@ -24,7 +25,7 @@ export function AppSidebar({ className, ...props }: AppSidebarProps) {
       {...props}
     >
       <SidebarContent>
-        <SidebarMenuItems role={role} />
+        <SidebarMenuItems role={role as Role ?? undefined} />
       </SidebarContent>
     </Sidebar>
   );

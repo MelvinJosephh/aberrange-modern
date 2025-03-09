@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { HTMLAttributes, useState } from "react";
 import styles from "@/styles/dashboard/dashboard-header.module.scss";
@@ -6,19 +6,20 @@ import { cn } from "@/lib/utils";
 import { Menu, LogOut, User as UserIcon } from "lucide-react";
 import { useSidebar } from "@/components/ui/sidebar";
 import Link from "next/link";
-
+import { useAuth } from "../../hooks/useAuth";
 
 type HeaderProps = HTMLAttributes<HTMLDivElement>;
 
 export default function Header({ className, ...props }: HeaderProps) {
   const { toggleSidebar } = useSidebar();
+  const { name } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
- 
+
   const handleLogout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/auth/logout`, {
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/logout`, {
         method: "POST",
-        credentials: "include", // Include cookies
+        credentials: "include",
       });
       window.location.href = "/auth/login";
     } catch (error) {
@@ -32,10 +33,7 @@ export default function Header({ className, ...props }: HeaderProps) {
       <div className={styles.headerContent}>
         <button
           onClick={toggleSidebar}
-          className={cn(
-            "p-2 focus:outline-none md:hidden", // Hide at 768px and above
-            styles.menuButton
-          )}
+          className={cn("p-2 focus:outline-none md:hidden", styles.menuButton)}
           aria-label="Toggle sidebar"
         >
           <Menu className="w-6 h-6" />
@@ -46,7 +44,7 @@ export default function Header({ className, ...props }: HeaderProps) {
             className={styles.userButton}
             aria-label="User menu"
           >
-            <span className={styles.userName}>John Doe</span>
+            <span className={styles.userName}>{name || "User"}</span>
             <UserIcon className={styles.userIcon} />
           </button>
           {isDropdownOpen && (

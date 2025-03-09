@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { create } from 'zustand';
-import ky from 'ky';
-import { useEffect } from 'react';
-import { UserData } from '../types/auth';
-import { useRouter } from 'next/navigation';
+import { create } from "zustand";
+import ky from "ky";
+import { useEffect } from "react";
+import { Role, UserData } from "../types/auth";
+import { useRouter } from "next/navigation";
 
 interface AuthState {
   role: string | null;
@@ -15,7 +15,7 @@ interface AuthState {
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
-  setAuth: (role: string, userId: string, email?: string, status?: string, name?: string) => void;
+  setAuth: (role: Role, userId: string, email?: string | null, status?: string | null, name?: string | null) => void;
   clearAuth: () => void;
   fetchAuth: () => Promise<void>;
 }
@@ -34,9 +34,9 @@ export const useAuth = create<AuthState>((set, get) => ({
     set({
       role,
       userId,
-      email,
-      status,
-      name,
+      email: email ?? null, // Ensure undefined becomes null
+      status: status ?? null,
+      name: name ?? null,
       isAuthenticated: true,
       loading: false,
       error: null,
@@ -55,9 +55,8 @@ export const useAuth = create<AuthState>((set, get) => ({
     }),
 
   fetchAuth: async () => {
-
     const { loading, isAuthenticated } = get();
-    if (loading || isAuthenticated) return; 
+    if (loading || isAuthenticated) return;
 
     set({ loading: true, error: null });
     try {
@@ -68,7 +67,19 @@ export const useAuth = create<AuthState>((set, get) => ({
       const response = await api.get("auth/user");
       const data: UserData = await response.json();
       const { id, role, email, status, name } = data;
-      set({ role, userId: id, email, status, name, isAuthenticated: true, loading: false });
+      // Validate role against Role type
+      const validRole = ["client", "va", "admin", "superadmin"].includes(role)
+        ? (role as Role)
+        : null;
+      set({
+        role: validRole,
+        userId: id,
+        email: email ?? null, // Ensure undefined becomes null
+        status: status ?? null,
+        name: name ?? null,
+        isAuthenticated: validRole !== null,
+        loading: false,
+      });
     } catch (error) {
       set({
         loading: false,
@@ -78,8 +89,6 @@ export const useAuth = create<AuthState>((set, get) => ({
     }
   },
 }));
-
-
 
 export const useAuthWithFetch = () => {
   const auth = useAuth();

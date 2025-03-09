@@ -63,7 +63,7 @@ export default function Login() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/google/start`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/google/login/start`);
       const { authUrl } = await response.json();
       window.location.href = authUrl; // Redirect to Google OAuth
     } catch (err: unknown) {

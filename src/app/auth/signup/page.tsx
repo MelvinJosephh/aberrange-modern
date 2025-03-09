@@ -50,7 +50,7 @@ export default function Register() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/google/start`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/google/signup/start`);
       const { authUrl } = await response.json();
       window.location.href = authUrl;
     } catch (err: unknown) {
