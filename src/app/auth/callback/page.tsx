@@ -2,29 +2,26 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthWithFetch } from "@/app/dashboard/hooks/useAuth";
+import { useAuth } from "@/app/dashboard/hooks/useAuth";
 
 export default function Callback() {
-  const { userId, fetchAuth, loading, error } = useAuthWithFetch();
   const router = useRouter();
+  const { fetchAuth, userId, loading } = useAuth();
 
   useEffect(() => {
-    fetchAuth(); // Fetch user data using the httpOnly cookie
-  }, [fetchAuth]);
+    const handleCallback = async () => {
+      if (loading) return;
 
-  useEffect(() => {
-    if (!loading) {
+      await fetchAuth(); // Fetch auth state
       if (userId) {
-        router.push(`/dashboard/${userId}`); // Redirect to dashboard if authenticated
-      } else if (error) {
-        router.push('/auth/login?error=auth_failed'); // Redirect to login if auth fails
+        router.push("/dashboard"); // Redirect to dashboard if authenticated
+      } else {
+        router.push("/auth/login"); // Redirect to login if not authenticated
       }
-    }
-  }, [loading, userId, error, router]);
+    };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <p>Redirecting to your dashboard...</p>
-    </div>
-  );
+    handleCallback();
+  }, [fetchAuth, userId, loading, router]);
+
+  return <div>Loading...</div>; // Placeholder while redirecting
 }

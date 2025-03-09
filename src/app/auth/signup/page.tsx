@@ -34,7 +34,7 @@ export default function Register() {
       if (!response.ok) throw new Error(data.message || "Registration failed");
 
       console.log("Registration successful:", data);
-      window.location.href = "/auth/login";
+      window.location.href = "/auth/login"; // Redirect to login after signup
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message || "Registration failed. Please try again.");

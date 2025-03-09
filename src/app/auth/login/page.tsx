@@ -27,7 +27,7 @@ export default function Login() {
 
   useEffect(() => {
     if (!authLoading && userId) {
-      router.push(`/dashboard/${userId}`);
+      router.push("/dashboard"); // Ensure redirect to /dashboard
     }
   }, [authLoading, userId, router]);
 
