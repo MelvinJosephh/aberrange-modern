@@ -1,11 +1,11 @@
 'use client';
 
 import { useAuth } from "./hooks/useAuth";
-import { LoadingSpinner } from "./components/Shared/LoadingSpinner";
-import ClientView from "./components/ClientView";
-import VAView from "./components/VAView";
-import AdminView from "./components/AdminView";
-import SuperAdminView from "./components/SuperAdminView";
+import { LoadingSpinner } from "./Shared/LoadingSpinner";
+import ClientView from "./ClientView";
+import VAView from "./VAView";
+import AdminView from "./AdminView";
+import SuperAdminView from "./SuperAdminView";
 
 export default function Dashboard() {
   const { role, name, loading, error } = useAuth();

@@ -31,7 +31,7 @@ export function SidebarMenuItems({ role }: { role?: Role }) {
         label: "Main Navigation",
         items: [
           { title: "Dashboard", url: "/dashboard", icon: Home },
-          { title: "Hiring Requests", url: "/dashboard/hiring-requests", icon: Inbox },
+          { title: "Hiring Requests", url: "/dashboard/hiringRequests", icon: Inbox },
           { title: "Consultations", url: "/dashboard/consultations", icon: Calendar },
           { title: "Quotes", url: "/dashboard/quotes", icon: Calendar },
         ],

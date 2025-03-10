@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Menu, LogOut, User as UserIcon } from "lucide-react";
 import { useSidebar } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth";
 
 type HeaderProps = HTMLAttributes<HTMLDivElement>;
 

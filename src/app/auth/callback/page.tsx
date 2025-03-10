@@ -1,27 +1,27 @@
-"use client";
+// "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/app/dashboard/hooks/useAuth";
+// import { useEffect } from "react";
+// import { useRouter } from "next/navigation";
+// import { useAuth } from "@/app/dashboard/hooks/useAuth";
 
-export default function Callback() {
-  const router = useRouter();
-  const { fetchAuth, userId, loading } = useAuth();
+// export default function Callback() {
+//   const router = useRouter();
+//   const { fetchAuth, userId, loading } = useAuth();
 
-  useEffect(() => {
-    const handleCallback = async () => {
-      if (loading) return;
+//   useEffect(() => {
+//     const handleCallback = async () => {
+//       if (loading) return;
 
-      await fetchAuth(); // Fetch auth state
-      if (userId) {
-        router.push("/dashboard"); // Redirect to dashboard if authenticated
-      } else {
-        router.push("/auth/login"); // Redirect to login if not authenticated
-      }
-    };
+//       await fetchAuth(); 
+//       if (userId) {
+//         router.push("/dashboard"); 
+//       } else {
+//         router.push("/auth/login"); 
+//       }
+//     };
 
-    handleCallback();
-  }, [fetchAuth, userId, loading, router]);
+//     handleCallback();
+//   }, [fetchAuth, userId, loading, router]);
 
-  return <div>Loading...</div>; // Placeholder while redirecting
-}
+//   return <div>Loading...</div>; 
+// }

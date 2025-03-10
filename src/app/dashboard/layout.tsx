@@ -3,8 +3,8 @@
 
 import { ReactNode } from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import Header from "./components/Shared/Header";
-import { AppSidebar } from "./components/Shared/AppSidebar";
+import Header from "./Shared/Header";
+import { AppSidebar } from "./Shared/AppSidebar";
 import AuthWrapper from "./authWrapper";
 
 

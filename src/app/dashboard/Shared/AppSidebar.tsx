@@ -3,10 +3,10 @@
 import { Sidebar, SidebarContent, useSidebar } from "@/components/ui/sidebar";
 import { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth";
 import { SidebarMenuItems } from "./sidebar-menu-items";
 import { useRouter } from "next/navigation";
-import { Role } from "../../types/auth";
+import { Role } from "../types/auth";
 
 type AppSidebarProps = HTMLAttributes<HTMLDivElement>;
 
