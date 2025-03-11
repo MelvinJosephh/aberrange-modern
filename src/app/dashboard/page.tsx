@@ -1,26 +1,27 @@
-'use client';
+"use client";
 
-import { useAuth } from "./hooks/useAuth";
-import { LoadingSpinner } from "./Shared/LoadingSpinner";
-import ClientView from "./ClientView";
-import VAView from "./VAView";
-import AdminView from "./AdminView";
-import SuperAdminView from "./SuperAdminView";
+import Header from "@/app/dashboard/components/Header";
+import RequestStatus from "@/app/dashboard/components/RequestStatus";
+import QuickActions from "@/app/dashboard/components/QuickActions";
+import Updates from "@/app/dashboard/components/Updates";
+import CtaBanner from "@/components/CtaBanner";
 
-export default function Dashboard() {
-  const { role, name, loading, error } = useAuth();
-
-  if (loading) return <LoadingSpinner />;
-  if (error) return <p>Error: {error}</p>;
-  if (!role) return <LoadingSpinner />;
-
+const ClientDashboard = () => {
   return (
-    <div className="dashboard-container">
-      <h1 className="text-3xl font-bold mb-4">Welcome to Your Dashboard, {name || "User"}!</h1>
-      {role === "client" && <ClientView />}
-      {role === "va" && <VAView />}
-      {role === "admin" && <AdminView />}
-      {role === "superadmin" && <SuperAdminView />}
+    <div className="space-y-6">
+      <Header />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="md:col-span-2 space-y-6">
+          <RequestStatus />
+          <QuickActions />
+        </div>
+        <div>
+          <Updates />
+        </div>
+      </div>
+      <CtaBanner />
     </div>
   );
-}
+};
+
+export default ClientDashboard;
