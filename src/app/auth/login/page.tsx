@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useAuth } from "@/app/dashboard/hooks/useAuth";
 
 
 export default function Login() {
@@ -165,17 +166,9 @@ export default function Login() {
             <p className="text-red-500 text-sm text-center">{error}</p>
           )}
 
-          <p className="text-center text-[var(--text-secondary)] text-sm">
-            Don’t have an account?{" "}
-            <a
-              href="/auth/signup"
-              className="text-[var(--interactive-color)] hover:text-[var(--interactive-hover)]"
-            >
-              Sign up
-            </a>
-          </p>
         </CardContent>
       </Card>
     </div>
   );
 }
+
