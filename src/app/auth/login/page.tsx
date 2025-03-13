@@ -65,11 +65,18 @@ export default function Login() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/google/login/start`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/auth/google/login/start`, {
+        method: "GET",
+        credentials: "include",
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to start Google OAuth");
+      }
+  
       const { authUrl } = await response.json();
       window.location.href = authUrl; // Redirect to Google OAuth
     } catch (err: unknown) {
-      // Type narrowing to handle the error safely
       if (err instanceof Error) {
         setError(err.message || "Error starting Google OAuth. Please try again.");
       } else {

@@ -11,7 +11,7 @@ import { RoleName } from "@/types/role";
 interface AuthState {
   user: User | null;
   userId: string | null;
-  role: RoleName;
+  role: RoleName | null; // Fix: Allow null
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
@@ -24,13 +24,13 @@ interface AuthState {
 
 const api = ky.create({
   prefixUrl: process.env.NEXT_PUBLIC_BACKEND_API_URL,
-  credentials: "include", // Send HTTP-only cookies
+  credentials: "include",
 });
 
 export const useAuth = create<AuthState>((set, get) => ({
   user: null,
   userId: null,
-  role: null,
+  role: null, // Now compatible with RoleName | null
   isAuthenticated: false,
   loading: false,
   error: null,
@@ -55,9 +55,9 @@ export const useAuth = create<AuthState>((set, get) => ({
   fetchAuth: async () => {
     set({ loading: true, error: null });
     try {
-      const response = await api.get("auth/user");
+      const response = await api.get("api/auth/user");
       const user: User = await response.json();
-      localStorage.setItem("role", user.role); // Store role for redirect fallback
+      localStorage.setItem("role", user.role);
       set({ user, userId: user.id, role: user.role, isAuthenticated: true, loading: false });
     } catch (error) {
       localStorage.removeItem("role");
@@ -66,7 +66,7 @@ export const useAuth = create<AuthState>((set, get) => ({
     }
   },
   logout: async () => {
-    await api.post("auth/logout", { credentials: "include" });
+    await api.post("api/auth/logout", { credentials: "include" });
     localStorage.removeItem("role");
     get().clearAuth();
     window.location.href = "/auth/login";
@@ -74,16 +74,39 @@ export const useAuth = create<AuthState>((set, get) => ({
   hasRole: (requiredRole: RoleName) => get().role === requiredRole,
 }));
 
+// export const useAuthWithFetch = () => {
+//   const auth = useAuth();
+//   const router = useRouter();
+//   useEffect(() => {
+//     if (!auth.isAuthenticated && !auth.loading) {
+//       auth.fetchAuth().catch(() => {
+//         const role = localStorage.getItem("role");
+//         router.push(role === "admin" || role === "superadmin" ? "/auth/admin-login" : "/auth/login");
+//       });
+//     }
+//   }, [auth, router]);
+//   return auth;
+// };
+
 export const useAuthWithFetch = () => {
   const auth = useAuth();
   const router = useRouter();
   useEffect(() => {
-    if (!auth.isAuthenticated && !auth.loading) {
+    let isMounted = true; // Prevent updates after unmount
+
+    if (!auth.isAuthenticated && !auth.loading && isMounted) {
       auth.fetchAuth().catch(() => {
-        const role = localStorage.getItem("role");
-        router.push(role === "admin" || role === "superadmin" ? "/auth/admin-login" : "/auth/login");
+        if (isMounted) {
+          const role = localStorage.getItem("role");
+          router.push(role === "admin" || role === "superadmin" ? "/auth/admin-login" : "/auth/login");
+        }
       });
     }
-  }, [auth, router]);
+
+    return () => {
+      isMounted = false; // Cleanup on unmount
+    };
+  }, [auth.isAuthenticated, auth.loading, auth.fetchAuth, router, auth]); // Dependencies
+
   return auth;
 };

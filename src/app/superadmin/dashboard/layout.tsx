@@ -16,7 +16,11 @@ export default function SuperadminLayout({ children }: { children: ReactNode }) 
 
   useEffect(() => {
     if (!loading && isAuthenticated && role !== "superadmin") {
-      router.push(getRedirectPath(role));
+      if (role) { // Narrow role from RoleName | null to RoleName
+        router.push(getRedirectPath(role));
+      } else {
+        router.push("/auth/admin-login"); // Fallback for null (shouldn’t happen)
+      }
     }
   }, [isAuthenticated, role, router, loading]);
 

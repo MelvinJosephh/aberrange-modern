@@ -16,7 +16,11 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!loading && isAuthenticated && role !== "client") {
-      router.push(getRedirectPath(role));
+      if (role) { // Narrow role from RoleName | null to RoleName
+        router.push(getRedirectPath(role));
+      } else {
+        router.push("/auth/login"); // Fallback for null (shouldn’t happen)
+      }
     }
   }, [isAuthenticated, role, router, loading]);
 
