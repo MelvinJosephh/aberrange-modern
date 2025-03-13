@@ -1,22 +1,35 @@
+// src/app/va/dashboard/layout.tsx
 "use client";
 
 import { ReactNode, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "@/components/Sidebar";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import { useAuthWithFetch } from "@/hooks/useAuth";
+import { RoleName } from "@/types/role";
 
 export default function VALayout({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const { role, isAuthenticated, loading } = useAuthWithFetch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const role = localStorage.getItem("role");
-    if (!token || role !== "va") {
-      router.push("/auth/login");
+    if (!loading && isAuthenticated && role !== "va") {
+      router.push(getRedirectPath(role));
     }
-  }, [router]);
+  }, [isAuthenticated, role, router, loading]);
+
+  const getRedirectPath = (role: RoleName) => {
+    switch (role) {
+      case "client": return "/dashboard";
+      case "admin": return "/admin/dashboard";
+      case "superadmin": return "/superadmin/dashboard";
+      default: return "/auth/login";
+    }
+  };
+
+  if (loading || !isAuthenticated) return <div>Loading...</div>;
 
   return (
     <div className="flex flex-col sm:flex-row min-h-screen bg-gray-50">

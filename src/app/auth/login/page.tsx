@@ -1,3 +1,4 @@
+// src/app/auth/login/page.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -7,8 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { useAuth } from "@/app/dashboard/hooks/useAuth";
-
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ export default function Login() {
 
   useEffect(() => {
     if (!authLoading && userId) {
-      router.push("/dashboard"); // Ensure redirect to /dashboard
+      router.push("/dashboard");
     }
   }, [authLoading, userId, router]);
 
@@ -50,6 +50,7 @@ export default function Login() {
 
       await fetchAuth();
     } catch (err: unknown) {
+      // Type narrowing to handle the error safely
       if (err instanceof Error) {
         setError(err.message || "Login failed. Please try again.");
       } else {
@@ -64,38 +65,32 @@ export default function Login() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/google/login/start`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/google/login/start`);
       const { authUrl } = await response.json();
       window.location.href = authUrl; // Redirect to Google OAuth
     } catch (err: unknown) {
+      // Type narrowing to handle the error safely
       if (err instanceof Error) {
         setError(err.message || "Error starting Google OAuth. Please try again.");
-        console.error("OAuth error:", err);
       } else {
-        setError("An unexpected error occurred with Google OAuth.");
-        console.error("OAuth error:", err);
+        setError("An unexpected error occurred. Please try again.");
       }
+      console.error("OAuth error:", err);
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[var(--background-color)] pt-18 pb-10">
-      <Card className="w-full max-w-md border-[var(--border-color-light)]">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-18 pb-10">
+      <Card className="w-full max-w-md border-gray-200">
         <CardHeader>
-          <CardTitle className="text-[var(--text-primary)] text-2xl font-bold">
-            Welcome Back
-          </CardTitle>
-          <CardDescription className="text-[var(--text-secondary)]">
-            Log in to access your Aberrange account
-          </CardDescription>
+          <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
+          <CardDescription>Log in to access your Aberrange account</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <form onSubmit={handleCustomLogin} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-[var(--text-primary)]">
-                Email
-              </Label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -103,13 +98,11 @@ export default function Login() {
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
                 disabled={loading}
-                className="border-[var(--border-color-light)] focus:border-[var(--interactive-color)]"
+                className="border-gray-300 focus:border-blue-500"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-[var(--text-primary)]">
-                Password
-              </Label>
+              <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -117,29 +110,29 @@ export default function Login() {
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 required
                 disabled={loading}
-                className="border-[var(--border-color-light)] focus:border-[var(--interactive-color)]"
+                className="border-gray-300 focus:border-blue-500"
               />
             </div>
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-[var(--interactive-color)] hover:bg-[var(--interactive-hover)] active:bg-[var(--interactive-active)] text-[var(--text-light)]"
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white"
             >
               {loading ? "Logging in..." : "Log In"}
             </Button>
           </form>
 
           <div className="flex items-center gap-2">
-            <Separator className="flex-1 bg-[var(--border-color-light)]" />
-            <span className="text-[var(--text-secondary)] text-sm">or</span>
-            <Separator className="flex-1 bg-[var(--border-color-light)]" />
+            <Separator className="flex-1 bg-gray-200" />
+            <span className="text-gray-500 text-sm">or</span>
+            <Separator className="flex-1 bg-gray-200" />
           </div>
 
           <Button
             variant="outline"
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className="w-full flex items-center gap-2 border-[var(--border-color-light)] text-[var(--text-primary)] hover:bg-[var(--secondary-color)]"
+            className="w-full flex items-center gap-2 border-gray-300 text-gray-700 hover:bg-gray-100"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -165,10 +158,8 @@ export default function Login() {
           {error && (
             <p className="text-red-500 text-sm text-center">{error}</p>
           )}
-
         </CardContent>
       </Card>
     </div>
   );
 }
-

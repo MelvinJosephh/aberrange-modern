@@ -1,19 +1,36 @@
+// src/app/auth/admin-login/page.tsx
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function AdminLogin() {
-  const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState<string | null>(null);
+  const searchParams = useSearchParams();
   const router = useRouter();
+  const { fetchAuth, userId, loading: authLoading } = useAuth();
+  const oauthError = searchParams.get("error");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    if (oauthError) {
+      setError("Please use manual login for admin accounts.");
+    }
+  }, [oauthError]);
+
+  useEffect(() => {
+    if (!authLoading && userId) {
+      router.push("/dashboard");
+    }
+  }, [authLoading, userId, router]);
+
+  const handleCustomLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -22,34 +39,30 @@ export default function AdminLogin() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(formData),
       });
+
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Invalid credentials");
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("role", data.role);
-      router.push(data.role === "superadmin" ? "/superadmin/dashboard" : "/admin/dashboard");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed.");
+      await fetchAuth();
+    } catch (err: any) {
+      setError(err.message || "Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[var(--background-color)] pt-18 pb-10">
-      <Card className="w-full max-w-md border-[var(--border-color-light)]">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-18 pb-10">
+      <Card className="w-full max-w-md border-gray-200">
         <CardHeader>
-          <CardTitle className="text-[var(--text-primary)] text-2xl font-bold">
-            Admin/Superadmin Login
-          </CardTitle>
-          <CardDescription className="text-[var(--text-secondary)]">
-            Log in with your credentials
-          </CardDescription>
+          <CardTitle className="text-2xl font-bold">Admin Login</CardTitle>
+          <CardDescription>Log in to access your admin dashboard</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleCustomLogin} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -59,6 +72,7 @@ export default function AdminLogin() {
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
                 disabled={loading}
+                className="border-gray-300 focus:border-blue-500"
               />
             </div>
             <div className="space-y-2">
@@ -70,13 +84,21 @@ export default function AdminLogin() {
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 required
                 disabled={loading}
+                className="border-gray-300 focus:border-blue-500"
               />
             </div>
-            <Button type="submit" disabled={loading} className="w-full">
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white"
+            >
               {loading ? "Logging in..." : "Log In"}
             </Button>
           </form>
-          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+
+          {error && (
+            <p className="text-red-500 text-sm text-center">{error}</p>
+          )}
         </CardContent>
       </Card>
     </div>

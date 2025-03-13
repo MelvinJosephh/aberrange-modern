@@ -1,4 +1,4 @@
-// dashboard/hooks/useAuth.ts
+// src/hooks/useAuth.ts
 "use client";
 
 import { create } from "zustand";
@@ -10,8 +10,8 @@ import { RoleName } from "@/types/role";
 
 interface AuthState {
   user: User | null;
-  userId: string | null; // Add userId
-  role: RoleName | null;
+  userId: string | null;
+  role: RoleName;
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
@@ -24,20 +24,20 @@ interface AuthState {
 
 const api = ky.create({
   prefixUrl: process.env.NEXT_PUBLIC_BACKEND_API_URL,
-  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  credentials: "include", // Send HTTP-only cookies
 });
 
 export const useAuth = create<AuthState>((set, get) => ({
   user: null,
-  userId: null, // Initialize userId
-  role: (localStorage.getItem("role") as RoleName) || null,
-  isAuthenticated: !!localStorage.getItem("token"),
+  userId: null,
+  role: null,
+  isAuthenticated: false,
   loading: false,
   error: null,
   setAuth: (user: User) =>
     set({
       user,
-      userId: user.id, // Set userId from user object
+      userId: user.id,
       role: user.role,
       isAuthenticated: true,
       loading: false,
@@ -46,7 +46,7 @@ export const useAuth = create<AuthState>((set, get) => ({
   clearAuth: () =>
     set({
       user: null,
-      userId: null, // Clear userId
+      userId: null,
       role: null,
       isAuthenticated: false,
       loading: false,
@@ -57,7 +57,7 @@ export const useAuth = create<AuthState>((set, get) => ({
     try {
       const response = await api.get("auth/user");
       const user: User = await response.json();
-      localStorage.setItem("role", user.role);
+      localStorage.setItem("role", user.role); // Store role for redirect fallback
       set({ user, userId: user.id, role: user.role, isAuthenticated: true, loading: false });
     } catch (error) {
       localStorage.removeItem("role");
@@ -66,8 +66,7 @@ export const useAuth = create<AuthState>((set, get) => ({
     }
   },
   logout: async () => {
-    await api.post("auth/logout");
-    localStorage.removeItem("token");
+    await api.post("auth/logout", { credentials: "include" });
     localStorage.removeItem("role");
     get().clearAuth();
     window.location.href = "/auth/login";
