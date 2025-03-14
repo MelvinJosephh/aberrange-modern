@@ -74,19 +74,6 @@ export const useAuth = create<AuthState>((set, get) => ({
   hasRole: (requiredRole: RoleName) => get().role === requiredRole,
 }));
 
-// export const useAuthWithFetch = () => {
-//   const auth = useAuth();
-//   const router = useRouter();
-//   useEffect(() => {
-//     if (!auth.isAuthenticated && !auth.loading) {
-//       auth.fetchAuth().catch(() => {
-//         const role = localStorage.getItem("role");
-//         router.push(role === "admin" || role === "superadmin" ? "/auth/admin-login" : "/auth/login");
-//       });
-//     }
-//   }, [auth, router]);
-//   return auth;
-// };
 
 export const useAuthWithFetch = () => {
   const auth = useAuth();
