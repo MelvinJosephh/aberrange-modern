@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const pathname = usePathname();
   // Exclude Header/Footer for all dashboard routes
   const isDashboard =
-    pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/client/dashboard") ||
     pathname.startsWith("/va/dashboard") ||
     pathname.startsWith("/admin/dashboard") ||
     pathname.startsWith("/superadmin/dashboard");

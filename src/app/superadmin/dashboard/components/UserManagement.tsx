@@ -7,66 +7,82 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { User } from "@/types/user"; // Adjust path if needed
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { User } from "@/types/user";
+import { RoleName } from "@/types/role";
 
 const UserManagement = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [filterRole, setFilterRole] = useState<string>("all");
+  const [filterRole, setFilterRole] = useState<RoleName | "all">("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  // Form state for adding new Admin/Superadmin
-  const [newUser, setNewUser] = useState({ email: "", password: "", name: "", role: "admin" });
+  const [newUser, setNewUser] = useState<{
+    email: string;
+    password: string;
+    name: string;
+    role: RoleName;
+  }>({ email: "", password: "", name: "", role: "admin" });
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/users`, {
+        credentials: "include",
+      });
+      if (!response.ok) {
+        if (response.status === 401 || response.status === 403) {
+          window.location.href = "/auth/admin-login"; // Redirect on auth failure
+          return;
+        }
+        throw new Error("Failed to fetch users");
+      }
+      const data = await response.json();
+      setUsers(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/users`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (!response.ok) throw new Error("Failed to fetch users");
-        const data: User[] = await response.json();
-        setUsers(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchUsers();
   }, []);
 
   const handleAddUser = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/users`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newUser),
+        credentials: "include",
       });
       if (!response.ok) throw new Error("Failed to add user");
       const { userId } = await response.json();
       setUsers([...users, { id: userId, ...newUser, status: "active" }]);
-      setNewUser({ email: "", password: "", name: "", role: "admin" }); // Reset form
+      setNewUser({ email: "", password: "", name: "", role: "admin" });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to add user");
     }
   };
 
-  const handleEditRole = async (userId: string, newRole: string) => {
+  const handleEditRole = async (userId: string, newRole: RoleName) => {
     try {
-      const token = localStorage.getItem("token");
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/users`, {
         method: "PATCH",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ userId, role: newRole }),
+        credentials: "include",
       });
       if (!response.ok) throw new Error("Failed to update role");
       setUsers(users.map((u) => (u.id === userId ? { ...u, role: newRole } : u)));
@@ -75,19 +91,44 @@ const UserManagement = () => {
     }
   };
 
-  const filteredUsers = users.filter((user) => filterRole === "all" || user.role === filterRole);
+  const handleDeleteUser = async (userId: string) => {
+    if (window.confirm("Are you sure you want to delete this user?")){
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/users`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId }),
+        credentials: "include",
+      });
+      if (!response.ok) throw new Error("Failed to delete user");
+      setUsers(users.filter((u) => u.id !== userId));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to delete user");
+    }
+  }
+  };
+
+  const filteredUsers = users.filter((user) =>
+    filterRole === "all" || user.role === filterRole
+  );
 
   if (loading) return <p className="p-4 text-center">Loading users...</p>;
   if (error) return <div className="p-4 text-red-500 text-center">{error}</div>;
 
   return (
     <div className="space-y-6">
-      {/* Form to Add New Admin/Superadmin */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg sm:text-xl">Add New Admin/Superadmin</CardTitle>
-        </CardHeader>
-        <CardContent>
+      {/* Add User Modal */}
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button className="w-full sm:w-auto">Add New User</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add New User</DialogTitle>
+          </DialogHeader>
           <form onSubmit={handleAddUser} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -97,6 +138,7 @@ const UserManagement = () => {
                   type="email"
                   value={newUser.email}
                   onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                  placeholder="user@aberrange.com"
                   required
                 />
               </div>
@@ -123,7 +165,7 @@ const UserManagement = () => {
                 <Label htmlFor="role">Role</Label>
                 <Select
                   value={newUser.role}
-                  onValueChange={(value) => setNewUser({ ...newUser, role: value })}
+                  onValueChange={(value) => setNewUser({ ...newUser, role: value as RoleName })}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select Role" />
@@ -135,16 +177,18 @@ const UserManagement = () => {
                 </Select>
               </div>
             </div>
-            <Button type="submit" className="w-full sm:w-auto">Add User</Button>
+            <Button type="submit" className="w-full sm:w-auto">
+              Add User
+            </Button>
           </form>
-        </CardContent>
-      </Card>
+        </DialogContent>
+      </Dialog>
 
-      {/* Existing User Management */}
+      {/* User Management Table */}
       <Card className="w-full">
         <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <CardTitle className="text-lg sm:text-xl">User Management</CardTitle>
-          <Select onValueChange={setFilterRole} defaultValue="all">
+          <Select onValueChange={(value) => setFilterRole(value as RoleName | "all")} defaultValue="all">
             <SelectTrigger className="w-full sm:w-[180px]">
               <SelectValue placeholder="Filter by Role" />
             </SelectTrigger>
@@ -158,7 +202,7 @@ const UserManagement = () => {
           </Select>
         </CardHeader>
         <CardContent>
-          <div className="hidden sm:block overflow-x-auto">
+          <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -166,7 +210,7 @@ const UserManagement = () => {
                   <TableHead>Email</TableHead>
                   <TableHead>Role</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead>Action</TableHead>
+                  <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -177,51 +221,34 @@ const UserManagement = () => {
                     <TableCell>{user.role}</TableCell>
                     <TableCell>{user.status}</TableCell>
                     <TableCell>
-                      <Select
-                        onValueChange={(value) => handleEditRole(user.id, value)}
-                        defaultValue={user.role}
-                      >
-                        <SelectTrigger className="w-[120px]">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="client">Client</SelectItem>
-                          <SelectItem value="va">VA</SelectItem>
-                          <SelectItem value="admin">Admin</SelectItem>
-                          <SelectItem value="superadmin">Superadmin</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <div className="flex gap-2">
+                        <Select
+                          onValueChange={(value) => handleEditRole(user.id, value as RoleName)}
+                          defaultValue={user.role}
+                        >
+                          <SelectTrigger className="w-[120px]">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="client">Client</SelectItem>
+                            <SelectItem value="va">VA</SelectItem>
+                            <SelectItem value="admin">Admin</SelectItem>
+                            <SelectItem value="superadmin">Superadmin</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <Button
+                          variant="destructive"
+                          onClick={() => handleDeleteUser(user.id)}
+                          size="sm"
+                        >
+                          Delete
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
-          </div>
-          <div className="sm:hidden space-y-4">
-            {filteredUsers.map((user) => (
-              <Card key={user.id} className="p-4">
-                <div className="space-y-2">
-                  <p><strong>Name:</strong> {user.name}</p>
-                  <p><strong>Email:</strong> {user.email}</p>
-                  <p><strong>Role:</strong> {user.role}</p>
-                  <p><strong>Status:</strong> {user.status}</p>
-                  <Select
-                    onValueChange={(value) => handleEditRole(user.id, value)}
-                    defaultValue={user.role}
-                  >
-                    <SelectTrigger className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="client">Client</SelectItem>
-                      <SelectItem value="va">VA</SelectItem>
-                      <SelectItem value="admin">Admin</SelectItem>
-                      <SelectItem value="superadmin">Superadmin</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </Card>
-            ))}
           </div>
         </CardContent>
       </Card>

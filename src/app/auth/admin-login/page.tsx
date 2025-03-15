@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,22 +13,20 @@ export default function AdminLogin() {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState<string | null>(null);
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const { fetchAuth, userId, loading: authLoading } = useAuth();
-  const oauthError = searchParams.get("error");
+  const { fetchAuth, role, loading: authLoading, isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (oauthError) {
-      setError("Please use manual login for admin accounts.");
+    if (!authLoading && isAuthenticated && role) {
+      if (role === "superadmin") {
+        router.replace("/superadmin/dashboard");
+      } else if (role === "admin") {
+        router.replace("/admin/dashboard");
+      } else {
+        router.replace("/auth/login"); // Non-admin roles go to client login
+      }
     }
-  }, [oauthError]);
-
-  useEffect(() => {
-    if (!authLoading && userId) {
-      router.push("/dashboard");
-    }
-  }, [authLoading, userId, router]);
+  }, [authLoading, isAuthenticated, role, router]);
 
   const handleCustomLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,19 +34,26 @@ export default function AdminLogin() {
     setError(null);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/auth/login`, {
+      if (!formData.email.endsWith("@aberrange.com")) {
+        throw new Error("Email must end with @aberrange.com");
+      }
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/auth/admin-login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Invalid credentials");
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Login failed due to server error");
+      }
 
       await fetchAuth();
-    } catch (err: any) {
-      setError(err.message || "Login failed. Please try again.");
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred. Please try again.";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -59,7 +64,7 @@ export default function AdminLogin() {
       <Card className="w-full max-w-md border-gray-200">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">Admin Login</CardTitle>
-          <CardDescription>Log in to access your admin dashboard</CardDescription>
+          <CardDescription>Log in to access your admin or superadmin dashboard</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <form onSubmit={handleCustomLogin} className="space-y-4">
@@ -72,6 +77,7 @@ export default function AdminLogin() {
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
                 disabled={loading}
+                placeholder="example@aberrange.com"
                 className="border-gray-300 focus:border-blue-500"
               />
             </div>
@@ -96,9 +102,7 @@ export default function AdminLogin() {
             </Button>
           </form>
 
-          {error && (
-            <p className="text-red-500 text-sm text-center">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
         </CardContent>
       </Card>
     </div>

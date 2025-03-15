@@ -11,14 +11,14 @@ import { RoleName } from "@/types/role";
 interface AuthState {
   user: User | null;
   userId: string | null;
-  role: RoleName | null; // Fix: Allow null
+  role: RoleName | null;
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
   setAuth: (user: User) => void;
   clearAuth: () => void;
   fetchAuth: () => Promise<void>;
-  logout: () => Promise<void>;
+  logout: (redirectToAdminLogin?: boolean) => Promise<void>;
   hasRole: (requiredRole: RoleName) => boolean;
 }
 
@@ -30,7 +30,7 @@ const api = ky.create({
 export const useAuth = create<AuthState>((set, get) => ({
   user: null,
   userId: null,
-  role: null, // Now compatible with RoleName | null
+  role: null,
   isAuthenticated: false,
   loading: false,
   error: null,
@@ -55,45 +55,48 @@ export const useAuth = create<AuthState>((set, get) => ({
   fetchAuth: async () => {
     set({ loading: true, error: null });
     try {
-      const response = await api.get("api/auth/user");
+      const response = await api.get("api/user");
       const user: User = await response.json();
-      localStorage.setItem("role", user.role);
       set({ user, userId: user.id, role: user.role, isAuthenticated: true, loading: false });
     } catch (error) {
-      localStorage.removeItem("role");
       set({ loading: false, isAuthenticated: false, error: "Authentication failed" });
       throw error;
     }
   },
-  logout: async () => {
-    await api.post("api/auth/logout", { credentials: "include" });
-    localStorage.removeItem("role");
-    get().clearAuth();
-    window.location.href = "/auth/login";
+  logout: async (redirectToAdminLogin = false) => {
+    try {
+      await api.post("api/auth/logout", { credentials: "include" });
+    } catch (error) {
+      console.error("Logout error:", error);
+    } finally {
+      get().clearAuth();
+      // Redirect based on whether the user should go to admin login (for admin/superadmin) or client login
+      const redirectPath = redirectToAdminLogin ? "/auth/admin-login" : "/auth/login";
+      window.location.href = redirectPath;
+    }
   },
   hasRole: (requiredRole: RoleName) => get().role === requiredRole,
 }));
 
-
 export const useAuthWithFetch = () => {
   const auth = useAuth();
   const router = useRouter();
+
   useEffect(() => {
-    let isMounted = true; // Prevent updates after unmount
+    let isMounted = true;
 
     if (!auth.isAuthenticated && !auth.loading && isMounted) {
       auth.fetchAuth().catch(() => {
         if (isMounted) {
-          const role = localStorage.getItem("role");
-          router.push(role === "admin" || role === "superadmin" ? "/auth/admin-login" : "/auth/login");
+          router.push(auth.role === "admin" || auth.role === "superadmin" ? "/auth/admin-login" : "/auth/login");
         }
       });
     }
 
     return () => {
-      isMounted = false; // Cleanup on unmount
+      isMounted = false;
     };
-  }, [auth.isAuthenticated, auth.loading, auth.fetchAuth, router, auth]); // Dependencies
+  }, [auth.isAuthenticated, auth.loading, auth.fetchAuth, auth.role, router]);
 
   return auth;
 };

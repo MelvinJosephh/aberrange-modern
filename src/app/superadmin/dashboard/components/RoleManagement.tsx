@@ -1,3 +1,4 @@
+// components/RoleManagement.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -17,7 +18,7 @@ const RoleManagement = () => {
     const fetchRoles = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5000/api/roles", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/roles`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!response.ok) throw new Error("Failed to fetch roles");
@@ -35,17 +36,17 @@ const RoleManagement = () => {
   const handleAddRole = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/roles", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/roles`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name: newRole, permissions: ["view", "edit"] }), // Adjust permissions as needed
+        body: JSON.stringify({ name: newRole, permissions: ["view", "edit"] }),
       });
       if (!response.ok) throw new Error("Failed to add role");
       const newRoleData: Role = await response.json();
-      setRoles((prevRoles) => [...prevRoles, newRoleData]); // Functional update
+      setRoles((prevRoles) => [...prevRoles, newRoleData]);
       setNewRole("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to add role");
@@ -65,7 +66,7 @@ const RoleManagement = () => {
           <Input
             value={newRole}
             onChange={(e) => setNewRole(e.target.value)}
-            placeholder="Enter new role (e.g., Support Admin)"
+            placeholder="Enter new role (e.g., HR, Finance)"
           />
           <Button onClick={handleAddRole}>Add Role</Button>
         </div>

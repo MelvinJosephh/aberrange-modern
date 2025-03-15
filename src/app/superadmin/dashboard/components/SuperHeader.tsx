@@ -1,24 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { User } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useAuthWithFetch } from "@/hooks/useAuth";
 
-const Header = () => {
-  const router = useRouter();
+const SuperHeader = () => {
+  const { logout } = useAuthWithFetch(); // Use the logout method from useAuth
   const [stats, setStats] = useState({ totalUsers: 0, activeVAs: 0, activeAdmins: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [logoutLoading, setLogoutLoading] = useState(false);
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5000/api/superadmin/stats", {
-          headers: { Authorization: `Bearer ${token}` },
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/superadmin/stats`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
         });
         if (!response.ok) throw new Error("Failed to fetch stats");
         const data = await response.json();
@@ -32,10 +34,13 @@ const Header = () => {
     fetchStats();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
-    router.push("/login");
+  const handleLogout = async () => {
+    setLogoutLoading(true);
+    try {
+      await logout(true); // Pass true to redirect to /auth/admin-login
+    } finally {
+      setLogoutLoading(false);
+    }
   };
 
   return (
@@ -44,11 +49,15 @@ const Header = () => {
         <CardTitle>Welcome, Superadmin!</CardTitle>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon"><User className="h-4 w-4" /></Button>
+            <Button variant="outline" size="icon" disabled={logoutLoading}>
+              <User className="h-4 w-4" />
+            </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout} disabled={logoutLoading}>
+              {logoutLoading ? "Logging out..." : "Logout"}
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
@@ -67,4 +76,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default SuperHeader;

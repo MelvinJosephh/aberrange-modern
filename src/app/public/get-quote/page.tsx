@@ -28,19 +28,22 @@ import {
 } from "@/components/ui/form";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
+import { useAuthFetch } from "@/hooks/useAuthFetch"; // Import the hook
+import { toast } from "sonner"; // For feedback
 
 const FormSchema = z.object({
   name: z.string().min(1, "Name is required."),
   email: z.string().email("Invalid email address."),
   company: z.string().optional(),
-  services: z.string().min(1, "Please select a service."),
+  service: z.string().min(1, "Please select a service."), // Renamed to match backend
   budget: z.string().optional(),
-  details: z.string().optional(),
-  date: z.date().optional(),
+  projectOverview: z.string().optional(), // Renamed to match backend
+  date: z.date().optional(), // Represents desired start date
 });
 
 const GetQuote: React.FC = () => {
   const router = useRouter();
+  const { fetch: authFetch } = useAuthFetch();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -48,21 +51,36 @@ const GetQuote: React.FC = () => {
       name: "",
       email: "",
       company: "",
-      services: "",
+      service: "",
       budget: "",
-      details: "",
+      projectOverview: "",
       date: undefined,
     },
   });
 
-  const handleQuoteSubmit = (data: z.infer<typeof FormSchema>) => {
-    console.log("Quote request:", data); // Replace with API call later
-    router.push("/quote-success");
+  const handleQuoteSubmit = async (data: z.infer<typeof FormSchema>) => {
+    try {
+      await authFetch("api/quote", {
+        method: "POST",
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          company: data.company,
+          service: data.service, // Matches backend
+          projectOverview: data.projectOverview, // Matches backend
+          budget: data.budget,
+          timeline: data.date ? format(data.date, "yyyy-MM-dd") : undefined, // Map date to timeline
+        }),
+      });
+      toast.success("Quote submitted successfully!");
+      router.push("/public/quote-success");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to submit quote");
+    }
   };
 
   return (
     <div className="min-h-screen bg-[var(--background-color)] py-12 px-4 sm:px-6 lg:px-8">
-      {/* Hero Section */}
       <header className="text-center mb-12">
         <h1 className="text-[var(--text-primary)] text-4xl md:text-5xl font-bold mb-4 pt-10">
           Get Your Custom Quote Today
@@ -72,7 +90,6 @@ const GetQuote: React.FC = () => {
         </p>
       </header>
 
-      {/* Quote Form */}
       <section id="quote-form" className="max-w-3xl mx-auto bg-[var(--secondary-color)] p-6 rounded-[var(--border-radius-md)] shadow-[var(--shadow-md)]">
         <h2 className="text-[var(--text-primary)] text-2xl md:text-3xl font-semibold mb-6">
           Tell Us About Your Needs
@@ -124,7 +141,7 @@ const GetQuote: React.FC = () => {
                 name="company"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-[var(--neutral-color)] text-base font-medium">
+                    <FormLabel className="text-[var(---neutral-color)] text-base font-medium">
                       Company (Optional)
                     </FormLabel>
                     <FormControl>
@@ -140,7 +157,7 @@ const GetQuote: React.FC = () => {
               />
               <FormField
                 control={form.control}
-                name="services"
+                name="service"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-[var(--neutral-color)] text-base font-medium">
@@ -148,7 +165,7 @@ const GetQuote: React.FC = () => {
                     </FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <SelectTrigger className="border-[var(--border-color-light)] bg-[var(--background-color)] text-[var(--neutral-color)] focus:border-[var(--interactive-color)] rounded-[var(--border-radius-sm)]">
+                        <SelectTrigger className="border-[var(--border-color-light)] bg-[var(--background-color)] text-[var(--neutral-color)] focus:border-[var(--interactive-color)] rounded-[var(---border-radius-sm)]">
                           <SelectValue placeholder="Select a Service" />
                         </SelectTrigger>
                       </FormControl>
@@ -193,7 +210,7 @@ const GetQuote: React.FC = () => {
             </div>
             <FormField
               control={form.control}
-              name="details"
+              name="projectOverview"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-[var(--neutral-color)] text-base font-medium">
@@ -260,7 +277,6 @@ const GetQuote: React.FC = () => {
         </Form>
       </section>
 
-      {/* Reassurance Section */}
       <section className="max-w-4xl mx-auto mt-12 text-center">
         <h2 className="text-[var(--text-primary)] text-2xl md:text-3xl font-semibold mb-8">
           Why Choose Aberrange?

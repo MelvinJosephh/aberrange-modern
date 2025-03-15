@@ -23,7 +23,7 @@ export default function VALayout({ children }: { children: ReactNode }) {
   const getRedirectPath = (role: RoleName | null) => {
     if (!role) return "/auth/login";
     switch (role) {
-      case "client": return "/dashboard";
+      case "client": return "/client/dashboard";
       case "admin": return "/admin/dashboard";
       case "superadmin": return "/superadmin/dashboard";
       default: return "/auth/login";

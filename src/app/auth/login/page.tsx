@@ -16,7 +16,7 @@ export default function Login() {
   const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { fetchAuth, userId, loading: authLoading } = useAuth();
+  const { fetchAuth, isAuthenticated, loading: authLoading } = useAuth();
   const oauthError = searchParams.get("error");
 
   useEffect(() => {
@@ -27,10 +27,12 @@ export default function Login() {
   }, [oauthError]);
 
   useEffect(() => {
-    if (!authLoading && userId) {
-      router.push("/dashboard");
+    if (!authLoading && isAuthenticated) {
+      console.log("Login: Authenticated, redirecting to /client/dashboard");
+      window.history.replaceState(null, "", "/client/dashboard");
+      router.replace("/client/dashboard");
     }
-  }, [authLoading, userId, router]);
+  }, [authLoading, isAuthenticated, router]);
 
   const handleCustomLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,12 +52,8 @@ export default function Login() {
 
       await fetchAuth();
     } catch (err: unknown) {
-      // Type narrowing to handle the error safely
-      if (err instanceof Error) {
-        setError(err.message || "Login failed. Please try again.");
-      } else {
-        setError("An unexpected error occurred. Please try again.");
-      }
+      const errorMessage = err instanceof Error ? err.message : "Login failed. Please try again.";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -69,19 +67,17 @@ export default function Login() {
         method: "GET",
         credentials: "include",
       });
-  
-      if (!response.ok) {
-        throw new Error("Failed to start Google OAuth");
-      }
-  
+
+      if (!response.ok) throw new Error("Failed to start Google OAuth");
+
       const { authUrl } = await response.json();
-      window.location.href = authUrl; // Redirect to Google OAuth
+      console.log("Google Sign-In: Redirecting to:", authUrl);
+      // Replace history before redirecting to Google
+      window.history.replaceState(null, "", "/auth/login");
+      window.location.href = authUrl;
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message || "Error starting Google OAuth. Please try again.");
-      } else {
-        setError("An unexpected error occurred. Please try again.");
-      }
+      const errorMessage = err instanceof Error ? err.message : "Error starting Google OAuth. Please try again.";
+      setError(errorMessage);
       console.error("OAuth error:", err);
       setLoading(false);
     }
@@ -142,29 +138,15 @@ export default function Login() {
             className="w-full flex items-center gap-2 border-gray-300 text-gray-700 hover:bg-gray-100"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
-              <path
-                fill="#4285F4"
-                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-              />
-              <path
-                fill="#34A853"
-                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-1.04.69-2.36 1.1-3.71 1.1-2.85 0-5.27-1.92-6.13-4.5H2.25v2.82C4.06 20.36 7.74 23 12 23z"
-              />
-              <path
-                fill="#FBBC05"
-                d="M5.87 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.25C1.2 8.71.68 10.53.68 12.25c0 1.72.52 3.54 1.57 5.18l3.62-3.34z"
-              />
-              <path
-                fill="#EA4335"
-                d="M12 4.75c1.57 0 2.98.54 4.09 1.59l3.06-3.06C17.46 1.66 14.97.68 12 .68 7.74.68 4.06 3.32 2.25 6.68l3.62 2.82c.86-2.58 3.28-4.5 6.13-4.5z"
-              />
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-1.04.69-2.36 1.1-3.71 1.1-2.85 0-5.27-1.92-6.13-4.5H2.25v2.82C4.06 20.36 7.74 23 12 23z" />
+              <path fill="#FBBC05" d="M5.87 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.25C1.2 8.71.68 10.53.68 12.25c0 1.72.52 3.54 1.57 5.18l3.62-3.34z" />
+              <path fill="#EA4335" d="M12 4.75c1.57 0 2.98.54 4.09 1.59l3.06-3.06C17.46 1.66 14.97.68 12 .68 7.74.68 4.06 3.32 2.25 6.68l3.62 2.82c.86-2.58 3.28-4.5 6.13-4.5z" />
             </svg>
             {loading ? "Loading..." : "Sign in with Google"}
           </Button>
 
-          {error && (
-            <p className="text-red-500 text-sm text-center">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
         </CardContent>
       </Card>
     </div>
