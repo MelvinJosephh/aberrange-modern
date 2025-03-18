@@ -10,35 +10,35 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
-  NavigationMenuContent,
+  // NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
+  // NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-const mainServices = [
-  { title: "Administrative VA", href: "/services/administrative-va" },
-  { title: "Business Support VA", href: "/services/business-support-va" },
-  { title: "Marketing VA", href: "/services/marketing-va" },
-  { title: "Technical VA", href: "/services/technical-va" },
-];
+// const mainServices = [
+//   { title: "Administrative VA", href: "/services/administrative-va" },
+//   { title: "Business Support VA", href: "/services/business-support-va" },
+//   { title: "Marketing VA", href: "/services/marketing-va" },
+//   { title: "Technical VA", href: "/services/technical-va" },
+// ];
 
-const industries = [
-  { title: "Ecommerce", href: "/industries/ecommerce" },
-  { title: "IT", href: "/industries/it" },
-  { title: "Financial Accounting", href: "/industries/financial-accounting" },
-  { title: "Data Entry", href: "/industries/data-entry" },
-  { title: "Real Estate VA", href: "/industries/real-estate-va" },
-  { title: "Telehealth VA", href: "/industries/telehealth-va" },
-  { title: "Lead Generation VA", href: "/industries/lead-generation-va" },
-];
+// const industries = [
+//   { title: "Ecommerce", href: "/industries/ecommerce" },
+//   { title: "IT", href: "/industries/it" },
+//   { title: "Financial Accounting", href: "/industries/financial-accounting" },
+//   { title: "Data Entry", href: "/industries/data-entry" },
+//   { title: "Real Estate VA", href: "/industries/real-estate-va" },
+//   { title: "Telehealth VA", href: "/industries/telehealth-va" },
+//   { title: "Lead Generation VA", href: "/industries/lead-generation-va" },
+// ];
 
-const businessHubs = [
-  { title: "IT Services", href: "/business-hubs/it-services" },
-  { title: "Call Center VA", href: "/business-hubs/call-center-va" },
-];
+// const businessHubs = [
+//   { title: "IT Services", href: "/business-hubs/it-services" },
+//   { title: "Call Center VA", href: "/business-hubs/call-center-va" },
+// ];
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -72,6 +72,15 @@ const Header: React.FC = () => {
             className="bg-[var(--secondary-color)] border-[var(--border-color-light)] shadow-md w-[300px] sm:w-[400px]"
           >
             <nav className="flex flex-col space-y-4 mt-6">
+
+            <Link
+                href="/services"
+                className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] px-4 py-2 rounded-md font-medium text-base"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Services
+              </Link>
+
               <Link
                 href="/public/how-it-works"
                 className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] px-4 py-2 rounded-md font-medium text-base"
@@ -136,7 +145,7 @@ const Header: React.FC = () => {
         <nav className="hidden lg:block">
           <NavigationMenu>
             <NavigationMenuList className="flex items-center space-x-6">
-              <NavigationMenuItem>
+              {/* <NavigationMenuItem>
                 <NavigationMenuTrigger
                   className="text-[var(--neutral-color)] hover:bg-[var(--secondary-color-dark)] hover:text-[var(--interactive-hover)] bg-transparent font-medium text-base px-3 py-2 rounded-md"
                 >
@@ -199,7 +208,17 @@ const Header: React.FC = () => {
                     </div>
                   </div>
                 </NavigationMenuContent>
+              </NavigationMenuItem> */}
+
+              <NavigationMenuItem>
+                <NavigationMenuLink
+                  href="/services"
+                  className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] font-medium text-base px-3 py-2 rounded-md"
+                >
+                  Services
+                </NavigationMenuLink>
               </NavigationMenuItem>
+
               <NavigationMenuItem>
                 <NavigationMenuLink
                   href="/public/how-it-works"
@@ -208,6 +227,9 @@ const Header: React.FC = () => {
                   How It Works
                 </NavigationMenuLink>
               </NavigationMenuItem>
+
+
+
               <NavigationMenuItem>
                 <NavigationMenuLink
                   href="/public/pricing"
