@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { subServiceData, defaultSubServiceDetails } from "@/lib/models/subService"; // Ensure this path is correct
 import {
   CalendarIcon,
   UserIcon,
@@ -20,7 +21,7 @@ import {
   BriefcaseIcon,
 } from "@heroicons/react/24/outline";
 
-// Map icons to sub-services
+// Map icons to sub-services (unchanged)
 const subServiceIcons: { [key: string]: React.ComponentType<{ className: string }> } = {
   "Email and Calendar management": CalendarIcon,
   "Travel Assistant": GlobeAltIcon,
@@ -66,7 +67,7 @@ const subServiceIcons: { [key: string]: React.ComponentType<{ className: string 
   "App Store Optimization": CodeBracketIcon,
 };
 
-// Crafted descriptions for each sub-service
+// Crafted descriptions for each sub-service (unchanged)
 const subServiceDescriptions: { [key: string]: string } = {
   "Email and Calendar management": "Effortlessly organize your day with synchronized schedules and inbox mastery.",
   "Travel Assistant": "Plan seamless trips with expert itinerary design and real-time travel support.",
@@ -118,11 +119,25 @@ interface ServiceCategoryCardProps {
 }
 
 export default function ServiceCategoryCard({ subService }: ServiceCategoryCardProps) {
+  // Fetch the predefined slug from subServiceData
+  const subServiceEntry = subServiceData[subService] || defaultSubServiceDetails;
   const IconComponent = subServiceIcons[subService] || BriefcaseIcon;
-  const description = subServiceDescriptions[subService] || "Explore how we can enhance your operations.";
+  const description = subServiceDescriptions[subService] || subServiceEntry.description || "Explore how we can enhance your operations.";
+
+  // Use the predefined slug for the URL
+  const href = `/services/${subServiceEntry.slug}`;
+
+  // Debug logging to verify slug usage
+  if (process.env.NODE_ENV === "development") {
+    console.log({
+      subService,
+      slug: subServiceEntry.slug,
+      href,
+    });
+  }
 
   return (
-    <Link href={`/services/${encodeURIComponent(subService.toLowerCase().replace(/ /g, "-"))}`} className="block">
+    <Link href={href} className="block">
       <div className="border border-gray-200 rounded-lg p-4 bg-white shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300 text-center">
         <div className="flex justify-center mb-3">
           <IconComponent className="h-10 w-10 text-blue-600" />

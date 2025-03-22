@@ -1,11 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
 import { servicesData } from "@/lib/models/servicesData";
+import { subServiceData, defaultSubServiceDetails } from "@/lib/models/subService";
 import ServiceCategoryCard from "./components/ServiceCategoryCard";
 
-
 export default function ServicesPage() {
-  // Define row structures based on the screenshot
   const row1 = [servicesData[0]]; // Virtual Assistant Services
   const row2 = [
     servicesData[1], // Personal/Executive Assistance
@@ -19,9 +18,20 @@ export default function ServicesPage() {
     servicesData[7], // Digital Marketing and Paid Advertisement
   ];
 
+  // Helper function to safely get slug
+  const getSubServiceSlug = (subService: string): string => {
+    const entry = subServiceData[subService];
+    if (!entry) {
+      if (process.env.NODE_ENV === "development") {
+        console.warn(`Sub-service "${subService}" not found in subServiceData`);
+      }
+      return defaultSubServiceDetails.slug; // Fallback
+    }
+    return entry.slug;
+  };
+
   return (
     <>
-      {/* SEO Meta Tags */}
       <Head>
         <title>Our Services | Aberrange - Smart Virtual Assistance</title>
         <meta
@@ -48,9 +58,9 @@ export default function ServicesPage() {
           <div key={category.slug} className="mb-12" id={category.slug}>
             <h2 className="text-2xl font-bold text-center mb-6 text-blue-600">{category.title}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {category.subServices.map((subService, index) => (
+              {category.subServices.map((subService) => (
                 <ServiceCategoryCard
-                  key={index}
+                  key={subService}
                   subService={subService}
                   categorySlug={category.slug}
                 />
@@ -62,13 +72,13 @@ export default function ServicesPage() {
         {/* Footer Section for All Services */}
         <footer className="mt-16 bg-gradient-to-b from-gray-50 to-white py-10 border-t border-gray-200">
           <div className="space-y-12">
-            {/* Row 1: Virtual Assistant Services with 4 columns */}
+            {/* Row 1: Virtual Assistant Services */}
             <div className="grid grid-cols-1">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">{row1[0].title}</h3>
               <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 list-none text-sm text-gray-700">
-                {row1[0].subServices.map((subService, index) => (
-                  <li key={index} className="hover:text-blue-600 cursor-pointer">
-                    <Link href={`/services/${encodeURIComponent(subService.toLowerCase().replace(/ /g, "-"))}`}>
+                {row1[0].subServices.map((subService) => (
+                  <li key={subService} className="hover:text-blue-600 cursor-pointer">
+                    <Link href={`/services/${getSubServiceSlug(subService)}`}>
                       {subService}
                     </Link>
                   </li>
@@ -82,9 +92,9 @@ export default function ServicesPage() {
                 <div key={category.slug}>
                   <h3 className="text-lg font-semibold text-gray-800 mb-4">{category.title}</h3>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 list-none text-sm text-gray-700">
-                    {category.subServices.map((subService, index) => (
-                      <li key={index} className="hover:text-blue-600 cursor-pointer">
-                        <Link href={`/services/${encodeURIComponent(subService.toLowerCase().replace(/ /g, "-"))}`}>
+                    {category.subServices.map((subService) => (
+                      <li key={subService} className="hover:text-blue-600 cursor-pointer">
+                        <Link href={`/services/${getSubServiceSlug(subService)}`}>
                           {subService}
                         </Link>
                       </li>
@@ -100,9 +110,9 @@ export default function ServicesPage() {
                 <div key={category.slug}>
                   <h3 className="text-lg font-semibold text-gray-800 mb-4">{category.title}</h3>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 list-none text-sm text-gray-700">
-                    {category.subServices.map((subService, index) => (
-                      <li key={index} className="hover:text-blue-600 cursor-pointer">
-                        <Link href={`/services/${encodeURIComponent(subService.toLowerCase().replace(/ /g, "-"))}`}>
+                    {category.subServices.map((subService) => (
+                      <li key={subService} className="hover:text-blue-600 cursor-pointer">
+                        <Link href={`/services/${getSubServiceSlug(subService)}`}>
                           {subService}
                         </Link>
                       </li>

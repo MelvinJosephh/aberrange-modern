@@ -18,7 +18,8 @@ const ConsultationSuccess: React.FC = () => {
           Consultation Booked Successfully!
         </h1>
         <p className="text-[var(--neutral-color)] text-lg md:text-xl mb-6">
-          Thank you for scheduling a consultation with Aberrange. We’ll reach out soon to confirm your appointment and discuss how our AI-powered solutions can transform your business.
+          Thank you for scheduling a consultation with Aberrange. 
+          We’ll reach out soon to confirm your appointment and discuss how our AI-powered solutions can transform your business.
         </p>
         <p className="text-[var(--neutral-color)] text-base mb-8">
           In the meantime, explore more about what we offer or return to the homepage.

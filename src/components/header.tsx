@@ -110,7 +110,7 @@ const Header: React.FC = () => {
                 About Us
               </Link>
               <Link
-                href="/public/hire"
+                href="/public/hire-va"
                 className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] px-4 py-2 rounded-md font-medium text-base"
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -128,15 +128,15 @@ const Header: React.FC = () => {
                 className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] px-4 py-2 rounded-md font-medium text-base"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Login
+                Sign In
               </Link>
-              <Link
+              {/* <Link
                 href="/auth/signup"
                 className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] px-4 py-2 rounded-md font-medium text-base"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Sign Up
-              </Link>
+              </Link> */}
             </nav>
           </SheetContent>
         </Sheet>
@@ -256,7 +256,7 @@ const Header: React.FC = () => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink
-                  href="/public/hire"
+                  href="/public/hire-va"
                   className="text-[var(--neutral-color)] hover:text-[var(--interactive-hover)] font-medium text-base px-3 py-2 rounded-md"
                 >
                   Hire a VA
@@ -296,15 +296,15 @@ const Header: React.FC = () => {
                   className="block px-4 py-2 text-[var(--neutral-color)] hover:bg-[var(--secondary-color-dark)] hover:text-[var(--interactive-hover)] rounded-[var(--border-radius-sm)]"
                   onClick={() => setIsProfileOpen(false)}
                 >
-                  Login
+                  Sign In
                 </Link>
-                <Link
+                {/* <Link
                   href="/auth/signup"
                   className="block px-4 py-2 text-[var(--neutral-color)] hover:bg-[var(--secondary-color-dark)] hover:text-[var(--interactive-hover)] rounded-[var(--border-radius-sm)]"
                   onClick={() => setIsProfileOpen(false)}
                 >
                   Sign Up
-                </Link>
+                </Link> */}
               </div>
             </PopoverContent>
           </Popover>

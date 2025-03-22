@@ -67,7 +67,7 @@ const GetStarted: React.FC = () => {
         body: JSON.stringify(consultationData),
       });
       toast.success("Consultation booked successfully!");
-      router.push("/public/consultation-success"); // Redirect to success page
+      router.push(`/success?type=request`);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Something went wrong. Please try again.";
       toast.error("Submission Failed", { description: message });

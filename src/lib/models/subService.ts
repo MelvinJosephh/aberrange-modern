@@ -1,7 +1,7 @@
 export interface SubServiceDetails {
-  slug: string;          // URL slug (e.g., "personal-virtual-assistants")
-  description: string;   // Description for the template
-  benefits?: string[];   // Optional benefits list
+  slug: string; // URL slug (e.g., "personal-virtual-assistants")
+  description: string; // Description for the template
+  benefits?: string[]; // Optional benefits list
   callToAction?: string; // Optional CTA
 }
 
@@ -10,7 +10,8 @@ export type SubServiceData = { [key: string]: SubServiceDetails }; // Keyed by t
 export const subServiceData: SubServiceData = {
   "Administrative Support Assistants": {
     slug: "administrative-support-assistants",
-    description: "Streamline your operations with expert administrative support tailored to your business.",
+    description:
+      "Streamline your operations with expert administrative support tailored to your business.",
     benefits: [
       "Efficient task management and organization.",
       "Reduced workload for your core team.",
@@ -20,7 +21,8 @@ export const subServiceData: SubServiceData = {
   },
   "Customer Service Assistants": {
     slug: "customer-service-assistants",
-    description: "Enhance customer satisfaction with dedicated support professionals available 24/7.",
+    description:
+      "Enhance customer satisfaction with dedicated support professionals available 24/7.",
     benefits: [
       "Professional handling of customer inquiries.",
       "Improved retention through timely responses.",
@@ -30,7 +32,8 @@ export const subServiceData: SubServiceData = {
   },
   "Graphic Design Assistants": {
     slug: "graphic-design-assistants",
-    description: "Create stunning visuals with skilled graphic design support for your brand.",
+    description:
+      "Create stunning visuals with skilled graphic design support for your brand.",
     benefits: [
       "High-quality designs for marketing materials.",
       "Fast turnaround on creative projects.",
@@ -40,7 +43,8 @@ export const subServiceData: SubServiceData = {
   },
   "Live Chat Support Assistants": {
     slug: "live-chat-support-assistants",
-    description: "Engage website visitors instantly with real-time chat support.",
+    description:
+      "Engage website visitors instantly with real-time chat support.",
     benefits: [
       "Increased conversions through immediate assistance.",
       "24/7 availability for global customers.",
@@ -50,7 +54,8 @@ export const subServiceData: SubServiceData = {
   },
   "Personal Virtual Assistants": {
     slug: "personal-virtual-assistants",
-    description: "Delegate personal tasks to a dedicated virtual assistant for a balanced life.",
+    description:
+      "Delegate personal tasks to a dedicated virtual assistant for a balanced life.",
     benefits: [
       "Time savings on errands and scheduling.",
       "Personalized support for your unique needs.",
@@ -60,7 +65,8 @@ export const subServiceData: SubServiceData = {
   },
   "Human Resources Assistants Services": {
     slug: "human-resources-assistants-services",
-    description: "Optimize HR processes with expert virtual assistance for recruitment and management.",
+    description:
+      "Optimize HR processes with expert virtual assistance for recruitment and management.",
     benefits: [
       "Streamlined onboarding and employee records.",
       "Support for payroll and compliance.",
@@ -70,7 +76,8 @@ export const subServiceData: SubServiceData = {
   },
   "Sales Administration Assistants": {
     slug: "sales-administration-assistants",
-    description: "Boost sales efficiency with virtual support for administrative tasks.",
+    description:
+      "Boost sales efficiency with virtual support for administrative tasks.",
     benefits: [
       "Accurate sales data management.",
       "Faster follow-ups on leads.",
@@ -80,7 +87,8 @@ export const subServiceData: SubServiceData = {
   },
   "Bookkeeping Virtual Assistants": {
     slug: "bookkeeping-virtual-assistants",
-    description: "Keep your finances in check with meticulous virtual bookkeeping support.",
+    description:
+      "Keep your finances in check with meticulous virtual bookkeeping support.",
     benefits: [
       "Error-free financial records.",
       "Timely expense tracking and reporting.",
@@ -90,7 +98,8 @@ export const subServiceData: SubServiceData = {
   },
   "Digital Marketing Assistants": {
     slug: "digital-marketing-assistants",
-    description: "Amplify your online presence with expert digital marketing support.",
+    description:
+      "Amplify your online presence with expert digital marketing support.",
     benefits: [
       "Effective campaign management.",
       "Increased engagement on social platforms.",
@@ -100,7 +109,8 @@ export const subServiceData: SubServiceData = {
   },
   "Research Virtual Assistants": {
     slug: "research-virtual-assistants",
-    description: "Gain insights with thorough research conducted by skilled virtual assistants.",
+    description:
+      "Gain insights with thorough research conducted by skilled virtual assistants.",
     benefits: [
       "In-depth market and competitor analysis.",
       "Time-saving data collection.",
@@ -110,7 +120,8 @@ export const subServiceData: SubServiceData = {
   },
   "Virtual Receptionist Services": {
     slug: "virtual-receptionist-services",
-    description: "Provide a professional first impression with virtual receptionist support.",
+    description:
+      "Provide a professional first impression with virtual receptionist support.",
     benefits: [
       "Friendly call handling 24/7.",
       "Appointment scheduling made easy.",
@@ -120,7 +131,8 @@ export const subServiceData: SubServiceData = {
   },
   "Small Businesses Outsourcing Assistants": {
     slug: "small-businesses-outsourcing-assistants",
-    description: "Scale your small business with versatile outsourcing support.",
+    description:
+      "Scale your small business with versatile outsourcing support.",
     benefits: [
       "Affordable assistance for multiple tasks.",
       "Focus on growth, not admin work.",
@@ -130,7 +142,8 @@ export const subServiceData: SubServiceData = {
   },
   "Logistics Virtual Assistants": {
     slug: "logistics-virtual-assistants",
-    description: "Ensure smooth supply chains with expert logistics coordination.",
+    description:
+      "Ensure smooth supply chains with expert logistics coordination.",
     benefits: [
       "Real-time tracking and updates.",
       "Efficient shipping and inventory management.",
@@ -140,7 +153,8 @@ export const subServiceData: SubServiceData = {
   },
   "SEO and ASO Assistants": {
     slug: "seo-and-aso-assistants",
-    description: "Improve visibility with specialized SEO and app store optimization support.",
+    description:
+      "Improve visibility with specialized SEO and app store optimization support.",
     benefits: [
       "Higher rankings on search engines.",
       "Increased app downloads and visibility.",
@@ -150,7 +164,8 @@ export const subServiceData: SubServiceData = {
   },
   "Website Development Assistants": {
     slug: "website-development-assistants",
-    description: "Build and maintain websites with skilled virtual development support.",
+    description:
+      "Build and maintain websites with skilled virtual development support.",
     benefits: [
       "Custom websites tailored to your brand.",
       "Ongoing updates and maintenance.",
@@ -160,7 +175,8 @@ export const subServiceData: SubServiceData = {
   },
   "Social Media Management Assistants": {
     slug: "social-media-management-assistants",
-    description: "Grow your social presence with expert management and content creation.",
+    description:
+      "Grow your social presence with expert management and content creation.",
     benefits: [
       "Consistent posting and engagement.",
       "Targeted audience growth.",
@@ -170,7 +186,8 @@ export const subServiceData: SubServiceData = {
   },
   "Real Estate & Property Management Assistants": {
     slug: "real-estate-and-property-management-assistants",
-    description: "Manage properties efficiently with virtual real estate support.",
+    description:
+      "Manage properties efficiently with virtual real estate support.",
     benefits: [
       "Streamlined tenant communication.",
       "Accurate property listings and updates.",
@@ -180,7 +197,8 @@ export const subServiceData: SubServiceData = {
   },
   "Content Marketing Assistants": {
     slug: "content-marketing-assistants",
-    description: "Drive engagement with high-quality content crafted by virtual assistants.",
+    description:
+      "Drive engagement with high-quality content crafted by virtual assistants.",
     benefits: [
       "SEO-optimized blog posts and articles.",
       "Consistent content production.",
@@ -210,7 +228,8 @@ export const subServiceData: SubServiceData = {
   },
   "Photo Editing Virtual Assistants": {
     slug: "photo-editing-virtual-assistants",
-    description: "Enhance your visuals with professional photo editing support.",
+    description:
+      "Enhance your visuals with professional photo editing support.",
     benefits: [
       "High-quality edits for marketing.",
       "Quick turnaround on large batches.",
@@ -220,7 +239,8 @@ export const subServiceData: SubServiceData = {
   },
   "Email and Calendar management": {
     slug: "email-and-calendar-management",
-    description: "Effortlessly organize your day with synchronized schedules and inbox mastery.",
+    description:
+      "Effortlessly organize your day with synchronized schedules and inbox mastery.",
     benefits: [
       "Automated email sorting and responses.",
       "Smart calendar syncing across devices.",
@@ -230,7 +250,8 @@ export const subServiceData: SubServiceData = {
   },
   "Travel Assistant": {
     slug: "travel-assistant",
-    description: "Plan seamless trips with expert itinerary design and real-time support.",
+    description:
+      "Plan seamless trips with expert itinerary design and real-time support.",
     benefits: [
       "Custom travel plans for any destination.",
       "Real-time updates on bookings.",
@@ -240,7 +261,8 @@ export const subServiceData: SubServiceData = {
   },
   "Web Research and Analysis": {
     slug: "web-research-and-analysis",
-    description: "Uncover insights with in-depth online research tailored to your goals.",
+    description:
+      "Uncover insights with in-depth online research tailored to your goals.",
     benefits: [
       "Detailed competitor and market data.",
       "Time-efficient research processes.",
@@ -250,7 +272,8 @@ export const subServiceData: SubServiceData = {
   },
   "Employee management services": {
     slug: "employee-management-services",
-    description: "Streamline HR tasks with efficient employee onboarding and support.",
+    description:
+      "Streamline HR tasks with efficient employee onboarding and support.",
     benefits: [
       "Simplified recruitment and training.",
       "Accurate employee record-keeping.",
@@ -260,7 +283,8 @@ export const subServiceData: SubServiceData = {
   },
   "Personal Assistant": {
     slug: "personal-assistant",
-    description: "Delegate tasks to a dedicated aide for personal and professional balance.",
+    description:
+      "Delegate tasks to a dedicated aide for personal and professional balance.",
     benefits: [
       "Time savings on daily errands.",
       "Personalized task management.",
@@ -270,7 +294,8 @@ export const subServiceData: SubServiceData = {
   },
   "Management Support Services": {
     slug: "management-support-services",
-    description: "Boost leadership efficiency with strategic administrative backup.",
+    description:
+      "Boost leadership efficiency with strategic administrative backup.",
     benefits: [
       "Support for planning and execution.",
       "Reduced administrative workload.",
@@ -280,7 +305,8 @@ export const subServiceData: SubServiceData = {
   },
   "HR Shared Services": {
     slug: "hr-shared-services",
-    description: "Simplify HR processes with centralized virtual support for your team.",
+    description:
+      "Simplify HR processes with centralized virtual support for your team.",
     benefits: [
       "Efficient payroll and benefits management.",
       "Streamlined employee inquiries.",
@@ -290,7 +316,8 @@ export const subServiceData: SubServiceData = {
   },
   "Logistics Support": {
     slug: "logistics-support",
-    description: "Ensure smooth supply chains with expert logistics coordination.",
+    description:
+      "Ensure smooth supply chains with expert logistics coordination.",
     benefits: [
       "Real-time shipment tracking.",
       "Reduced delays and errors.",
@@ -300,7 +327,8 @@ export const subServiceData: SubServiceData = {
   },
   "MIS Reporting Services": {
     slug: "mis-reporting-services",
-    description: "Transform data into decisions with precise management information reports.",
+    description:
+      "Transform data into decisions with precise management information reports.",
     benefits: [
       "Accurate and timely reporting.",
       "Data-driven business insights.",
@@ -310,7 +338,8 @@ export const subServiceData: SubServiceData = {
   },
   "Administrative Support Services": {
     slug: "administrative-support-services",
-    description: "Keep operations running smoothly with tailored admin solutions.",
+    description:
+      "Keep operations running smoothly with tailored admin solutions.",
     benefits: [
       "Efficient document and task management.",
       "Support for multiple departments.",
@@ -320,7 +349,8 @@ export const subServiceData: SubServiceData = {
   },
   "Real estate and Property Management": {
     slug: "real-estate-and-property-management",
-    description: "Maximize property value with professional virtual management services.",
+    description:
+      "Maximize property value with professional virtual management services.",
     benefits: [
       "Effective tenant coordination.",
       "Timely maintenance scheduling.",
@@ -340,7 +370,8 @@ export const subServiceData: SubServiceData = {
   },
   "Inbound Call Answering": {
     slug: "inbound-call-answering",
-    description: "Handle customer inquiries with a friendly, professional voice anytime.",
+    description:
+      "Handle customer inquiries with a friendly, professional voice anytime.",
     benefits: [
       "24/7 call coverage for your clients.",
       "Reduced wait times for callers.",
@@ -360,7 +391,8 @@ export const subServiceData: SubServiceData = {
   },
   "Email Support": {
     slug: "email-support",
-    description: "Resolve queries efficiently with prompt and professional email responses.",
+    description:
+      "Resolve queries efficiently with prompt and professional email responses.",
     benefits: [
       "Quick turnaround on email inquiries.",
       "Consistent communication tone.",
@@ -370,7 +402,8 @@ export const subServiceData: SubServiceData = {
   },
   "Outbound Service Calls": {
     slug: "outbound-service-calls",
-    description: "Proactively reach clients with targeted outbound call campaigns.",
+    description:
+      "Proactively reach clients with targeted outbound call campaigns.",
     benefits: [
       "Effective lead follow-ups.",
       "Increased customer engagement.",
@@ -380,7 +413,8 @@ export const subServiceData: SubServiceData = {
   },
   "Non-Technical Support": {
     slug: "non-technical-support",
-    description: "Offer reliable help for non-tech issues with a personal touch.",
+    description:
+      "Offer reliable help for non-tech issues with a personal touch.",
     benefits: [
       "Friendly assistance for all queries.",
       "Improved customer trust.",
@@ -390,7 +424,8 @@ export const subServiceData: SubServiceData = {
   },
   "B2B Communications": {
     slug: "b2b-communications",
-    description: "Strengthen business relationships with seamless communication support.",
+    description:
+      "Strengthen business relationships with seamless communication support.",
     benefits: [
       "Professional correspondence handling.",
       "Timely follow-ups with partners.",
@@ -400,7 +435,8 @@ export const subServiceData: SubServiceData = {
   },
   "Reports/Statements": {
     slug: "reports-statements",
-    description: "Generate accurate financial and operational reports on demand.",
+    description:
+      "Generate accurate financial and operational reports on demand.",
     benefits: [
       "Clear insights into performance.",
       "Customizable reporting options.",
@@ -420,7 +456,8 @@ export const subServiceData: SubServiceData = {
   },
   "Bookkeeping and Reconciliations": {
     slug: "bookkeeping-and-reconciliations",
-    description: "Maintain financial clarity with meticulous record-keeping and reconciliations.",
+    description:
+      "Maintain financial clarity with meticulous record-keeping and reconciliations.",
     benefits: [
       "Error-free financial tracking.",
       "Up-to-date books for audits.",
@@ -440,7 +477,8 @@ export const subServiceData: SubServiceData = {
   },
   "AR Calling": {
     slug: "ar-calling",
-    description: "Boost cash flow with effective accounts receivable follow-ups.",
+    description:
+      "Boost cash flow with effective accounts receivable follow-ups.",
     benefits: [
       "Faster payment collections.",
       "Professional debtor communication.",
@@ -460,7 +498,8 @@ export const subServiceData: SubServiceData = {
   },
   "Creative Poster and Illustration Design": {
     slug: "creative-poster-and-illustration-design",
-    description: "Craft eye-catching posters and illustrations for impactful marketing.",
+    description:
+      "Craft eye-catching posters and illustrations for impactful marketing.",
     benefits: [
       "Unique designs that stand out.",
       "Fast delivery for campaigns.",
@@ -470,7 +509,8 @@ export const subServiceData: SubServiceData = {
   },
   "Brand Identity Design with Logo and Collaterals": {
     slug: "brand-identity-design-with-logo-and-collaterals",
-    description: "Build a memorable brand with custom logos and marketing materials.",
+    description:
+      "Build a memorable brand with custom logos and marketing materials.",
     benefits: [
       "Consistent brand identity.",
       "Professional logo creation.",
@@ -480,7 +520,8 @@ export const subServiceData: SubServiceData = {
   },
   "Social Media Posters Designing": {
     slug: "social-media-posters-designing",
-    description: "Create engaging social media visuals to boost your online presence.",
+    description:
+      "Create engaging social media visuals to boost your online presence.",
     benefits: [
       "Eye-catching posts for engagement.",
       "Tailored designs for each platform.",
@@ -490,7 +531,8 @@ export const subServiceData: SubServiceData = {
   },
   "Creative Web UI Design": {
     slug: "creative-web-ui-design",
-    description: "Design intuitive, beautiful interfaces for your web projects.",
+    description:
+      "Design intuitive, beautiful interfaces for your web projects.",
     benefits: [
       "User-friendly web layouts.",
       "Modern and responsive designs.",
@@ -500,7 +542,8 @@ export const subServiceData: SubServiceData = {
   },
   "Professional Photo Editing": {
     slug: "professional-photo-editing",
-    description: "Enhance your visuals with expert photo retouching and editing.",
+    description:
+      "Enhance your visuals with expert photo retouching and editing.",
     benefits: [
       "Polished visuals for marketing.",
       "Fast edits for bulk images.",
@@ -510,7 +553,8 @@ export const subServiceData: SubServiceData = {
   },
   "Creative Video Editing": {
     slug: "creative-video-editing",
-    description: "Produce captivating videos that tell your story with expert editing.",
+    description:
+      "Produce captivating videos that tell your story with expert editing.",
     benefits: [
       "Professional video polish.",
       "Engaging content for audiences.",
@@ -550,7 +594,8 @@ export const subServiceData: SubServiceData = {
   },
   "WordPress & Custom Website with CMS": {
     slug: "wordpress-and-custom-website-with-cms",
-    description: "Launch dynamic websites with easy content management systems.",
+    description:
+      "Launch dynamic websites with easy content management systems.",
     benefits: [
       "User-friendly CMS for updates.",
       "Custom designs with WordPress.",
@@ -560,7 +605,8 @@ export const subServiceData: SubServiceData = {
   },
   "Hybrid Mobile App Development for Android & iOS": {
     slug: "hybrid-mobile-app-development-for-android-and-ios",
-    description: "Create versatile apps for multiple platforms with hybrid development.",
+    description:
+      "Create versatile apps for multiple platforms with hybrid development.",
     benefits: [
       "Cost-effective cross-platform apps.",
       "Consistent performance on iOS and Android.",
@@ -590,7 +636,8 @@ export const subServiceData: SubServiceData = {
   },
   "Google Ads & PPC": {
     slug: "google-ads-and-ppc",
-    description: "Maximize ROI with targeted pay-per-click campaigns on Google.",
+    description:
+      "Maximize ROI with targeted pay-per-click campaigns on Google.",
     benefits: [
       "Immediate traffic boosts.",
       "Precise audience targeting.",
@@ -600,7 +647,8 @@ export const subServiceData: SubServiceData = {
   },
   "YouTube Optimization & Marketing": {
     slug: "youtube-optimization-and-marketing",
-    description: "Grow your audience with optimized YouTube content and marketing.",
+    description:
+      "Grow your audience with optimized YouTube content and marketing.",
     benefits: [
       "Higher video visibility.",
       "Increased subscriber growth.",
@@ -642,7 +690,8 @@ export const subServiceData: SubServiceData = {
 
 export const defaultSubServiceDetails: SubServiceDetails = {
   slug: "default-service", // Fallback slug (won’t typically be used)
-  description: "Detailed information about this service will be available soon.",
+  description:
+    "Detailed information about this service will be available soon.",
   benefits: ["Tailored solutions coming soon.", "Contact us to learn more."],
   callToAction: "Reach out for details!",
 };
